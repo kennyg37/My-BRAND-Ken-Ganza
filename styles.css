@@ -226,6 +226,8 @@ body::before {
     transition: 0.5s;
 }
 
+/* Footer */
+
 footer {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #0B132B;
     margin-top: 150px;

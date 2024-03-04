@@ -17,6 +17,7 @@
 body {
     background: var(--secondary-grad); 
     background-size: cover;
+    overflow-x: hidden;
 }
 /* Header and Navigation */
 .header {
@@ -191,3 +192,187 @@ body {
 }
 
 /* Other news */
+
+.other-news-container {
+    display: flex;
+    padding: 20px;
+    gap: 50px;
+    flex-wrap: nowrap;
+    min-width: 100vw;
+    overflow-x: hidden; 
+    transition: transform 0.3s ease;
+}
+
+.other-news-outside {
+    border-radius: 20px;
+    border: 1px solid #979797;
+    height: 400px;
+    flex: 0 0 300px; 
+}
+
+.scroll-btn {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 20px;
+    margin-bottom: 100px;
+}
+.scroll-btn button{
+    color: black;
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 30px;
+    background: #979797;
+    width: 200px;
+    height: 60px;
+    border: 1px solid #979797;
+    border-radius: 30px;
+    margin-left: 50px;
+}
+.other-news-inside {
+    width: 100%;
+    height: 0;
+    background: rgba(11, 19, 43, 0.84);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    text-align: center;
+    font-size: 14px;
+    transition: height 0.5s;
+    color: white;
+}
+.icons1{
+    color: white;
+}
+.icons1 {
+    display: flex;
+    padding-left: 50px;
+    padding-top: 20px;
+    gap: 30px;
+}
+.icons1 p{
+    font-size: 14px;
+    font-weight: 500;
+}
+.icons1 i:hover{
+    color: #0B132B;
+    transition: 0.5s;
+    cursor: pointer;
+}
+.other-news-outside:hover .other-news-inside {
+    height: 100%;
+}
+
+.other-news-1 {
+    background-image: url('/assets/images/server-check-using-green-screen-tablet.jpg');
+    background-size: cover;
+    background-position: center;
+} 
+.other-news-2 {
+    background-image: url('/assets/images/Gemini_Generated_Image\ \(1\).jpeg');
+    background-size: cover;
+    background-position: center;
+}
+.other-news-3 {
+    background-image: url('/assets/images/m028t0173_d_icon_11oct22.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.other-news-4 {
+    background-image: url('/assets/images/Gemini_Generated_Image.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+.other-news-5 {
+    background-image: url('/assets/images/laptop-shopping-bags-online-shopping-concept.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.other-news-6 {
+    background-image: url('/assets/images/working-covid-office-concept.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+/* footer */
+
+footer {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #0B132B;
+    margin-top: 150px;
+    padding: 30px;
+}
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 100px;
+    border-top: 1px solid #979797;
+    border-bottom: 1px solid #979797;
+    margin-top: 20px;
+    height: 200px;
+    color: #FFFFFF;
+    margin-top: 30px;
+}
+.footer-logo {
+    flex-basis: 25%;
+}
+.footer-logo img{
+    width: 175px;
+    height: 175px;
+    padding-bottom: 10px;
+}
+.footer-content {
+    flex-basis: 55%;
+    padding: 0px 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.location {
+    display: flex;
+    gap: 10px;    
+}
+.location img{
+    margin-top: -5px;
+}
+.phone {
+    display: flex;
+    gap: 10px;
+}
+.phone img{
+    margin-top: -5px;
+}
+.sm {
+    display: flex;
+    gap: 15px;
+}
+.sm-icons {
+    display: flex;
+    gap: 10px;
+    font-size: 20px;
+}
+.footer-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #FFFFFF;
+    padding: 10px 0;
+    font-size: 15px;
+}
+.footer-nav ul{
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    margin-left: -15px;
+    align-items: center;
+    font-size: 15px;
+    color: #FFFFFF;
+}
+.footer-nav ul li a{
+    margin-left: 20px;
+    text-decoration: none;
+    color: #FFFFFF;
+}
