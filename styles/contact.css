@@ -1,0 +1,104 @@
+body {
+    height: 100%;
+}
+.contact-main {
+    display: flex;
+    flex-direction: column;
+    color: #f4f4f4;
+}
+.contact-main img{
+    width: 1000px;
+    height: 600px;
+    padding-left: 125px;
+    margin-top: -20px;
+    margin-bottom: 100px;
+}
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin-top: -650px;
+    padding-top: 50px;
+    margin-bottom: 50px;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    padding-left: 150px;
+    margin-top: -50px;
+
+}
+.contact-form h2{
+    font-size: 30px;
+    padding-bottom: 10px;
+}
+.contact-form form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+}
+.contact-form input, .contact-form textarea {
+    padding: 10px;
+    border: 2px solid #979797;
+    border-radius: 5px;
+    background: none;
+    width: 300px;
+    color: #f4f4f4;
+}
+.contact-form label{
+    font-size: 14px;
+}
+#submit-form {
+    width: 100px;
+    margin-left: 50px;
+    margin-top: 10px;
+    color: #979797;
+}
+#submit-form:hover {
+    background-color: #979797;
+    color: #000;
+}
+
+.additional-info {
+    display: flex;
+    flex-direction: column;
+    padding-right: 250px;
+    margin-top: -50px;
+    gap: 20px;
+}
+.additional-info button{
+    width: 250px;
+    height: 45px;
+    border-radius: 20px;
+    background-color: #0B132B;
+    color: #f4f4f4;
+    border: none;
+}
+.additional-info button:hover{
+    background:none;
+    border: 1px solid #0B132B;
+    color: white;
+}
+
+#subscribe {
+    margin-top: 160px;
+    width: 200px;
+    margin-left: 25px;
+    background:none;
+    border: 1px solid #0B132B;
+    color: white;
+}
+#subscribe:hover {
+    background-color: #0B132B;
+    color: #f4f4f4;
+}
+
+.additional-info h1{
+    font-size: 30px;
+    padding-bottom: 10px;
+    padding-left: 50px;
+}
