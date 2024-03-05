@@ -48,7 +48,6 @@ body{
 }
 .gallery-image {
     position: relative;
-    overflow: hidden;
     border-radius: 10px;
 }
 .gallery-image img {
