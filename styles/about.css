@@ -30,6 +30,7 @@ body{
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-gap: 20px;
     margin-top: 30px;
+    padding: 20px;
 }
 
 /* Image styles */
@@ -47,7 +48,6 @@ body{
 }
 .gallery-image {
     position: relative;
-    overflow: hidden;
     border-radius: 10px;
 }
 .gallery-image img {
