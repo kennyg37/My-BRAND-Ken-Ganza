@@ -1,0 +1,79 @@
+@import url('/styles.css');
+
+body {
+    height: 100%;
+}
+
+.skills-main {
+    padding: 10px;
+}
+.skills-main h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    margin-left: 30px;
+}
+.skills-main h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: white;
+    font-family: 'dekko', cursive;
+}
+
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+}
+.fullstack{
+    width: 100%;
+    height: 100%;
+    padding-top: 50px;
+}
+.fullstack h2{
+    text-align: center;
+}
+.fullstack img{
+    height: 400px;
+    padding-left: 350px;
+    padding-top: 50px;
+}
+.skill img{
+    height: 15vh;
+}
+.additional-container img{
+    height: 30vh;
+}
+
+.skill-bar {
+    background-color: #ffff;
+    width: 400px;
+    height: 10px;
+    margin-top: 20px;
+}
+
+.skill {
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.skill-progress {
+    background: #0B132B;
+    height: 10px;
+}
+.programming h2, .additional-skills h2{
+    text-align: center;
+    font-family: 'dekko', cursive;
+    margin-top: 50px;
+    margin-bottom: 30px;
+}
+
+.additional-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: -60px;
+}
