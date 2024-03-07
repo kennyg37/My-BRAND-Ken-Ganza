@@ -30,7 +30,7 @@
             <ul>
                 <li><div class="lang"><p>En</p><img src="assets/svg/dropdown.svg" alt=""></div></li>
                 <li><img src="assets/svg/search.svg" alt=""></li>
-                <li><a href=""><img src="assets/svg/profile-icon.svg" alt=""></a></li>
+                <li><img src="assets/svg/profile-icon.svg"  id="openOverlay" alt=""></li>
                 <!-- mobile menu bar -->
             </ul> 
         </div>
@@ -43,10 +43,78 @@
                 <p>I'm a fullstack engineer with interests in machine learning, AI and Automation. <br> I'm currently doing my Bachelor's degree
                 At The African Leadership university</p>
                 <button id="main-button">Explore</button>
+                <a href="/pages/signup.html">signup</a>
             </div>
         </div>
         <div class="main-image">
             <img src="assets/svg/africa.svg" alt="">
+        </div>
+    </div>
+    <div id="overlay">
+        <div class="overlay-content">
+            <div class="signup-container">
+                <div class="signup-section">
+                    <div class="signup-title">
+                        <i class="fa-solid fa-x" onclick="closeOverlay()"></i>
+                        <h2>Create an account</h2>
+                        <p>Sign up to get started</p>
+                    </div>
+                    <div class="google-icon">
+                        <span id="google-icon"><img src="/assets/svg/google.svg" alt="google icon"></span>
+                        <span id="google-text">Sign up with Google</span>
+                    </div>
+                    <p class="signup-email">------------- or Sign up with Email ------------- </p>
+                    <div class="signup-form">
+                        <form id="signup-form">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" placeholder="mail@abc.com">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" placeholder="***********">
+                            <label for="confirm-password">Confirm Password</label>
+                            <input type="password" name="confirm-password" id="confirm-password" placeholder="***********">
+                            <div class="reminders">
+                                <div class="checkbox">
+                                    <input type="checkbox">
+                                    <span>Agree to <a href="">terms and conditions</a></span>
+                                </div>
+                            </div>
+                            <button type="submit">Sign Up</button>
+                        </form>
+                        <span id="login">Already have an account? <span id="login-account" onclick="switchToLogin()">Login</span></span>
+                    </div>
+                </div>
+            </div>    
+            <div class="login-container">
+                <div class="login-section">
+                    <div class="login-title">
+                        <i class="fa-solid fa-x" onclick="closeOverlay()"></i>
+                        <h2>Login to your account</h2>
+                        <p>see what is going on with your business</p>
+                    </div>
+                    <div class="google-icon">
+                        <span id="google-icon"><img src="/assets/svg/google.svg" alt="googlr icon"></span>
+                        <span id="google-text">Continue with Google</span>
+                    </div>
+                    <p class="signin-email">------------- or Sign in with Email ------------- </p>
+                    <div class="login-form">
+                        <form id="login-form">
+                            <label for="Email">Email</label>
+                            <input type="email" name="email" id="email" placeholder="mail@abc.com">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" placeholder="***********">
+                            <div class="reminders">
+                                <div class="checkbox">
+                                    <input type="checkbox">
+                                    <span>Remember me</span>
+                                </div>
+                                <a href="#">Forgot password?</a>
+                            </div>
+                            <button type="submit">Login</button>
+                        </form>
+                        <span id="register">Not Registered Yet? <span id="create-account" onclick="switchToSignup()">Create an account</span></span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <footer>
