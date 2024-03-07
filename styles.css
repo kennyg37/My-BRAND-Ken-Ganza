@@ -26,7 +26,6 @@ body::before {
     content: "";
     width: 100%;
     height: 100%;
-    /* background-color: var(--background-overlay-color); */
     opacity: var(--background-overlay-opacity);
     background-size: cover;
     position: absolute;
@@ -95,7 +94,7 @@ body::before {
     flex-basis: 15%;
     margin-top: -10px;  
 }
-.header i{
+.fa-bars {
     color: #979797;
     display: none;
 }
@@ -534,28 +533,35 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
-     /* *{
+    body {
+        width: 100%;
         overflow-x: hidden;
-    }  */
-    .logo {
-        flex-basis: 50%;
-        text-align: center;
-        padding: 0px;
-        margin: 0px;
     }
-    .header i{
+    
+    .logo {
+        margin-right: 100px;
+        padding-right: 50px;
+    }
+    .header {
+        display: flex;
+        gap: 20px;
+        width: 100%;
+        padding-top: 30px;
+        padding: 0;
+    }
+    .fa-bars {
         display: block;
         font-size: 30px;
-        padding-top: 30px;
-        margin-left: 180px;
+        position: fixed;
+        top: 0;
+        right: 100px;
+        z-index: 9999;
     }
-
     .nav-1 {
-        flex-basis: 50%;
+        flex-basis: 20%;
         text-align: center;
         margin-bottom: 20px;
-        margin-left: 100px;
-        z-index: 1;
+        z-index: 9999;
     }
     .nav-1 ul {
         flex-direction: column;
@@ -563,24 +569,25 @@ footer {
         background: #262626;
         position:fixed;
         top:0;
+        right: -100px;
         padding-top: 50px;
         transition: right 0.5s;
         height: 100vh;
     }
+
     .nav-1 ul li {
         margin-left: 10px;
         margin-right: 10px;
         margin: 10px;
+        padding-right: 30px;
+        z-index: 1;
     }
     .nav-1 ul i{
         display: block;
-        padding-right: 170px;
       }
+   
     .nav-2 ul li{
         display: none;
-    }
-    .nav-2 i{
-        display: inline-block;
     }
     .main {
         display: flex;
@@ -590,6 +597,7 @@ footer {
         max-width: 800px;
         margin-left: 0px;
         height: 100%;
+        margin-right: 0;
         
     }
     .main-content{
