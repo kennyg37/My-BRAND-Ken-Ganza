@@ -334,7 +334,8 @@ footer {
 .signup-container{
     padding-right: 100px;
     padding-left: 150px;
-    padding-top: 30px;
+    padding-top: -20px;
+    margin-top: -10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -484,8 +485,8 @@ footer {
     color: #FFFFFF;
     border: none;
     cursor: pointer;
-    margin-bottom: 20px;
     margin-top: 15px;
+    margin-bottom: 5px;
 }
 #register, #login {
     font-family: 'Nunito Sans';
@@ -495,7 +496,6 @@ footer {
     line-height: 16px;
     color: #828282;
     text-align: center;
-    padding: 30px;
 }
 #register span, #login span{
     font-family: 'Nunito Sans';
@@ -657,4 +657,22 @@ footer {
         gap: 20px;
     }
     
+}
+
+/* form validation */
+.input-error {
+    font-size: 10px;
+    opacity: 0.7;
+    color: white;
+}
+
+.signup-title .fa-x {
+    padding-top: 10px;
+    margin-top: 5px;
+}
+.input-field.input-success {
+    border-color: green;
+}
+.input-field.input-error {
+    border-color: red;
 }

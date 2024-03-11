@@ -52,3 +52,104 @@ function overlayOpen () {
     overlay.style.left = '0';
 }
 
+// Form validation
+
+const signupForm = document.getElementById('signup-form');
+const email = document.getElementById('s-email');
+const password = document.getElementById('s-password');
+const confirmPassword = document.getElementById('confirm-password');
+
+
+signupForm.addEventListener('submit', e => {
+    e.preventDefault();
+    validateInputs();
+});
+
+const setError = (element, message) => {
+    const inputControl = element.parentElement;
+    const errorDisplay = inputControl.querySelector('.input-error');
+
+    errorDisplay.innerText = message;
+    inputControl.classList.add('input-error');
+    inputControl.classList.remove('input-success')
+}
+
+const setSuccess = element => {
+    const inputControl = element.parentElement;
+    const errorDisplay = inputControl.querySelector('.input-error');
+
+    errorDisplay.innerText = '';
+    inputControl.classList.add('input-success');
+    inputControl.classList.remove('input-error');
+};
+
+const isValidEmail = email => {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
+
+
+const validateInputs = () => {
+    const emailValue = email.value.trim();
+    const passwordValue = password.value.trim();
+    const confirmPasswordValue = confirmPassword.value.trim();
+
+    if(emailValue === '') {
+        setError(email, 'Email is required');
+    } else if (!isValidEmail(emailValue)) {
+        setError(email, 'Provide a valid email address');
+    } else {
+        setSuccess(email);
+    }
+
+   
+    if (passwordValue === '') {
+        setError(password, 'Password is required');
+    } else if (passwordValue.length < 8) {
+        setError(password, 'Password must be at least 8 characters.');
+    } else if (!/[A-Z]/.test(passwordValue)) {
+        setError(password, 'Password must contain at least one uppercase letter');
+    } else {
+        setSuccess(password);
+    }
+
+    if(confirmPasswordValue === '') {
+        setError(confirmPassword, 'Please confirm your password');
+    } else if (confirmPasswordValue !== passwordValue) {
+        setError(confirmPassword, "Passwords doesn't match");
+    } else {
+        setSuccess(confirmPassword);
+    }
+
+};
+
+   
+
+    // if (/[0-9]/.test(passwordValue) === false){
+    //     setError(password, 'Password must contain at least one number');
+    // } else {
+    //     setSuccess(password);
+    // }
+
+//     if (passwordValue !== confirmPasswordValue) {
+//         setError(confirmPassword, 'Passwords do not match');
+//     } else {
+//         setSuccess(confirmPassword);
+//     }
+
+// }
+//     if (password.length > 8) {
+//         e.preventDefault();
+//         characterError.style.display = 'block';
+//     }
+//     if (/[A-Z]/.test(password) === false) {
+//         e.preventDefault();
+//         capitalError.style.display = 'block';
+//     }
+//     if (password !== confirmPassword) {
+//         e.preventDefault();
+//         passwordError.style.display = 'block';
+//     }
+   
+// });

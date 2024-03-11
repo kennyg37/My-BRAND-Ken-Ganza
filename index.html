@@ -63,13 +63,24 @@
                     </div>
                     <p class="signup-email">------------- or Sign up with Email ------------- </p>
                     <div class="signup-form">
-                        <form id="signup-form">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" id="email" placeholder="mail@abc.com">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" id="password" placeholder="***********">
-                            <label for="confirm-password">Confirm Password</label>
-                            <input type="password" name="confirm-password" id="confirm-password" placeholder="***********">
+                        <form id="signup-form" action="/pages/admin.html">
+                            <div class="input-field">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" id="s-email" placeholder="mail@abc.com">
+                                <div id="email-error" class="input-error"></div>
+                            </div>
+                            <div class="input-field">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="s-password" placeholder="***********">
+                                <div  class="input-error"></div>
+                                <div  class="input-error"></div>
+                                <div  class="input-error"></div>
+                            </div>
+                            <div class="input-field">
+                                <label for="confirm-password">Confirm Password</label>
+                                <input type="password" name="confirm-password" id="confirm-password" placeholder="***********">
+                                <div class="input-error"></div>
+                            </div>
                             <div class="reminders">
                                 <div class="checkbox">
                                     <input type="checkbox">
@@ -95,11 +106,12 @@
                     </div>
                     <p class="signin-email">------------- or Sign in with Email ------------- </p>
                     <div class="login-form">
-                        <form id="login-form">
+                        <form id="login-form" action="/pages/admin.html">
                             <label for="Email">Email</label>
                             <input type="email" name="email" id="email" placeholder="mail@abc.com">
                             <label for="password">Password</label>
                             <input type="password" name="password" id="password" placeholder="***********">
+                            <div class="input-error" id="pass-error"></div>
                             <div class="reminders">
                                 <div class="checkbox">
                                     <input type="checkbox">
