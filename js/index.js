@@ -48,3 +48,7 @@ openOverlayBtn.addEventListener('click', () => {
     overlay.style.left = '0';
 });
 
+function overlayOpen () {
+    overlay.style.left = '0';
+}
+
