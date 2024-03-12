@@ -3,45 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<script src="https://kit.fontawesome.com/3c840652bc.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/styles/admin.css">
 <title>Admin Dashboard</title>
-<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<header>
-    <h1>Admin Dashboard</h1>
-    <nav>
-        <ul>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Comments</a></li>
-            <li><a href="#">Insights</a></li>
-        </ul>
-    </nav>
-</header>
-
-<main>
-    <section id="blog">
-        <h2>Blog Posts</h2>
-        <!-- Blog post listing -->
-        <div class="blog-post">
-            <h3>Post Title</h3>
-            <p>Post content goes here...</p>
+    <div class="container">
+        <div class="admin-sidebar">
+            <img src="/assets/images/ken .png" alt="">
+            <nav>
+                <ul class="tabs">
+                    <li class="tab-menu active-tab" onclick="openmenu('profile')">Profile</li>
+                    <li class="tab-menu" onclick="openmenu('blog')">Blog</li>
+                    <li class="tab-menu" onclick="openmenu('insights')">Insights</li>
+                    <li class="tab-menu" onclick="openmenu('settings')">Settings</li>
+                </ul>
+            </nav>
+            <button id="publish">Publish</button>
+            <p>Logout <i class="fa-solid fa-right-from-bracket"></i></p>
         </div>
-        <!-- Add new blog post form -->
-        <form>
-            <label for="postTitle">Title</label>
-            <input type="text" id="postTitle" name="postTitle">
-            <label for="postContent">Content</label>
-            <textarea id="postContent" name="postContent"></textarea>
-            <button type="submit">Add Post</button>
-        </form>
-    </section>
-</main>
-
-<footer>
-    <p>&copy; 2024 Admin Dashboard. All rights reserved.</p>
-</footer>
-
+        <div class="admin-content">
+            <div class="admin-main default-content" id="profile">
+                <div class="profile-container">
+                    <img src="" alt="">
+                    <div class="profile-details">
+                        <form action="">
+                            <input type="text" placeholder="First Name">
+                            <input type="text" placeholder="Last Name">
+                            <input type="text" placeholder="Email">
+                            <input type="text" placeholder="Phone">
+                            <input type="text" placeholder="Location">
+                            <input type="text" placeholder="Bio">
+                            <button>Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div  class="admin-main" id="blog">
+                <div class="blog-container">
+                    <h2>My Blogs</h2>
+                    <div class="my-blogs">
+                        <ul>
+                            <li>Blog 1</li>
+                            <li>Blog 2</li>
+                            <li>Blog 3</li>
+                            <li>Blog 4</li>
+                        </ul>
+                    </div>
+                    <h2>Upload new Blog</h2>
+                    <div class="upload-blog">
+                        <form action="">
+                            <input type="file" name="file" id="file-upload">
+                            <input type="text" placeholder="Title">
+                            <input type="text" placeholder="Content">
+                            <button>Upload</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="admin-main" id="insights">
+                <div class="insights-container">
+                    <div class="stat">
+                        <h2>Past Month statistics</h2>
+                        <div class="graph">
+                            <canvas id="likes-chart"></canvas>
+                            <canvas id="comments-chart"></canvas>
+                            <canvas id="views-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="stat">
+                        <h2>Past Year statistics</h2>
+                        <div class="graph">
+                            <canvas id="likes-chart"></canvas>
+                            <canvas id="comments-chart"></canvas>
+                            <canvas id="views-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="admin-main" id="settings">
+                <div class="settings-container setting">
+                    <div class="change-password">
+                        <h2>Change Password</h2>
+                        <form action="">
+                            <input type="password" placeholder="Old Password">
+                            <input type="password" placeholder="New Password">
+                            <input type="password" placeholder="Confirm Password">
+                            <button>Change</button>
+                        </form>
+                    </div>
+                    <div class="delete-account setting">
+                        <h2>Delete Account</h2>
+                        <form action="">
+                            <input type="password" placeholder="Password">
+                            <button>Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+    <script src="/js/admin.js"></script>
 </body>
 </html>

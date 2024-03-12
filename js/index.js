@@ -63,6 +63,12 @@ const confirmPassword = document.getElementById('confirm-password');
 signupForm.addEventListener('submit', e => {
     e.preventDefault();
     validateInputs();
+    if (validateInputs()) {
+        signupForm.submit();
+        openmenu();
+    } else {
+        return false;
+    }
 });
 
 const setError = (element, message) => {
@@ -122,34 +128,6 @@ const validateInputs = () => {
         setSuccess(confirmPassword);
     }
 
+    return true;
+
 };
-
-   
-
-    // if (/[0-9]/.test(passwordValue) === false){
-    //     setError(password, 'Password must contain at least one number');
-    // } else {
-    //     setSuccess(password);
-    // }
-
-//     if (passwordValue !== confirmPasswordValue) {
-//         setError(confirmPassword, 'Passwords do not match');
-//     } else {
-//         setSuccess(confirmPassword);
-//     }
-
-// }
-//     if (password.length > 8) {
-//         e.preventDefault();
-//         characterError.style.display = 'block';
-//     }
-//     if (/[A-Z]/.test(password) === false) {
-//         e.preventDefault();
-//         capitalError.style.display = 'block';
-//     }
-//     if (password !== confirmPassword) {
-//         e.preventDefault();
-//         passwordError.style.display = 'block';
-//     }
-   
-// });
