@@ -65,7 +65,7 @@ signupForm.addEventListener('submit', e => {
     validateInputs();
     if (validateInputs()) {
         signupForm.submit();
-        openmenu();
+        switchToSignup();
     } else {
         return false;
     }
@@ -128,6 +128,6 @@ const validateInputs = () => {
         setSuccess(confirmPassword);
     }
 
-    return true;
+    return switchToSignup();
 
 };

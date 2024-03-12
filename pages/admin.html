@@ -11,10 +11,18 @@
 <body>
     <div class="container">
         <div class="admin-sidebar">
-            <img src="/assets/images/ken .png" alt="">
+            <div class="user">
+                <img src="/assets/images/ken .png" alt="">
+                <div class="user-id">
+                    <p id="username">Ken</p>
+                    <p>Admin</p>
+                    <div id="id">Id: 2403001</div>
+                </div>
+            </div>
             <nav>
                 <ul class="tabs">
-                    <li class="tab-menu active-tab" onclick="openmenu('profile')">Profile</li>
+                    <li class="tab-menu active-tab" onclick="openmenu('home')">Home</li>
+                    <li class="tab-menu" onclick="openmenu('profile')">Profile</li>
                     <li class="tab-menu" onclick="openmenu('blog')">Blog</li>
                     <li class="tab-menu" onclick="openmenu('insights')">Insights</li>
                     <li class="tab-menu" onclick="openmenu('settings')">Settings</li>
@@ -24,7 +32,40 @@
             <p>Logout <i class="fa-solid fa-right-from-bracket"></i></p>
         </div>
         <div class="admin-content">
-            <div class="admin-main default-content" id="profile">
+            <div class="admin-main default-content" id="home">
+                <div class="home-container">
+                    <div class="home-nav">
+                        <h2>Dashboard</h2>
+                        <div class="search-bar">
+                            <form action="">
+                                <input type="text" placeholder="Search here">
+                                <button type="submit"><i class="fa-solid fa-search"></i></button>
+                            </form>
+                        </div>
+                        <div class="nav-icons">
+                            <div class="language">
+                                <img src="/assets/images/18165.jpg" alt="us flag">
+                                <p>En(us)</p>
+                                <i class="fa-solid fa-caret-down"></i>
+                            </div>
+                            <div class="notification">
+                                <i class="fa-solid fa-bell"></i>
+                                <i class="fa-solid fa-caret-down"></i>
+                            </div>
+                            
+                        </div>
+                        <div class="profile">
+                            <img src="/assets/images/ken .png" alt="">
+                            <div>
+                                <p id="username">Ken</p>
+                                <p>admin</p>
+                            </div>
+                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="admin-main" id="profile">
                 <div class="profile-container">
                     <img src="" alt="">
                     <div class="profile-details">
