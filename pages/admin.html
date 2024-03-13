@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <script src="https://kit.fontawesome.com/3c840652bc.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link rel="stylesheet" href="/styles/admin.css">
 <title>Admin Dashboard</title>
 </head>
@@ -32,6 +33,9 @@
             <p>Logout <i class="fa-solid fa-right-from-bracket"></i></p>
         </div>
         <div class="admin-content">
+
+            <!-- Home section  -->
+
             <div class="admin-main default-content" id="home">
                 <div class="home-container">
                     <div class="home-nav">
@@ -39,7 +43,7 @@
                         <div class="search-bar">
                             <form action="">
                                 <input type="text" placeholder="Search here">
-                                <button type="submit"><i class="fa-solid fa-search"></i></button>
+                                <i class="fa-solid fa-search"></i>
                             </form>
                         </div>
                         <div class="nav-icons">
@@ -52,98 +56,443 @@
                                 <i class="fa-solid fa-bell"></i>
                                 <i class="fa-solid fa-caret-down"></i>
                             </div>
-                            
-                        </div>
-                        <div class="profile">
-                            <img src="/assets/images/ken .png" alt="">
-                            <div>
-                                <p id="username">Ken</p>
-                                <p>admin</p>
+                            <div class="profile">
+                                <img src="/assets/images/ken .png" alt="">
+                                <div>
+                                    <p style="font-size: 20px;">Ken</p>
+                                    <p style="font-size: 15px;">admin</p>
+                                </div>
+                                <i class="fa-solid fa-caret-down"></i>
                             </div>
-                            <i class="fa-solid fa-caret-down"></i>
+                        </div>
+                        
+                    </div>
+                    <div class="home-content">
+                        <div class="recent">
+                            <h2>Recent Activities</h2>
+                            <div class="activity">
+                                <div class="activity-card">
+                                    <div class="activity-details">
+                                        <p>Blog 1</p>
+                                        <p>Status: Published</p>
+                                    </div>
+                                    <div class="activity-time">
+                                        <p>2 hours ago</p>
+                                    </div>
+                                    <div class="manipulate">
+                                        <button id="home-edit-button">Edit</button>
+                                        <i class="fa-solid fa-trash"></i>
+                                    </div>
+                                </div>
+                                <div class="activity-card">
+                                    <div class="activity-details">
+                                        <p>Blog 2</p>
+                                        <p>Published</p>
+                                    </div>
+                                    <div class="activity-time">
+                                        <p>2 hours ago</p>
+                                    </div>
+                                    <div class="manipulate">
+                                        <button id="home-edit-button">Edit</button>
+                                        <i class="fa-solid fa-trash"></i>
+                                    </div>
+                                </div>
+                                <div class="activity-card">
+                                    <div class="activity-details">
+                                        <p>Blog 3</p>
+                                        <p>Published</p>
+                                    </div>
+                                    <div class="activity-time">
+                                        <p>2 hours ago</p>
+                                    </div>
+                                    <div class="manipulate">
+                                        <button id="home-edit-button">Edit</button>
+                                        <i class="fa-solid fa-trash"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary">
+                            <h2>Summary</h2>
+                            <div class="summary-container">
+                                <div class="summary-notifications">
+                                    <div class="titles">
+                                        <h3>Item</h3>
+                                        <h3>Status</h3>
+                                        <h3>Time stamp</h3>
+                                    </div>
+                                    <div class="notification-card" id="published">
+                                        <div class="notification-details">
+                                            <p>Blog 1</p>
+                                            <p>Published</p>
+                                        </div>
+                                        <div class="notification-time">
+                                            <p>30 minutes ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="notification-card" id="commented">
+                                        <div class="notification-details">
+                                            <p>Alex commented</p>
+                                            <p>comment</p>
+                                        </div>
+                                        <div class="notification-time">
+                                            <p>2 hours ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="notification-card" id="published">
+                                        <div class="notification-details">
+                                            <p>Blog 3</p>
+                                            <p>Published</p>
+                                        </div>
+                                        <div class="notification-time">
+                                            <p>2.5 hours ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="notification-card" id="liked">
+                                        <div class="notification-details">
+                                            <p>Eric liked your post</p>
+                                            <p>Like</p>
+                                        </div>
+                                        <div class="notification-time">
+                                            <p>3 hours ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="notification-card" id="published">
+                                        <div class="notification-details">
+                                            <p>Blog 3</p>
+                                            <p>Published</p>
+                                        </div>
+                                        <div class="notification-time">
+                                            <p>4 hours ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="summary-data">
+                                    <div class="summary-card">
+                                        <div class="summary-icon">
+                                            <i class="fa-solid fa-eye"></i>
+                                        </div>
+                                        <div class="summary-details">
+                                            <p>Blog Views</p>
+                                            <p class="count">1000</p>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="summary-card">
+                                        <div class="summary-icon">
+                                            <i class="fa-solid fa-thumbs-up"></i>
+                                        </div>
+                                        <div class="summary-details">
+                                            <p>Blog Likes</p>
+                                            <p class="count">1000</p>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="summary-card">
+                                        <div class="summary-icon">
+                                            <i class="fa-solid fa-comment"></i>
+                                        </div>
+                                        <div class="summary-details">
+                                            <p>Blog Comments</p>
+                                            <p class="count">1000</p>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Profile section  -->
+
             <div class="admin-main" id="profile">
                 <div class="profile-container">
-                    <img src="" alt="">
                     <div class="profile-details">
-                        <form action="">
-                            <input type="text" placeholder="First Name">
-                            <input type="text" placeholder="Last Name">
-                            <input type="text" placeholder="Email">
-                            <input type="text" placeholder="Phone">
-                            <input type="text" placeholder="Location">
-                            <input type="text" placeholder="Bio">
-                            <button>Save</button>
-                        </form>
+                        <div class="profile-pic">
+                            <img src="/assets/images/ken .png" alt="">
+                            <button id="change-pic">Change</button>
+                            <input type="file" name="file" id="upload-pic">
+                        </div>
+                        <div class="profile-info">
+                            <h2>Ken</h2>
+                            <p>Admin</p>
+                            <p>Id: 2403001</p>
+                        </div>
                     </div>
+                    <div class="profile-main">
+                        <div class="profile-info">
+                            <h2>Personal Information</h2>
+                            <p>First Name: Ken</p>
+                            <p>Last Name: Ganza</p>
+                            <p>Email: kalisaken8@gmail.com</p>
+                            <p>Phone: 0781234567</p>
+                            <div class="socials">
+                                <p>Socials</p>
+                                <p>Facebook: www.facebook.com/ganzak<a href="www.facebook.com/ganzak"><i class="fa-solid fa-arrow-right"></i></a></p>
+                                <p>Twitter: www.twitter.com/grikrr <a href="www.twitter.com/grikrr"><i class="fa-solid fa-arrow-right"></i></a></p>
+                                <p>Instagram: www.instagram.com/kennyg37 <a href="www.instagram.com/kennyg37"><i class="fa-solid fa-arrow-right"></i></a></p>
+                                <p>linkedIn: www.linkedin.com/ken-ganza <a href="www.linkedin.com/ken-ganza"><i class="fa-solid fa-arrow-right"></i></a></p>
+                            </div>
+                        </div>
+                        <button id="change-profile">Edit</button>
+                    </div>
+                    <div class="profile-edit">
+                        <h2>Edit Profile</h2>
+                        <form id="profile-form">
+                          <div class="form-group">
+                            <label for="first-name">First Name:</label>
+                            <input type="text" id="first-name" name="first-name" placeholder="First Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="last-name">Last Name:</label>
+                            <input type="text" id="last-name" name="last-name" placeholder="Last Name">
+                          </div>
+                          <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" placeholder="Email">
+                          </div>
+                          <div class="form-group">
+                            <label for="phone">Phone:</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Phone">
+                          </div>
+                          <div class="form-group">
+                            <label for="facebook">Facebook:</label>
+                            <input type="url" id="facebook" name="facebook" placeholder="Facebook">
+                          </div>
+                          <div class="form-group">
+                            <label for="twitter">Twitter:</label>
+                            <input type="url" id="twitter" name="twitter" placeholder="Twitter">
+                          </div>
+                          <div class="form-group">
+                            <label for="instagram">Instagram:</label>
+                            <input type="url" id="instagram" name="instagram" placeholder="Instagram">
+                          </div>
+                          <div class="form-group">
+                            <label for="linkedin">LinkedIn:</label>
+                            <input type="url" id="linkedin" name="linkedin" placeholder="LinkedIn">
+                          </div>
+                          <button type="submit">Save</button>
+                        </form>
+                      </div>                  
+                    
                 </div>
+                
             </div>
+
+            <!-- Blog section  -->
+
             <div  class="admin-main" id="blog">
                 <div class="blog-container">
-                    <h2>My Blogs</h2>
-                    <div class="my-blogs">
-                        <ul>
-                            <li>Blog 1</li>
-                            <li>Blog 2</li>
-                            <li>Blog 3</li>
-                            <li>Blog 4</li>
-                        </ul>
+                    <div class="blog-nav home-nav">
+                        <h2>Blog</h2>
+                        <div class="search-bar">
+                            <form action="" id="blog-search">
+                                <input type="text" placeholder="Search here">
+                                <i class="fa-solid fa-search "></i>
+                            </form>
+                        </div>
                     </div>
-                    <h2>Upload new Blog</h2>
-                    <div class="upload-blog">
-                        <form action="">
-                            <input type="file" name="file" id="file-upload">
-                            <input type="text" placeholder="Title">
-                            <input type="text" placeholder="Content">
-                            <button>Upload</button>
-                        </form>
+                    <div class="old">
+                        <h2>Recent blog</h2>
+                        <div class="news">
+                            <img src="/assets/images/7494125.jpg" >
+                            <div class="main-news">
+                                <div class="headline">
+                                    <h1>Revolutionizing Education: <br><span>Introducing the Website I've Crafted for a Leading Educational Institution</span></h1>
+                                    <p>I've recently completed the development of a comprehensive website for an esteemed education company, aimed at optimizing access to educational materials and elevating the overall learning journey. Through user-friendly design and seamless navigation, the platform offers an extensive array of resources, tools, and engaging content, fostering a dynamic educational environment for students and educators alike.</p>
+                                    <a href="">Read More</a>
+                                </div>
+                                <div class="icons">
+                                    <div id="views">
+                                        <i class="fa-regular fa-eye"></i>
+                                        <p>21</p>
+                                    </div>
+                                    <div id="likes">
+                                        <i class="fa-solid fa-thumbs-up"></i>
+                                        <p>12</p>
+                                    </div>
+                                    <div id="comments">
+                                        <i class="fa-solid fa-comment"></i>
+                                        <p>6</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="blog-buttons">
+                        <button id="old-blogs">Old blogs</button>
+                        <button id="add-blog">Create a new blog</button>
+                    </div>
+                    <div class="new">
+                        <h2>New blog</h2>
+                        <div class="new-blog">
+                          <form action="">
+                            <div class="input-group">
+                              <label for="blog-image">Image:</label>
+                              <input type="file" id="blog-image" name="blog-image">
+                            </div>
+                            <div class="input-group">
+                              <label for="blog-title">Heading:</label>
+                              <input type="text" id="blog-title" name="blog-title">
+                            </div>
+                            <div class="input-group">
+                              <label for="blog-subtitle">Subheading:</label>
+                              <input type="text" id="blog-subtitle" name="blog-subtitle">
+                            </div>
+                            <div class="input-group">
+                              <label for="blog-content">Content:</label>
+                              <textarea id="blog-content" name="blog-content" rows="5"></textarea>
+                            </div>
+                            <button type="submit">Create Blog</button>
+                          </form>
+                        </div>
+                      </div>                      
                 </div>
             </div>
+
+            <!-- Insights section  -->
+
             <div class="admin-main" id="insights">
                 <div class="insights-container">
                     <div class="stat">
                         <h2>Past Month statistics</h2>
                         <div class="graph">
-                            <canvas id="likes-chart"></canvas>
-                            <canvas id="comments-chart"></canvas>
-                            <canvas id="views-chart"></canvas>
+                            <canvas id="myChart" width="400" height="200"></canvas>
                         </div>
                     </div>
                     <div class="stat">
                         <h2>Past Year statistics</h2>
                         <div class="graph">
-                            <canvas id="likes-chart"></canvas>
-                            <canvas id="comments-chart"></canvas>
-                            <canvas id="views-chart"></canvas>
+                            <canvas id="myChart2" width="400" height="200"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Settings section  -->
             <div class="admin-main" id="settings">
+                <div class="options">
+                    <div class="setting">
+                        <div class="setting-title">
+                            <h3>Notifications settings</h3>
+                            <button onclick="opensetting('noti-settings')">Edit</button>
+                        </div>
+                        <div class="setting-content" id="noti-settings">
+                            <div class="setting-option">
+                                <p>Push Notifications</p>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="setting-option">
+                                <p>Email Notifications</p>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="setting" >
+                        <div class="setting-title">
+                            <h3>Privacy settings</h3>
+                            <button onclick="opensetting('privacy-settings')">Edit</button>
+                        </div>
+                        <div class="setting-content" id="privacy-settings">
+                            <div class="setting-option">
+                                <p>Private Account</p>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="setting-option" id="data-settings">
+                                <p>Personal Data</p>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="setting" >
+                        <div class="setting-title">
+                            <h3>Security settings</h3>
+                            <button onclick="opensetting('security-settings')">Edit</button>
+                        </div>
+                        <div class="setting-content" id="security-settings">
+                            <div class="setting-option">
+                                <p>Two Factor Authentication</p>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                            <div class="setting-option">
+                                <p>Change Password</p>
+                                <button id="password-box">Change</button>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+                <button class="button">Save</button>
                 <div class="settings-container setting">
                     <div class="change-password">
                         <h2>Change Password</h2>
-                        <form action="">
-                            <input type="password" placeholder="Old Password">
-                            <input type="password" placeholder="New Password">
-                            <input type="password" placeholder="Confirm Password">
-                            <button>Change</button>
+                        <form id="change-password-form">
+                            <div class="cpassword">
+                                <label for="old-password">Old Password:</label>
+                                <input type="password" id="old-password" name="old-password" placeholder="Old Password" required>
+                                <span class="error" id="old-password-error"></span>
+                            </div>
+                            <div class="cpassword">
+                                <label for="new-password">New Password:</label>
+                                <input type="password" id="new-password" name="new-password" placeholder="New Password" required>
+                                <span class="error" id="new-password-error"></span>
+                            </div>
+                            <div class="cpassword">
+                                <label for="confirm-password">Confirm Password:</label>
+                                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
+                                <span class="error" id="confirm-password-error"></span>
+                            </div>
+                            <button type="submit">Change</button>
                         </form>
                     </div>
-                    <div class="delete-account setting">
-                        <h2>Delete Account</h2>
-                        <form action="">
-                            <input type="password" placeholder="Password">
-                            <button>Delete</button>
-                        </form>
+                    <div class="red-zone">
+                        <h1 style="color: red;">Red Zone</h1>
+                        <div class="red-zone-container">
+                            <div class="delete-account setting">
+                                <h2>Delete Account</h2>
+                                <form id="delete-account-form">
+                                    <div class="delete-form-group">
+                                        <label for="delete-password">Password:</label>
+                                        <input type="password" id="delete-password" name="delete-password" placeholder="Password" required>
+                                    </div>
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </div>
+                            <div class="danger-zone setting">
+                                <h2>Danger Zone</h2>
+                                <div class="danger-zone-content">
+                                    <div class="danger-option">
+                                        <p>Disable Account</p>
+                                        <button id="disable-account">Disable</button>
+                                    </div>
+                                    <div class="danger-option">
+                                        <p>Report Account</p>
+                                        <button id="report-account">Report</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>    
+            
     </div>
     <script src="/js/admin.js"></script>
 </body>
