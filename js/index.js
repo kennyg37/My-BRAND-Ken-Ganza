@@ -18,10 +18,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
 var sidemenu = document.getElementById("mobile-menu");
 function openmenu(){
-    sidemenu.style.right = "0"
+    sidemenu.style.right = "90px"
 }
 function closemenu() {
-    sidemenu.style.right = "-350px"
+    sidemenu.style.right = "-190px"
 }
 
 
