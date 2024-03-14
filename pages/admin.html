@@ -22,11 +22,11 @@
             </div>
             <nav>
                 <ul class="tabs">
-                    <li class="tab-menu active-tab" onclick="openmenu('home')">Home</li>
-                    <li class="tab-menu" onclick="openmenu('profile')">Profile</li>
-                    <li class="tab-menu" onclick="openmenu('blog')">Blog</li>
-                    <li class="tab-menu" onclick="openmenu('insights')">Insights</li>
-                    <li class="tab-menu" onclick="openmenu('settings')">Settings</li>
+                    <li class="tab-menu active-tab" onclick="openMenu('home')">Home</li>
+                    <li class="tab-menu" onclick="openMenu('profile')">Profile</li>
+                    <li class="tab-menu" onclick="openMenu('blog')">Blog</li>
+                    <li class="tab-menu" onclick="openMenu('insights')">Insights</li>
+                    <li class="tab-menu" onclick="openMenu('settings')">Settings</li>
                 </ul>
             </nav>
             <button id="publish">Publish</button>
@@ -328,24 +328,28 @@
                     <div class="new">
                         <h2>New blog</h2>
                         <div class="new-blog">
-                          <form action="">
+                          <form action="" id="blog-form">
                             <div class="input-group">
                               <label for="blog-image">Image:</label>
                               <input type="file" id="blog-image" name="blog-image">
+                              <div class="blog-error"></div>
                             </div>
                             <div class="input-group">
                               <label for="blog-title">Heading:</label>
                               <input type="text" id="blog-title" name="blog-title">
+                              <div class="blog-error"></div>
                             </div>
                             <div class="input-group">
                               <label for="blog-subtitle">Subheading:</label>
                               <input type="text" id="blog-subtitle" name="blog-subtitle">
+                              <div class="blog-error"></div>
                             </div>
                             <div class="input-group">
                               <label for="blog-content">Content:</label>
                               <textarea id="blog-content" name="blog-content" rows="5"></textarea>
+                              <div class="blog-error"></div>
                             </div>
-                            <button type="submit">Create Blog</button>
+                            <button type="submit" id="submit-blog">Create Blog</button>
                           </form>
                         </div>
                       </div>                      
