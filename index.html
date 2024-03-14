@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" user-scalable="no">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/3c840652bc.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles.css">
@@ -33,6 +33,7 @@
             </ul> 
         </div>
     </div>
+    <i class="fa-solid fa-bars" onclick="openmenu()"></i>
     <div class="main">
         <div class="main-content">
             <div class="main-div">
@@ -47,7 +48,7 @@
             <img src="assets/svg/africa.svg" alt="">
         </div>
     </div>
-    <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+    
     <div id="overlay">
         <div class="overlay-content">
             <div class="signup-container">
@@ -64,6 +65,15 @@
                     <p class="signup-email">------------- or Sign up with Email ------------- </p>
                     <div class="signup-form">
                         <form id="signup-form" action="/">
+                            <div class="input-field">
+                                <label for="name">Account type</label>
+                                <select name="account" id="account-type" class="custom-dropdown">
+                                    <option value="personal">--select an option--</option>
+                                    <option value="personal">Visitor</option>
+                                    <option value="business">Admin</option>
+                                </select>
+                                <div id="name-error" class="input-error"></div>
+                            </div>
                             <div class="input-field">
                                 <label for="email">Email</label>
                                 <input type="email" name="email" id="s-email" placeholder="mail@abc.com">
@@ -107,6 +117,15 @@
                     <p class="signin-email">------------- or Sign in with Email ------------- </p>
                     <div class="login-form">
                         <form id="login-form" action="/pages/admin.html">
+                            <div class="input-field">
+                                <label for="name">Account type</label>
+                                <select name="account" id="account-type" class="custom-dropdown" required>
+                                    <option value="personal">--select an option--</option>
+                                    <option value="personal">Visitor</option>
+                                    <option value="business">Admin</option>
+                                </select>
+                                <div id="name-error" class="input-error"></div>
+                            </div>
                             <label for="Email">Email</label>
                             <input type="email" name="email" id="email" placeholder="mail@abc.com">
                             <label for="password">Password</label>

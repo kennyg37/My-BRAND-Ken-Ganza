@@ -326,7 +326,7 @@ footer {
 .login-container{
     padding-right: 100px;
     padding-left: 150px;
-    padding-top: 30px;
+    padding-top: 15px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -412,9 +412,22 @@ footer {
     flex-direction: column;
     gap: 3px;
 }
-#login-form input, #signup-form input{
+select {
     width: 100%;
     height: 30px;
+    border: 1px solid #E8E8E8;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-family: 'Nunito Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 19px;
+    color: #828282;
+}
+#login-form input, #signup-form input{
+    width: 100%;
+    height: 20px;
     border: 1px solid #E8E8E8;
     border-radius: 5px;
     padding-left: 10px;
@@ -533,17 +546,18 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
-    * {
+    body {
+        background: #1F3146;
+        padding: 0;
+        margin: 0;
         overflow-x: hidden;
     }
     
-    body {
-        width: 600px;
-    }
-    
-    .logo {
-        margin-right: 100px;
-        padding-right: 50px;
+    .logo img{
+       height: 150px;
+       width: 150px;
+       padding-top: 10px;
+       margin-left: -20px;
     }
     .header {
         display: flex;
@@ -554,35 +568,45 @@ footer {
     }
     .fa-bars {
         display: block;
-        font-size: 30px;
+        font-size: 10px;
         position: fixed;
         top: 0;
-        right: 100px;
-        z-index: 9999;
+        left: 170px;
+        padding-top: 10px;
     }
     .nav-1 {
-        flex-basis: 20%;
         text-align: center;
         margin-bottom: 20px;
         z-index: 9999;
+        width: 100%;
+        height: 100vh;
     }
     .nav-1 ul {
         flex-direction: column;
         justify-content: start;
         background: #262626;
-        position:fixed;
-        top:0;
-        right: -100px;
+        margin-left: 120px;
         padding-top: 50px;
         transition: right 0.5s;
-        height: 100vh;
+        height: 100%;
+        align-items: center;
+        border: 2px solid red;
+        padding-right: 0;
+        top: 0;
+        position: fixed;
     }
     .nav-1 ul li {
-        margin-left: 10px;
-        margin-right: 10px;
-        margin: 10px;
-        padding-right: 30px;
+        padding-left: 5px;
         z-index: 1;
+        width: 100px;
+        border: 2px solid red;
+        text-align: center;
+        padding-bottom: 5px;
+    }
+    .nav-1 ul li a {
+        font-size: 10px;
+        padding: 10px;
+        margin-left: 0px;
     }
     .nav-1 ul i{
         display: block;
@@ -594,25 +618,39 @@ footer {
     .main {
         display: flex;
         flex-direction: column;
+        padding: 0;
+        margin: 0;
+        gap: 10px;
         margin-top: 10px;
         padding: 0px;
-        max-width: 800px;
         margin-left: 0px;
         height: 100%;
         margin-right: 0;
         
     }
+    .main-div{
+        background: rgba(11, 19, 43, 0.3);
+        width: 100%;
+        padding-left: 30px;
+        width: 400px;
+        margin-left: 5px;
+    }
     .main-content{
-        padding: 20px;
-        margin-top: 30px;
-        padding-top: 70px;
+        padding: 0;
+        margin: 0;
+        margin-top: 10px;
+        padding-top: 30px;
+        display: flex;
+        flex-direction: column;
     }
     .main-content h1{
-        font-size: 30px;
+        font-size: 25px;
     }
     .main-content p{
         font-size: 15px;
-        
+        border: 1px solid red;
+        padding: 4px;
+        width: 250px;
     }
     .main-content h2 {
         font-size: 20px;
@@ -676,3 +714,38 @@ footer {
 .input-field.input-error {
     border-color: red;
 }
+
+.custom-dropdown {
+    appearance: none; 
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+  }
+  
+  
+  .custom-dropdown::after {
+    content: '\25BC'; 
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+  }
+  
+  
+  .custom-dropdown option {
+    padding: 8px 12px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #333;
+  }
+  
+  
+  .custom-dropdown:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }

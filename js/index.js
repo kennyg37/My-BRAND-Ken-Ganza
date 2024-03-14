@@ -63,12 +63,6 @@ const confirmPassword = document.getElementById('confirm-password');
 signupForm.addEventListener('submit', e => {
     e.preventDefault();
     validateInputs();
-    if (validateInputs()) {
-        signupForm.submit();
-        switchToSignup();
-    } else {
-        return false;
-    }
 });
 
 const setError = (element, message) => {

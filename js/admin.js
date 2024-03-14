@@ -171,3 +171,13 @@ openDeleteForm.addEventListener('click', function() {
     deleteForm.style.display = 'block';
 });
 
+const publishButton = document.getElementById('publish');
+
+publishButton.addEventListener('click', function() {
+    const confirmation = confirm('Are you sure you want to publish this blog?');
+    if (!confirmation) {
+        event.preventDefault();
+    } else {
+        window.location.href = './blog.html';
+    }
+});
