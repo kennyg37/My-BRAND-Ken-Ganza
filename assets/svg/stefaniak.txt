@@ -1,4 +1,5 @@
-stefaniak
-edilson
-blanchard
-cerecedo
+Frontend: React or Next js, tailwind or normal css
+backend: Node js
+Database: Mongo Db but Postgres is better if we are to handle alot of data
+Testting: Mocha and chai
+Api management: Postman
