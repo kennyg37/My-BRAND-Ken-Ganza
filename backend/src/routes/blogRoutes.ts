@@ -18,6 +18,7 @@ router.post('/create', verifyToken, async (req: Request, res: Response) => {
     })
     await info.save();
     res.json({message: 'Blog created successfully'})
+    res.json(info);
 });
 
 router.put('/like/:id', verifyToken, async (req: Request, res: Response) => {
@@ -38,7 +39,7 @@ router.put('/comment/:id', verifyToken, async (req: Request, res: Response) => {
     if (!info) {
         return res.status(404).json({message: 'Blog not found'})
     } else {
-        res.json({message: 'Comment added successfully'})
+        res.json({message: 'Comment added successfully', comments: info['comments']})
     }
 });
 
@@ -46,6 +47,12 @@ router.put('/update/:id', verifyToken, async (req: Request, res: Response) => {
     const {id} = req.params;
     const {title, subtitle, content} = req.body;
     const info = await Blog.findByIdAndUpdate({_id: id}, {title, subtitle, content}, {new: true});
+
+    if (!info) {
+        return res.status(404).json({message: 'Blog not found'})
+    } else {
+        res.json({message: 'Blog updated successfully'})
+    }
 });
 
 router.delete('/delete/:id', verifyToken, async (req: Request, res: Response) => {
@@ -67,6 +74,16 @@ router.delete('/delete/comment/:id', verifyToken, async (req: Request, res: Resp
         return res.status(404).json({message: 'Blog not found'})
     } else {
         res.json({message: 'Comment deleted successfully'})
+    }
+});
+
+router.delete('/delete/like/:id', verifyToken, async (req: Request, res: Response) => {
+    const {id} = req.params;
+    const info = await Blog.findByIdAndUpdate({_id: id}, {$inc: {likes: -1}}, {new: true});
+    if (!info) {
+        return res.status(404).json({message: 'Blog not found'})
+    } else {
+        res.json({message: 'Blog unliked successfully'})
     }
 });
 

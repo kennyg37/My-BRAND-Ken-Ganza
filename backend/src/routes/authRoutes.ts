@@ -30,30 +30,38 @@ router.post('/signup', async (req: Request, res: Response) => {
    if (password === confirmPassword) {
         await info.save();
         res.json({message: 'User created successfully'})
+        res.json(info);
     } else {
         res.json({message: 'Password does not match'})
     }
 });
 
 router.post('/login', async (req: Request, res: Response) => {
-    const {username, password} = req.body;
+    const {account, username, password} = req.body;
     
-    try {
-        const user = await User.findOne({username});
-
-        if (!user){
-            return res.status(401).json({message: 'User not found'});
-        } else {
-            const match = await bcrypt.compare(password, user.password);
-            if (match) {
-                const token = jwt.sign({username: user.username}, 'secret', {expiresIn: '1h'});
-                return res.json({message: 'Login successful', token});
+    if (!account || !username || !password) {
+        return res.status(400).json({ error: 'Please fill all fields' });
+    }
+    if (account === 'admin'){
+        try {
+            const user = await User.findOne({username});
+    
+            if (!user){
+                return res.status(401).json({message: 'User not found'});
             } else {
-                return res.status(401).json({message: 'Invalid credentials'});
+                const match = await bcrypt.compare(password, user.password);
+                if (match) {
+                    const token = jwt.sign({username: user.username}, 'secret', {expiresIn: '1h'});
+                    return res.json({message: 'Login successful', token});
+                } else {
+                    return res.status(401).json({message: 'Invalid credentials'});
+                }
             }
+        } catch (error) {
+            res.status(500).json({message: 'An error occurred'});
         }
-    } catch (error) {
-        res.status(500).json({message: 'An error occurred'});
+    } else {
+        res.json({message: 'You are not an admin'})
     }
     
 });

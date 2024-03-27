@@ -11,8 +11,11 @@ const PORT = 4000;
 
 mongoose.connect('mongodb://localhost:27017/portfolio',);
 
+
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 
 app.use('/v1/auth', authRoutes);
 app.use('/v1/blog', blogRoutes);

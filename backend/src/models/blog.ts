@@ -27,6 +27,7 @@ const blogSchema = new Schema({
                 likes: ret.likes,
                 comments: ret.comments,
                 commentsCount: ret.commentsCount,
+                id: ret._id,
             }
         }
     }
