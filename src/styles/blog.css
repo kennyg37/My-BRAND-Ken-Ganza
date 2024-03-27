@@ -277,32 +277,32 @@ body {
 }
 
 .other-news-1 {
-    background-image: url('/assets/images/server-check-using-green-screen-tablet.jpg');
+    background-image: url('/src/assets/images/server-check-using-green-screen-tablet.jpg');
     background-size: cover;
     background-position: center;
 } 
 .other-news-2 {
-    background-image: url('/assets/images/Gemini_Generated_Image\ \(1\).jpeg');
+    background-image: url('/src/assets/images/Gemini_Generated_Image\ \(1\).jpeg');
     background-size: cover;
     background-position: center;
 }
 .other-news-3 {
-    background-image: url('/assets/images/m028t0173_d_icon_11oct22.jpg');
+    background-image: url('/src/assets/images/m028t0173_d_icon_11oct22.jpg');
     background-size: cover;
     background-position: center;
 }
 .other-news-4 {
-    background-image: url('/assets/images/Gemini_Generated_Image.jpeg');
+    background-image: url('/src/assets/images/Gemini_Generated_Image.jpeg');
     background-size: cover;
     background-position: center;
 }
 .other-news-5 {
-    background-image: url('/assets/images/laptop-shopping-bags-online-shopping-concept.jpg');
+    background-image: url('/src/assets/images/laptop-shopping-bags-online-shopping-concept.jpg');
     background-size: cover;
     background-position: center;
 }
 .other-news-6 {
-    background-image: url('/assets/images/working-covid-office-concept.jpg');
+    background-image: url('/src/assets/images/working-covid-office-concept.jpg');
     background-size: cover;
     background-position: center;
 }
