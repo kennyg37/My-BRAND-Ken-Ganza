@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import 'mocha';
 import request from 'supertest'; 
 import express, { Express } from 'express';
 import bcrypt from 'bcrypt';
