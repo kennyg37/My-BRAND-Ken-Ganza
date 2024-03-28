@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
-import express, { Request, Response } from 'express';
+import express from 'express';
 import bodyParser from 'body-parser';
-import auth from "./models/auth";
 import authRoutes from "./routes/authRoutes";
-import blog from "./models/blog";
 import blogRoutes from "./routes/blogRoutes";
+import contactRoutes from "./routes/contactRoutes"
 
 const app = express();
 const PORT = 4000;
@@ -19,6 +18,7 @@ app.use(bodyParser.json());
 
 app.use('/v1/auth', authRoutes);
 app.use('/v1/blog', blogRoutes);
+app.use('/v1/feedback', contactRoutes);
 
 app.listen(PORT, () => {
     console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
