@@ -19,3 +19,5 @@ router.post('/details/edit', async(req: Request, res: Response) => {
 
     res.json(info)
 })
+
+export default router

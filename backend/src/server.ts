@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import authRoutes from "./routes/authRoutes";
 import blogRoutes from "./routes/blogRoutes";
 import contactRoutes from "./routes/contactRoutes"
+import detailsRoutes from "./routes/detailsRoutes";
 
 const app = express();
 const PORT = 4000;
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 app.use('/v1/auth', authRoutes);
 app.use('/v1/blog', blogRoutes);
 app.use('/v1/feedback', contactRoutes);
+app.use('/v1/profile', detailsRoutes);
 
 app.listen(PORT, () => {
     console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
