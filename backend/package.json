@@ -30,8 +30,7 @@
   "scripts": {
     "start": "node dist/server.js",
     "dev": "ts-node src/index.ts",
-    "test": "mocha --require ts-node/register ./src/**/*.test.ts",
-    "build": "tsc"
+    "test": "mocha --require ts-node/register ./src/**/*.test.ts"
   },
   "jest": {
     "preset": "ts-jest",
