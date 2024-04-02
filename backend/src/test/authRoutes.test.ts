@@ -1,8 +1,5 @@
-import chai from 'chai';
 import request from 'supertest'; 
 import express, { Express } from 'express';
-import bcrypt from 'bcrypt';
-import User from '../models/auth';
 import authRoutes from '../routes/authRoutes';
 
 
