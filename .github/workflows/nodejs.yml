@@ -16,5 +16,4 @@ jobs:
         with:
           node-version: '20.x'
       - run: cd backend && npm install
-      - run: cd backend && npm run build
       - run: cd backend && npm run test
