@@ -31,6 +31,8 @@ export const startServer = () => {
 export const closeServer = () => {
   server.close();
 }
+if (require.main === module) {
+    startServer();
+}
 
-startServer();
 export default app;
