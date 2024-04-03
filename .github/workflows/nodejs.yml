@@ -16,6 +16,7 @@ jobs:
         with:
           node-version: '20.x'
       - run: cd backend && npm install
+      - run: cd backend && npm start
       - run: cd backend && npm run test
       - run: |
           SERVER_PID=$(ps aux | grep 'node dist/server.js' | grep -v grep | awk '{print $2}')
