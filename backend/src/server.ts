@@ -5,6 +5,7 @@ import authRoutes from "./routes/authRoutes";
 import blogRoutes from "./routes/blogRoutes";
 import contactRoutes from "./routes/contactRoutes"
 import detailsRoutes from "./routes/detailsRoutes";
+import subRoutes from "./routes/subRoutes";
 
 const app = express();
 const PORT = 4000;
@@ -18,6 +19,7 @@ app.use('/v1/auth', authRoutes);
 app.use('/v1/blog', blogRoutes);
 app.use('/v1/feedback', contactRoutes);
 app.use('/v1/profile', detailsRoutes);
+app.use('/v1/subscribe', subRoutes);
 
 let server: any;
 
