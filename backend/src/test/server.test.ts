@@ -6,7 +6,6 @@ import { startServer, closeServer } from '../server';
 
 describe('App', () => {
   before(() => {
-    startServer();
     mongoose.connect('mongodb://localhost:27017/portfolio');
     mongoose.connection.once('open', () => {
       console.log('Connected to MongoDB');
