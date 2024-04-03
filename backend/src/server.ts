@@ -32,4 +32,5 @@ export const closeServer = () => {
   server.close();
 }
 
+startServer();
 export default app;
