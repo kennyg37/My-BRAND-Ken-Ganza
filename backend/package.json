@@ -31,7 +31,8 @@
     "start": "node dist/server.js",
     "dev": "ts-node src/index.ts",
     "build": "tsc",
-    "test": "mocha --require ts-node/register ./src/**/*.test.ts"
+    "test": "mocha --require ts-node/register ./src/**/*.test.ts",
+    "stop": "pkill -f 'node dist/server.js'"
   },
   "jest": {
     "preset": "ts-jest",
