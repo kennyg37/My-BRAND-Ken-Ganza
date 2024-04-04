@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import authRoutes from "./routes/authRoutes";
 import blogRoutes from "./routes/blogRoutes";
 import contactRoutes from "./routes/contactRoutes"
-import detailsRoutes from "./routes/detailsRoutes";
+import detailsRoutes from "./routes/profileRoutes";
 import subRoutes from "./routes/subRoutes";
 
 const app = express();

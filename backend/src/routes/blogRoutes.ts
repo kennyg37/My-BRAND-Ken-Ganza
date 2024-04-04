@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import Blog from '../models/blog';
-import verifyToken from '../middleware/authBlog';
+import { verifyToken } from '../middleware/authBlog';
+import {verifyGuestToken} from '../middleware/authBlog';
 
 const router = express.Router();
 
@@ -21,7 +22,7 @@ router.post('/create', verifyToken, async (req: Request, res: Response) => {
     res.json(info);
 });
 
-router.put('/like/:id', verifyToken, async (req: Request, res: Response) => {
+router.put('/like/:id', async (req: Request, res: Response) => {
     const {id} = req.params;
     const info = await Blog.findByIdAndUpdate({_id: id}, {$inc: {likes: 1}}, {new: true});
     if (!info) {
@@ -31,7 +32,7 @@ router.put('/like/:id', verifyToken, async (req: Request, res: Response) => {
     }
 });
 
-router.put('/comment/:id', verifyToken, async (req: Request, res: Response) => {
+router.put('/comment/:id', verifyGuestToken, async (req: Request, res: Response) => {
     const {id} = req.params;
     const {comment} = req.body;
     const info = await Blog.findByIdAndUpdate({_id: id}, {$push: {comments: comment}, $inc: {commentsCount: 1}}, {new: true});
@@ -65,7 +66,7 @@ router.delete('/delete/:id', verifyToken, async (req: Request, res: Response) =>
     }
 });
 
-router.delete('/delete/comment/:id', verifyToken, async (req: Request, res: Response) => {
+router.delete('/delete/comment/:id', verifyGuestToken, async (req: Request, res: Response) => {
     const {id} = req.params;
     const {comment} = req.body;
     const info = await Blog.findByIdAndUpdate({_id: id}, {$pull: {comments: comment}, $inc: {commentsCount: -1}}, {new: true});
@@ -77,7 +78,7 @@ router.delete('/delete/comment/:id', verifyToken, async (req: Request, res: Resp
     }
 });
 
-router.delete('/delete/like/:id', verifyToken, async (req: Request, res: Response) => {
+router.delete('/delete/like/:id', verifyGuestToken, async (req: Request, res: Response) => {
     const {id} = req.params;
     const info = await Blog.findByIdAndUpdate({_id: id}, {$inc: {likes: -1}}, {new: true});
     if (!info) {
