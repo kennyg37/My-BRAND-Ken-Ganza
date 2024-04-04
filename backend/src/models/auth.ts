@@ -24,6 +24,7 @@ const UserSchema = new mongoose.Schema({
                 username: ret.username,
                 email: ret.email,
                 password: ret.password,
+                id: ret._id
             }
         }
     }
