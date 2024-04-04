@@ -10,7 +10,7 @@ import subRoutes from "./routes/subRoutes";
 const app = express();
 const PORT = 4000;
 
-mongoose.connect('mongodb://localhost:27017/portfolio',);
+mongoose.connect('mongodb+srv://kennyg37:ganzaken8@cluster0.67bal4c.mongodb.net/Mybrand',);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());

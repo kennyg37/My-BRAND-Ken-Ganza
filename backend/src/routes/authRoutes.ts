@@ -31,7 +31,6 @@ router.post('/signup', async (req: Request, res: Response) => {
    if (password === confirmPassword) {
         await info.save();
         res.json({message: 'User created successfully'})
-        res.json(info);
     } else {
         res.json({message: 'Password does not match'})
     }

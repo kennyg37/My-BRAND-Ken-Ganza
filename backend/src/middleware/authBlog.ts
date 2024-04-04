@@ -14,7 +14,7 @@ export const verifyToken = (req: IReqUser, res: Response, next: NextFunction) =>
   
     jwt.verify(token, 'secret', (err, decoded) => {
       if (err) {
-        return res.status(401).json({ message: 'Access denied. Invalid token.' });
+        return res.status(401).json({ message: 'Access denied. Admin token require.' });
       }
       req.user = decoded as JwtPayload;
       next();
@@ -30,7 +30,7 @@ export const verifyGuestToken = (req: IReqUser, res: Response, next: NextFunctio
   
     jwt.verify(token, 'guest_token', (err, decoded) => {
       if (err) {
-        return res.status(401).json({ message: 'Access denied. Invalid token.' });
+        return res.status(401).json({ message: 'Access denied. Guest token required to perform this action.' });
       }
       req.user = decoded as JwtPayload;
       next();
