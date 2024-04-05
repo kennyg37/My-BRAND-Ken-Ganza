@@ -8,7 +8,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /blogs/data:
+ * /v1/blog/data:
  *   get:
  *     summary: Retrieve all blogs.
  *     responses:
@@ -23,7 +23,7 @@ router.get('/data', async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /blogs/create:
+ * /v1/blog/create:
  *   post:
  *     summary: Create a new blog.
  *     requestBody:
@@ -58,7 +58,7 @@ router.post('/create', verifyToken, async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /blogs/like/{id}:
+ * /v1/blog/like/{id}:
  *   put:
  *     summary: Like a blog.
  *     parameters:
@@ -85,7 +85,7 @@ router.put('/like/:id', async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /blogs/comment/{id}:
+ * /v1/blog/comment/{id}:
  *   put:
  *     summary: Comment on a blog.
  *     parameters:
@@ -123,7 +123,7 @@ router.put('/comment/:id', verifyGuestToken, async (req: Request, res: Response)
 
 /**
  * @swagger
- * /blogs/update/{id}:
+ * /v1/blog/update/{id}:
  *   put:
  *     summary: Update a blog by ID.
  *     parameters:
@@ -166,7 +166,7 @@ router.put('/update/:id', verifyToken, async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /blogs/delete/{id}:
+ * /v1/blog/delete/{id}:
  *   delete:
  *     summary: Delete a blog by ID.
  *     parameters:
@@ -194,7 +194,7 @@ router.delete('/delete/:id', verifyToken, async (req: Request, res: Response) =>
 
 /**
  * @swagger
- * /blogs/delete/comment/{id}:
+ * /v1/blog/delete/comment/{id}:
  *   delete:
  *     summary: Delete a comment from a blog by ID.
  *     parameters:
@@ -229,7 +229,7 @@ router.delete('/delete/comment/:id', verifyGuestToken, async (req: Request, res:
 
 /**
  * @swagger
- * /blogs/delete/like/{id}:
+ * /v1/blog/delete/like/{id}:
  *   delete:
  *     summary: Remove a like from a blog by ID.
  *     parameters:

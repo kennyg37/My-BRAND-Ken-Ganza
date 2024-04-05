@@ -6,7 +6,7 @@ const router = express.Router()
 
 /**
  * @swagger
- * /contacts/data:
+ * /v1/feedback/data:
  *   get:
  *     summary: Get all contact information.
  *     responses:
@@ -20,7 +20,7 @@ router.get('/data', async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /contacts/create:
+ * /v1/feedback/create:
  *   post:
  *     summary: Create a new contact message.
  *     requestBody:

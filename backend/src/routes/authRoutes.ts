@@ -1,23 +1,3 @@
-/**
- * @swagger
- * components:
- *   schemas:
- *     User:
- *       type: object
- *       required:
- *         - username
- *         - password
- *       properties:
- *         id:
- *           type: string
- *           description: The unique identifier for a user.
- *         username:
- *           type: string
- *           description: The username of the user.
- *         password:
- *           type: string
- *           description: The password of the user.
- */
 import express, { Request, Response } from 'express';
 import bcrypt, { hash } from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -28,7 +8,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /data:
+ * /v1/auth/data:
  *   get:
  *     summary: Retrieve all users.
  *     responses:
@@ -43,7 +23,7 @@ router.get('/data', async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /signup:
+ * /v1/auth/signup:
  *   post:
  *     summary: Create a new user.
  *     requestBody:
@@ -95,7 +75,7 @@ router.post('/signup', async (req: Request, res: Response) => {
 
 /**
 * @swagger
-* /admin/login:
+* /v1/auth/admin/login:
 *   post:
 *     summary: Admin login.
 *     requestBody:
@@ -152,7 +132,7 @@ router.post('/admin/login', async (req: Request, res: Response) => {
 
 /** 
  * @swagger
- * /guest/login:
+ * /v1/auth/guest/login:
  *   post:
  *     summary: Guest login.
  *     requestBody:
@@ -210,7 +190,7 @@ router.post('/guest/login', async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /update/{id}:
+ * /v1/auth/update/{id}:
  *   put:
  *     summary: Update a user by ID.
  *     parameters:
@@ -272,7 +252,7 @@ router.put('/update/:id', async (req: Request, res: Response) => {
 
 /**
  * @swagger
- * /delete/{id}:
+ * /v1/auth/delete/{id}:
  *   delete:
  *     summary: Delete a user by ID.
  *     parameters:
