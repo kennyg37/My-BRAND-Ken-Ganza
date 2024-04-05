@@ -28,7 +28,7 @@ const authSwagger = {
       servers: ["http://localhost:4000"]
     }
   },
-  apis: ["./src/routes/authRoutes.ts"]
+  apis: ["./src/routes/*.ts"]
 };
 
 app.use(bodyParser.urlencoded({ extended: true }));

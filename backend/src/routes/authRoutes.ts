@@ -1,3 +1,23 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *       type: object
+ *       required:
+ *         - username
+ *         - password
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The unique identifier for a user.
+ *         username:
+ *           type: string
+ *           description: The username of the user.
+ *         password:
+ *           type: string
+ *           description: The password of the user.
+ */
 import express, { Request, Response } from 'express';
 import bcrypt, { hash } from 'bcrypt';
 import jwt from 'jsonwebtoken';

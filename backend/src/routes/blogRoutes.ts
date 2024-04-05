@@ -5,10 +5,44 @@ import {verifyGuestToken} from '../middleware/authBlog';
 
 const router = express.Router();
 
+
+/**
+ * @swagger
+ * /blogs/data:
+ *   get:
+ *     summary: Retrieve all blogs.
+ *     responses:
+ *       '200':
+ *         description: A list of blogs.
+ */
+
 router.get('/data', async (req: Request, res: Response) => {
     const info = await Blog.find();
     res.send(info);
 });
+
+/**
+ * @swagger
+ * /blogs/create:
+ *   post:
+ *     summary: Create a new blog.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               subtitle:
+ *                 type: string
+ *               content:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: Blog created successfully.
+ */
 
 router.post('/create', verifyToken, async (req: Request, res: Response) => {
     const {title, subtitle, content} = req.body;
@@ -22,6 +56,23 @@ router.post('/create', verifyToken, async (req: Request, res: Response) => {
     res.json(info);
 });
 
+/**
+ * @swagger
+ * /blogs/like/{id}:
+ *   put:
+ *     summary: Like a blog.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of blog to like.
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Blog liked successfully.
+ */
+
 router.put('/like/:id', async (req: Request, res: Response) => {
     const {id} = req.params;
     const info = await Blog.findByIdAndUpdate({_id: id}, {$inc: {likes: 1}}, {new: true});
@@ -31,6 +82,32 @@ router.put('/like/:id', async (req: Request, res: Response) => {
         res.json({message: 'Blog liked successfully'})
     }
 });
+
+/**
+ * @swagger
+ * /blogs/comment/{id}:
+ *   put:
+ *     summary: Comment on a blog.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of blog to comment on.
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               comment:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: Comment added successfully.
+ */
 
 router.put('/comment/:id', verifyGuestToken, async (req: Request, res: Response) => {
     const {id} = req.params;
@@ -44,6 +121,37 @@ router.put('/comment/:id', verifyGuestToken, async (req: Request, res: Response)
     }
 });
 
+/**
+ * @swagger
+ * /blogs/update/{id}:
+ *   put:
+ *     summary: Update a blog by ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               subtitle:
+ *                 type: string
+ *               content:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: Blog updated successfully.
+ *       '404':
+ *         description: Blog not found.
+ */
+
 router.put('/update/:id', verifyToken, async (req: Request, res: Response) => {
     const {id} = req.params;
     const {title, subtitle, content} = req.body;
@@ -56,6 +164,24 @@ router.put('/update/:id', verifyToken, async (req: Request, res: Response) => {
     }
 });
 
+/**
+ * @swagger
+ * /blogs/delete/{id}:
+ *   delete:
+ *     summary: Delete a blog by ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Blog deleted successfully.
+ *       '404':
+ *         description: Blog not found.
+ */
+
 router.delete('/delete/:id', verifyToken, async (req: Request, res: Response) => {
     const {id} = req.params;
     const info = await Blog.findByIdAndDelete({_id: id});
@@ -65,6 +191,29 @@ router.delete('/delete/:id', verifyToken, async (req: Request, res: Response) =>
         res.json({message: 'Blog deleted successfully'})
     }
 });
+
+/**
+ * @swagger
+ * /blogs/delete/comment/{id}:
+ *   delete:
+ *     summary: Delete a comment from a blog by ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: comment
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Comment deleted successfully.
+ *       '404':
+ *         description: Blog not found.
+ */
 
 router.delete('/delete/comment/:id', verifyGuestToken, async (req: Request, res: Response) => {
     const {id} = req.params;
@@ -77,6 +226,24 @@ router.delete('/delete/comment/:id', verifyGuestToken, async (req: Request, res:
         res.json({message: 'Comment deleted successfully'})
     }
 });
+
+/**
+ * @swagger
+ * /blogs/delete/like/{id}:
+ *   delete:
+ *     summary: Remove a like from a blog by ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: Blog unliked successfully.
+ *       '404':
+ *         description: Blog not found.
+ */
 
 router.delete('/delete/like/:id', verifyGuestToken, async (req: Request, res: Response) => {
     const {id} = req.params;
