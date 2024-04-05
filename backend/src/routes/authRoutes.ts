@@ -6,10 +6,47 @@ import User from '../models/auth';
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /data:
+ *   get:
+ *     summary: Retrieve all users.
+ *     responses:
+ *       200:
+ *         description: A list of users.
+ */
+
 router.get('/data', async (req: Request, res: Response) => {
     const info = await User.find();
     res.send(info);
 });
+
+/**
+ * @swagger
+ * /signup:
+ *   post:
+ *     summary: Create a new user.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               account:
+ *                 type: string
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: User created successfully.
+ *       400:
+ *         description: Password is required or password does not match.
+ */
 
 router.post('/signup', async (req: Request, res: Response) => {
     const {account, username, email, password} = req.body;
@@ -35,6 +72,33 @@ router.post('/signup', async (req: Request, res: Response) => {
         res.json({message: 'Password does not match'})
     }
 });
+
+/**
+* @swagger
+* /admin/login:
+*   post:
+*     summary: Admin login.
+*     requestBody:
+*       required: true
+*       content:
+*         application/json:
+*           schema:
+*             type: object
+*             properties:
+*               account:
+*                 type: string
+*               username:
+*                 type: string
+*               password:
+*                 type: string
+*     responses:
+*       '200':
+*         description: Login successful.
+*       '401':
+*         description: User not found or invalid credentials.
+*       '500':
+*         description: An error occurred.
+*/
 
 router.post('/admin/login', async (req: Request, res: Response) => {
     const {account, username, password} = req.body;
@@ -66,6 +130,34 @@ router.post('/admin/login', async (req: Request, res: Response) => {
     
 });
 
+/** 
+ * @swagger
+ * /guest/login:
+ *   post:
+ *     summary: Guest login.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               account:
+ *                 type: string
+ *               username:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: Login successful.
+ *       '401':
+ *         description: User not found or invalid credentials.
+ *       '500':
+ *         description: An error occurred.
+ */
+
+
 router.post('/guest/login', async (req: Request, res: Response) => {
     const {account, username, password} = req.body;
     
@@ -96,6 +188,44 @@ router.post('/guest/login', async (req: Request, res: Response) => {
 
 });
 
+/**
+ * @swagger
+ * /update/{id}:
+ *   put:
+ *     summary: Update a user by ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               account:
+ *                 type: string
+ *               username:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       '200':
+ *         description: User updated successfully.
+ *       '400':
+ *         description: Invalid request.
+ *       '404':
+ *         description: User not found.
+ *       '500':
+ *         description: An error occurred.
+ */
+
+
 router.put('/update/:id', async (req: Request, res: Response) => {
     const id = req.params.id;
     const {account, username, email, password} = req.body;
@@ -119,6 +249,27 @@ router.put('/update/:id', async (req: Request, res: Response) => {
         res.status(500).send('Internal Server Error');
     }
 });
+
+/**
+ * @swagger
+ * /delete/{id}:
+ *   delete:
+ *     summary: Delete a user by ID.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       '200':
+ *         description: User deleted successfully.
+ *       '404':
+ *         description: User not found.
+ *       '500':
+ *         description: An error occurred.
+ */
+
 
 router.delete('/delete/:id', async (req: Request, res: Response) => {
     const id = req.params.id;
