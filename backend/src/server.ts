@@ -19,6 +19,7 @@ const authSwagger = {
   swaggerDefinition: {
     info: {
       title: "Authebtication API",
+      subtitle: "Custom Subtitle",
       version: "1.0.0",
       description: "Mybrand API Information",
       contact: {
