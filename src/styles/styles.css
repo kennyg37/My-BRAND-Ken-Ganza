@@ -334,8 +334,8 @@ footer {
 .signup-container{
     padding-right: 100px;
     padding-left: 150px;
-    padding-top: -20px;
-    margin-top: -10px;
+    padding-top: -30px;
+    margin-top: -15px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -401,6 +401,9 @@ footer {
 .login-form, .signup-form {
     height: 230px;
     gap: 20px;
+}
+.signup-form {
+    margin-top: -10px;
 }
 #login-form{
     display: flex;

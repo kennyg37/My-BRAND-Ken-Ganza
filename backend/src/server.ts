@@ -8,7 +8,7 @@ import detailsRoutes from "./routes/profileRoutes";
 import subRoutes from "./routes/subRoutes";
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
-import auth from "./models/auth";
+import cors from 'cors';
 
 const app = express();
 const PORT = 4000;
@@ -33,6 +33,12 @@ const authSwagger = {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 app.use('/v1/auth', authRoutes);
 app.use('/v1/blog', blogRoutes);

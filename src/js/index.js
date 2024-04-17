@@ -55,15 +55,70 @@ function overlayOpen () {
 // Form validation
 
 const signupForm = document.getElementById('signup-form');
+const username = document.getElementById('s-username');
 const email = document.getElementById('s-email');
 const password = document.getElementById('s-password');
 const confirmPassword = document.getElementById('confirm-password');
+const account = document.getElementById('account-type')
 
 
 signupForm.addEventListener('submit', e => {
     e.preventDefault();
     validateInputs();
 });
+
+function sendForm(){
+    const vusername = username.value
+    const vemail = email.value
+    const vpassowrd = password.value
+    const vconfirm = confirmPassword.value
+    const vaccount = account.value
+
+    let requestBody = {};
+
+    if (vaccount === 'admin'){
+        requestBody = {
+            account: 'admin',
+            username: vusername,
+            email: vemail,
+            password: vpassowrd,
+            confirmPassword: vconfirm
+        }
+
+    } else if (vaccount === 'guest'){
+        requestBody = {
+            account: 'guest',
+            username: vusername,
+            email: vemail,
+            password: vpassowrd,
+            confirmPassword: vconfirm
+        }
+    } else {
+        console.log('No account type specified')
+    }
+
+    fetch('https://my-brand-ken-ganza-1.onrender.com/v1/auth/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+    })
+    .then(response => response.text())
+    .then(text => {
+        if (text === 'success'){
+            console.log('success')
+        } else {
+            console.log('unsuccessful')
+        }
+
+    })
+    .catch(error => {
+        console.error('error:', error);
+    })
+
+
+}
 
 const setError = (element, message) => {
     const inputControl = element.parentElement;
@@ -89,39 +144,49 @@ const isValidEmail = email => {
 }
 
 
-
 const validateInputs = () => {
     const emailValue = email.value.trim();
     const passwordValue = password.value.trim();
     const confirmPasswordValue = confirmPassword.value.trim();
 
+    let isValid = true;
+
     if(emailValue === '') {
         setError(email, 'Email is required');
+        isValid = false;
     } else if (!isValidEmail(emailValue)) {
         setError(email, 'Provide a valid email address');
+        isValid = false;
     } else {
         setSuccess(email);
     }
 
-   
     if (passwordValue === '') {
         setError(password, 'Password is required');
+        isValid = false;
     } else if (passwordValue.length < 8) {
         setError(password, 'Password must be at least 8 characters.');
+        isValid = false;
     } else if (!/[A-Z]/.test(passwordValue)) {
         setError(password, 'Password must contain at least one uppercase letter');
+        isValid = false;
     } else {
         setSuccess(password);
     }
 
     if(confirmPasswordValue === '') {
         setError(confirmPassword, 'Please confirm your password');
+        isValid = false;
     } else if (confirmPasswordValue !== passwordValue) {
-        setError(confirmPassword, "Passwords doesn't match");
+        setError(confirmPassword, "Passwords don't match");
+        isValid = false;
     } else {
         setSuccess(confirmPassword);
     }
 
-    return switchToSignup();
+    if (isValid) {
+        sendForm();
+    }
 
+    return isValid;
 };

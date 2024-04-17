@@ -64,14 +64,19 @@
                     </div>
                     <p class="signup-email">------------- or Sign up with Email ------------- </p>
                     <div class="signup-form">
-                        <form id="signup-form" action="/">
+                        <form id="signup-form">
                             <div class="input-field">
                                 <label for="name">Account type</label>
                                 <select name="account" id="account-type" class="custom-dropdown">
-                                    <option value="personal">--select an option--</option>
-                                    <option value="personal">Visitor</option>
-                                    <option value="business">Admin</option>
+                                    <option value="default">--select an option--</option>
+                                    <option value="guest">Guest</option>
+                                    <option value="admin">Admin</option>
                                 </select>
+                                <div id="name-error" class="input-error"></div>
+                            </div>
+                            <div class="input-field">
+                                <label for="name">username</label>
+                                <input type="text" name="username" id="s-username" placeholder="John69">
                                 <div id="name-error" class="input-error"></div>
                             </div>
                             <div class="input-field">
@@ -119,15 +124,15 @@
                         <form id="login-form" action="/src/pages/admin.html">
                             <div class="input-field">
                                 <label for="name">Account type</label>
-                                <select name="account" id="account-type" class="custom-dropdown" required>
+                                <select name="account" id="l-account-type" class="custom-dropdown" required>
                                     <option value="personal">--select an option--</option>
                                     <option value="personal">Visitor</option>
                                     <option value="business">Admin</option>
                                 </select>
                                 <div id="name-error" class="input-error"></div>
                             </div>
-                            <label for="Email">Email</label>
-                            <input type="email" name="email" id="email" placeholder="mail@abc.com">
+                            <label for="Email">Username</label>
+                            <input type="text" name="username" id="l-username" placeholder="John69">
                             <label for="password">Password</label>
                             <input type="password" name="password" id="password" placeholder="***********">
                             <div class="input-error" id="pass-error"></div>
