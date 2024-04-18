@@ -60,11 +60,14 @@ const email = document.getElementById('s-email');
 const password = document.getElementById('s-password');
 const confirmPassword = document.getElementById('confirm-password');
 const account = document.getElementById('account-type')
+const submitButton = document.getElementById('submit-btn');
 
 
 signupForm.addEventListener('submit', e => {
     e.preventDefault();
+    submitButton.classList.add('loading');
     validateInputs();
+    
 });
 
 function sendForm(){
@@ -104,9 +107,9 @@ function sendForm(){
         },
         body: JSON.stringify(requestBody)
     })
-    .then(response => response.text())
-    .then(text => {
-        if (text === 'success'){
+    .then(response => response.json())
+    .then(json => {
+        if (json['message'] === 'User created successfully'){
             console.log('success')
         } else {
             console.log('unsuccessful')
@@ -186,6 +189,125 @@ const validateInputs = () => {
 
     if (isValid) {
         sendForm();
+    }
+
+    return isValid;
+};
+
+// Login form validation
+
+const loginForm = document.getElementById('login-form');
+const loginUsername = document.getElementById('l-username');
+const loginPassword = document.getElementById('l-password');
+const loginButton = document.getElementById('login-btn');
+const loginAcc = document.getElementById('l-account-type');
+
+loginForm.addEventListener('submit', e => {
+    e.preventDefault();
+    validateLoginInputs();
+});
+
+function sendLogin(){
+    const vusername = loginUsername.value
+    const vpassowrd = loginPassword.value
+    const vaccount = loginAcc.value
+
+    let requestBody = {};
+
+    if (vaccount === 'admin'){
+        requestBody = {
+            account: 'admin',
+            username: vusername,
+            password: vpassowrd
+        }
+        fetch('https://my-brand-ken-ganza-1.onrender.com/v1/auth/admin/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+    })
+    .then(response =>{
+        if (!response.ok) {
+            throw new Error('login failed');
+        } else {
+            return response.json();
+        }
+    })
+    .then(json => {
+        if (json.token){
+            console.log('admin login success')
+            localStorage.setItem('token', json.token);
+            window.location.href ='./src/pages/admin.html';
+        } else {
+            console.log('unsuccessful')
+        }
+
+    })
+    .catch(error => {
+        console.error('error:', error);
+    })
+} else if (vaccount === 'guest'){
+    requestBody = {
+        account: 'guest',
+        username: vusername,
+        password: vpassowrd
+    }
+    fetch('https://my-brand-ken-ganza-1.onrender.com/v1/auth/guest/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody)
+    })
+    .then(response =>{
+        if (!response.ok) {
+            throw new Error('login failed');
+        } else {
+            return response.json();
+        }
+    })
+    .then(json => {
+        if (json.token){
+            console.log('success')
+            localStorage.setItem('token', json.token);
+        } else {
+            console.log('unsuccessful')
+        }
+
+    })
+    .catch(error => {
+        console.error('error:', error);
+    })
+}
+
+    } 
+
+const validateLoginInputs = () => {
+    const usernameValue = loginUsername.value.trim();
+    const passwordValue = loginPassword.value.trim();
+
+    let isValid = true;
+
+    if(usernameValue === '') {
+        setError(loginUsername, 'Username is required');
+        isValid = false;
+    } else {
+        setSuccess(loginUsername);
+    }
+
+    if (passwordValue === '') {
+        setError(loginPassword, 'Password is required');
+        isValid = false;
+    } else if (passwordValue.length < 8) {
+        setError(loginPassword, 'Password must be at least 8 characters.');
+        isValid = false;
+    } else {
+        setSuccess(loginPassword);
+    }
+
+    if (isValid) {
+        sendLogin();
     }
 
     return isValid;
