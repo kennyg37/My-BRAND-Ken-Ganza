@@ -18,7 +18,7 @@ const upload = multer({ dest: 'uploads/' });
  *         description: A list of blogs.
  */
 
-router.get('/data', async (req: Request, res: Response) => {
+router.get('/data', verifyToken, async (req: Request, res: Response) => {
     const info = await Blog.find();
     res.send(info);
 });
