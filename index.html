@@ -102,7 +102,7 @@
                                     <span>Agree to <a href="">terms and conditions</a></span>
                                 </div>
                             </div>
-                            <button type="submit">Sign Up</button>
+                            <button type="submit" class="btn" id="submit-btn">Sign Up</button>
                         </form>
                         <span id="login">Already have an account? <span id="login-account" onclick="switchToLogin()">Login</span></span>
                     </div>
@@ -121,21 +121,25 @@
                     </div>
                     <p class="signin-email">------------- or Sign in with Email ------------- </p>
                     <div class="login-form">
-                        <form id="login-form" action="/src/pages/admin.html">
+                        <form id="login-form">
                             <div class="input-field">
                                 <label for="name">Account type</label>
                                 <select name="account" id="l-account-type" class="custom-dropdown" required>
                                     <option value="personal">--select an option--</option>
-                                    <option value="personal">Visitor</option>
-                                    <option value="business">Admin</option>
+                                    <option value="guest">Visitor</option>
+                                    <option value="admin">Admin</option>
                                 </select>
-                                <div id="name-error" class="input-error"></div>
                             </div>
-                            <label for="Email">Username</label>
-                            <input type="text" name="username" id="l-username" placeholder="John69">
-                            <label for="password">Password</label>
-                            <input type="password" name="password" id="password" placeholder="***********">
-                            <div class="input-error" id="pass-error"></div>
+                            <div class="input-field">
+                                <label for="Email">Username</label>
+                                <input type="text" name="username" id="l-username" placeholder="John69">
+                                <div class="input-error"></div>
+                            </div>
+                            <div class="input-field">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="l-password" placeholder="***********">
+                                <div class="input-error"></div>
+                            </div>
                             <div class="reminders">
                                 <div class="checkbox">
                                     <input type="checkbox">
@@ -143,7 +147,7 @@
                                 </div>
                                 <a href="#">Forgot password?</a>
                             </div>
-                            <button type="submit">Login</button>
+                            <button type="submit" class="btn" id="logon-btn">Login</button>
                         </form>
                         <span id="register">Not Registered Yet? <span id="create-account" onclick="switchToSignup()">Create an account</span></span>
                     </div>

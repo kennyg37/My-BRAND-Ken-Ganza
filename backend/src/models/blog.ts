@@ -7,6 +7,10 @@ export interface IBlog extends Document {
     likes: number;
     comments: string[];
     commentsCount: number;
+    image: {
+        data: Buffer;
+        contentType: string;
+    };
 }
 
 const blogSchema = new Schema({
@@ -16,6 +20,10 @@ const blogSchema = new Schema({
     likes: { type: Number, default: 0 },
     comments: { type: [String], default: [] },
     commentsCount: { type: Number, default: 0 },
+    image: {
+        data: Buffer,
+        contentType: String
+    }
 },
 {
     toJSON: {
@@ -27,6 +35,10 @@ const blogSchema = new Schema({
                 likes: ret.likes,
                 comments: ret.comments,
                 commentsCount: ret.commentsCount,
+                image: ret.image ? {
+                    data: ret.image.data.toString('base64'),
+                    contentType: ret.image.contentType
+                } : null,
                 id: ret._id,
             }
         }

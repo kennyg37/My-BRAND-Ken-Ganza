@@ -2,8 +2,10 @@ import express, { Request, Response } from 'express';
 import Blog from '../models/blog';
 import { verifyToken } from '../middleware/authBlog';
 import {verifyGuestToken} from '../middleware/authBlog';
+import multer from 'multer';
 
 const router = express.Router();
+const upload = multer({ dest: 'uploads/' });
 
 
 /**
@@ -44,16 +46,34 @@ router.get('/data', async (req: Request, res: Response) => {
  *         description: Blog created successfully.
  */
 
-router.post('/create', verifyToken, async (req: Request, res: Response) => {
+router.post('/create', verifyToken, upload.single('image'), async (req: Request, res: Response) => {
     const {title, subtitle, content} = req.body;
-    const info = new Blog ({
-        title,
-        subtitle,
-        content,
-    })
+    const image = req.file;
+    
+    if (!image) {
+        const info = new Blog ({
+            title,
+            subtitle,
+            content
+        })
     await info.save();
-    res.json({message: 'Blog created successfully'})
+    res.json({message: 'Blog created successfully but has no image'})
     res.json(info);
+    
+    } else {
+        const info = new Blog ({
+            title,
+            subtitle,
+            content,
+            image: {
+                data: image.buffer,
+                contentType: image.mimetype
+            }
+        })
+        await info.save();
+        res.json({message: 'Blog created successfully'})
+        res.json(info);
+    }
 });
 
 /**

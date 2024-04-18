@@ -19,19 +19,4 @@ function closemenu() {
     sidemenu.style.right = "-350px"
 }
 
-// receive blog from admin.js
-
-const blogReceiver = document.getElementById('blog-receiver');
-const receivedBlog = localStorage.getItem('blog');
-
-if (receivedBlog) {
-    var receivedElement = document.createElement('div');
-    blogReceiver.innerHTML = receivedBlog;
-    var newContent = divElement.firstChild;
-    blogReceiver.parentNode.insertBefore(newContent, blogReceiver);
-} else {
-    blogReceiver.innerHTML = 'No blog available';
-}
-
-localStorage.removeItem('blog');
 
