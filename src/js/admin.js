@@ -192,18 +192,18 @@ var blogContent = document.getElementById('blog-content');
 var blogImage = document.getElementById('blog-image');
 var blogError = document.querySelector('.blog-error');
 
-document.getElementById('blog-form').addEventListener('submit', function(event) {
+
+blogForm.addEventListener('submit', function(event) {
     
   event.preventDefault();
+  verifyBlog();
+});
 
-    var title = blogTitle.value;
-    var subtitle = blogSubtitle.value;
-    var content = blogContent.value;
-    var image = blogImage.files[0];
-
-    var reader = new FileReader();
-    reader.onload = function(event) {
-      var imageUrl = event.target.result;
+const verifyBlog = () => {
+    const title = blogTitle.value;
+    const subtitle = blogSubtitle.value;
+    const content = blogContent.value;
+    const image = blogImage.files[0];
       if (title === '') {
         blogError.textContent = '*Title is required';
         return;
@@ -213,67 +213,43 @@ document.getElementById('blog-form').addEventListener('submit', function(event) 
       } else if (content === '') {
           blogError.textContent = '*Content is required';
           return;
-      } else if (image === '') {
-          blogError.textContent = '*Image is required';
-          return;
       } else {
           alert('Blog uploaded successfully');
+          sendBlog();
           blogForm.reset();
     }
 
-      var divElement = document.createElement('div');
-      divElement.classList.add('news');
-
-      var divContainer = document.createElement('div');
-      divContainer.classList.add('main-news');
-
-      var divContent = document.createElement('div');
-      divContent.classList.add('headline');
-
-      var imgElement = document.createElement('img');
-      imgElement.src = imageUrl;
-      imgElement.alt = title;
-
-      var h1Element = document.createElement('h1');
-      h1Element.textContent = title;
-
-      var spanElement = document.createElement('span');
-      spanElement.textContent = subtitle;
-
-      var pContent = document.createElement('p');
-      pContent.textContent = content;
-
-      var iconsDiv = document.createElement('div');
-      iconsDiv.classList.add('icons');
-      iconsDiv.innerHTML = `
-        <div id="views">
-            <i class="fa-regular fa-eye"></i>
-            <p id="viewsCount"></p>
-        </div>
-        <div id="likes">
-            <i class="fa-solid fa-thumbs-up"></i>
-            <p id="likesCount"></p>
-        </div>
-        <div id="comments">
-            <i class="fa-solid fa-comment"></i>
-            <p id="commentsCount"></p>
-        </div>
-      `;
-
-      
-      divElement.appendChild(imgElement);
-      divElement.appendChild(divContainer);
-      divContainer.appendChild(divContent);
-      divContainer.appendChild(iconsDiv);
-      divContent.appendChild(h1Element);
-      divContent.appendChild(spanElement);
-      divContent.appendChild(pContent);
-
-      localStorage.setItem('blog', divElement.innerHTML);
-      window.location.href = 'blog.html';
-
 };
-  
-      reader.readAsDataURL(image);
 
-});
+const sendBlog = () => {
+
+    const title = blogTitle.value;
+    const subtitle = blogSubtitle.value;
+    const content = blogContent.value;
+    const image = blogImage.files[0];
+
+    const token = localStorage.getItem('token');
+    const formData = new FormData();
+
+    formData.append('title', title);
+    formData.append('subtitle', subtitle);
+    formData.append('content', content);
+    formData.append('image', image);
+
+    fetch('https://my-brand-ken-ganza-1.onrender.com/v1/blog/create', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`
+      },
+        body: formData
+    })
+    .then(response =>{
+      if (!response.ok) {
+          throw new Error('Blog upload failed');
+      } else {
+          return response.json();
+      }
+  })
+    .then(data => console.log(data))
+    .catch(error => console.log(error));
+};
