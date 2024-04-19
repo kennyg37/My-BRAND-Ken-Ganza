@@ -23,7 +23,9 @@ try {
     fetch('https://my-brand-ken-ganza-1.onrender.com/v1/blog/data', {
     method: 'GET',
     headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+        
     }
 })
 .then(response => response.json())
@@ -48,4 +50,13 @@ try {
 catch (error) {
     console.log('An error occured while fetching blog data')
     console.log(error);
+}
+
+function addLike(){
+    fetch('https://my-brand-ken-ganza-1.onrender.com/v1//blog/like/:${id}'{
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    })
 }
