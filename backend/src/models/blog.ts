@@ -36,9 +36,9 @@ const blogSchema = new Schema({
                 comments: ret.comments,
                 commentsCount: ret.commentsCount,
                 image: ret.image ? {
-                    data: ret.image.data.toString('base64'),
+                    data: ret.image.data ? ret.image.data.toString('base64') : null,
                     contentType: ret.image.contentType
-                } : null,
+                } : null,                
                 id: ret._id,
             }
         }
