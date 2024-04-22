@@ -3,59 +3,31 @@ import Blog from '../models/blog';
 import { verifyToken } from '../middleware/authBlog';
 import {verifyGuestToken} from '../middleware/authBlog';
 import multer from 'multer';
-import AWS from 'aws-sdk';
+import aws from 'aws-sdk';
 import { v4 as uuidv4 } from 'uuid';
+import multerS3 from 'multer-s3';
+import { S3, S3Client } from '@aws-sdk/client-s3';
 
 const router = express.Router();
-const upload = multer({ dest: 'uploads/' });
 
-AWS.config.update({
+const s3 = new aws.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     region: 'eu-north-1'
 });
 
+const s3Client = s3 as unknown as S3;
 
-/**
- * @swagger
- * /v1/blog/data:
- *   get:
- *     summary: Retrieve all blogs.
- *     responses:
- *       '200':
- *         description: A list of blogs.
- */
-
-router.get('/data', async (req: Request, res: Response) => {
-    const info = await Blog.find();
-    res.send(info);
-});
-
-/**
- * @swagger
- * /v1/blog/create:
- *   post:
- *     summary: Create a new blog.
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               title:
- *                 type: string
- *               subtitle:
- *                 type: string
- *               content:
- *                 type: string
- *     responses:
- *       '200':
- *         description: Blog created successfully.
- */
-
-const s3 = new AWS.S3();
-
+const upload = multer({
+    storage: multerS3({
+      s3: s3Client,  
+      bucket: 'kenganzabucket1',
+      acl: 'public-read', 
+      key: function (req, file, cb) {
+        cb(null, 'images/' + file.originalname); 
+      }
+    })
+  });
 
 
 router.post('/create', verifyToken, upload.single('image'), async (req: Request, res: Response) => {
@@ -96,6 +68,11 @@ router.post('/create', verifyToken, upload.single('image'), async (req: Request,
         res.json({message: 'Blog created successfully'})
         res.json(info);
     }
+});
+
+router.get('/data', async (req: Request, res: Response) => {
+    const info = await Blog.find();
+    res.send(info);
 });
 
 /**
