@@ -83,7 +83,8 @@ router.post('/create', verifyToken, upload.single('image'), async (req: Request,
           };
 
         const data = await s3.putObject(params).promise();;
-        const imageUrl = 'https://kenganzabucket1.s3.eu-north-1.amazonaws.com/${params.Key}';
+        const imageUrl = `https://kenganzabucket1.s3.eu-north-1.amazonaws.com/${params.Key}`;
+        ;
 
         const info = new Blog ({
             title,
