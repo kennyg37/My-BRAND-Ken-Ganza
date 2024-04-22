@@ -1,5 +1,6 @@
 import express, {Request, Response} from 'express'
 import Contact from '../models/contact'
+import { verifyToken } from '../middleware/authBlog';
 
 
 const router = express.Router()
@@ -13,7 +14,7 @@ const router = express.Router()
  *       '200':
  *         description: Successful response with all contact information.
  */
-router.get('/data', async (req: Request, res: Response) => {
+router.get('/data', verifyToken, async (req: Request, res: Response) => {
     const info = await Contact.find();
     res.send(info);
 });

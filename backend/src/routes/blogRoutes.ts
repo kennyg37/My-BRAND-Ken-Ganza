@@ -3,9 +3,17 @@ import Blog from '../models/blog';
 import { verifyToken } from '../middleware/authBlog';
 import {verifyGuestToken} from '../middleware/authBlog';
 import multer from 'multer';
+import AWS from 'aws-sdk';
+import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
+
+AWS.config.update({
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    region: 'eu-north-1'
+});
 
 
 /**
@@ -46,6 +54,10 @@ router.get('/data', async (req: Request, res: Response) => {
  *         description: Blog created successfully.
  */
 
+const s3 = new AWS.S3();
+
+
+
 router.post('/create', verifyToken, upload.single('image'), async (req: Request, res: Response) => {
     const {title, subtitle, content} = req.body;
     const image = req.file;
@@ -61,14 +73,23 @@ router.post('/create', verifyToken, upload.single('image'), async (req: Request,
     res.json(info);
     
     } else {
+
+        const params = {
+            Bucket: 'kenganzabucket1',
+            Key: `images/${uuidv4()}-${image.originalname}`,
+            Body: image.buffer,
+            ContentType: image.mimetype,
+            ACL: 'public-read'
+          };
+
+        const data = await s3.putObject(params).promise();;
+        const imageUrl = 'https://kenganzabucket1.s3.eu-north-1.amazonaws.com/${params.Key}';
+
         const info = new Blog ({
             title,
             subtitle,
             content,
-            image: {
-                data: image.buffer,
-                contentType: image.mimetype
-            }
+            image: imageUrl
         })
         await info.save();
         res.json({message: 'Blog created successfully'})

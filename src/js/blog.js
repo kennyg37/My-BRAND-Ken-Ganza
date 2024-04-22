@@ -20,6 +20,8 @@ function closemenu() {
 }
 
 try {
+
+    const token = localStorage.getItem('token');
     fetch('https://my-brand-ken-ganza-1.onrender.com/v1/blog/data', {
     method: 'GET',
     headers: {
@@ -32,7 +34,7 @@ try {
 .then(data => {
     const latestBlog = data[data.length - 1];
     const blogTitle = document.getElementById('blog-title');
-    const blogSubtitle = document.getElementById('blog-subheading');
+    const blogSubtitle = document.getElementById('blog-subheader');
     const blogContent = document.getElementById('blog-content');
     const blogImage = document.getElementById('blog-image');
 
@@ -53,7 +55,7 @@ catch (error) {
 }
 
 function addLike(){
-    fetch('https://my-brand-ken-ganza-1.onrender.com/v1//blog/like/:${id}'{
+    fetch('https://my-brand-ken-ganza-1.onrender.com/v1//blog/like/:${id}', {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`
