@@ -2,33 +2,40 @@ import express, { Request, Response } from 'express';
 import Blog from '../models/blog';
 import { verifyToken } from '../middleware/authBlog';
 import {verifyGuestToken} from '../middleware/authBlog';
-import multer from 'multer';
-import aws from 'aws-sdk';
-import { v4 as uuidv4 } from 'uuid';
-import multerS3 from 'multer-s3';
-import { S3, S3Client } from '@aws-sdk/client-s3';
+import { v4 as uuidv4 } from 'uuid'
+import AWS from "aws-sdk";
+import { S3Client } from '@aws-sdk/client-s3';
+import multer from "multer";
+import multerS3 from "multer-s3";
 
 const router = express.Router();
 
-const s3 = new aws.S3({
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    region: 'eu-north-1'
+// AWS.config.update({
+//     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+//     region: 'eu-north-1'
+// });
+
+// const s3 = new AWS.S3();
+
+
+const s3config = new S3Client({
+    region: 'eu-north-1',
+    credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ''       
+    }
 });
-
-const s3Client = s3 as unknown as S3;
-
 const upload = multer({
     storage: multerS3({
-      s3: s3Client,  
+      s3: s3config,
       bucket: 'kenganzabucket1',
-      acl: 'public-read', 
+      acl: 'public-read',
       key: function (req, file, cb) {
-        cb(null, 'images/' + file.originalname); 
+        cb(null, `images/${uuidv4()}-${file.originalname}`);
       }
     })
   });
-
 
 router.post('/create', verifyToken, upload.single('image'), async (req: Request, res: Response) => {
     const {title, subtitle, content} = req.body;
@@ -54,15 +61,11 @@ router.post('/create', verifyToken, upload.single('image'), async (req: Request,
             ACL: 'public-read'
           };
 
-        const data = await s3.putObject(params).promise();;
-        const imageUrl = `https://kenganzabucket1.s3.eu-north-1.amazonaws.com/${params.Key}`;
-        ;
-
         const info = new Blog ({
             title,
             subtitle,
             content,
-            image: imageUrl
+            image: `https://kenganzabucket1.s3.eu-north-1.amazonaws.com/images/`
         })
         await info.save();
         res.json({message: 'Blog created successfully'})
@@ -70,10 +73,25 @@ router.post('/create', verifyToken, upload.single('image'), async (req: Request,
     }
 });
 
+
+/**
+ * @swagger
+ * /v1/blog/data:
+ *   get:
+ *     summary: Retrieve all blogs.
+ *     responses:
+ *       '200':
+ *         description: A list of blogs.
+ */
+
 router.get('/data', async (req: Request, res: Response) => {
     const info = await Blog.find();
     res.send(info);
 });
+
+
+
+
 
 /**
  * @swagger
