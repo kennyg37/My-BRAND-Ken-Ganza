@@ -61,11 +61,13 @@ router.post('/create', verifyToken, upload.single('image'), async (req: Request,
             ACL: 'public-read'
           };
 
+        const imageUrl = `https://kenganzabucket1.s3.eu-north-1.amazonaws.com/${params.Key}`;
+
         const info = new Blog ({
             title,
             subtitle,
             content,
-            image: `https://kenganzabucket1.s3.eu-north-1.amazonaws.com/images/`
+            image: imageUrl
         })
         await info.save();
         res.json({message: 'Blog created successfully'})
