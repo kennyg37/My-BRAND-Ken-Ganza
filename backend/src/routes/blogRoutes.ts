@@ -7,6 +7,7 @@ import AWS from "aws-sdk";
 import { S3Client } from '@aws-sdk/client-s3';
 import multer from "multer";
 import multerS3 from "multer-s3";
+import image from '../models/image';
 
 const router = express.Router();
 
@@ -26,13 +27,17 @@ const s3config = new S3Client({
         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ''       
     }
 });
+
+let imageUrl: string;
 const upload = multer({
     storage: multerS3({
       s3: s3config,
       bucket: 'kenganzabucket1',
       acl: 'public-read',
       key: function (req, file, cb) {
-        cb(null, `images/${uuidv4()}-${file.originalname}`);
+        const key = `images/${uuidv4()}-${file.originalname}`;
+        imageUrl = `https://kenganzabucket1.s3.eu-north-1.amazonaws.com/${key}`;
+        cb(null, key);
       }
     })
   });
@@ -61,7 +66,7 @@ router.post('/create', verifyToken, upload.single('image'), async (req: Request,
             ACL: 'public-read'
           };
 
-        const imageUrl = `https://kenganzabucket1.s3.eu-north-1.amazonaws.com/${params.Key}`;
+        
 
         const info = new Blog ({
             title,
