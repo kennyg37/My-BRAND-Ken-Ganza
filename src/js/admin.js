@@ -253,3 +253,117 @@ const sendBlog = () => {
     .then(data => console.log(data))
     .catch(error => console.log(error));
 };
+
+const overlay = document.querySelector('.overlay');
+
+function openoverlay() {
+  overlay.style.display = 'block';
+  setTimeout(() => {
+    overlay.style.opacity = '1';
+  }, 50); 
+}
+
+function closeoverlay() {
+  overlay.style.opacity = '0'; 
+  setTimeout(() => {
+    overlay.style.display = 'none';
+  }, 300); 
+}
+document.addEventListener('click', function(event) {
+  if (event.target === overlay) {
+    closeoverlay();
+  }
+});
+
+document.querySelector('.userdelete').addEventListener('click', function() {
+    document.querySelector('.delete-user-confirmation').style.display = 'block';
+    document.getElementById('no').addEventListener('click', function() {
+        document.querySelector('.delete-user-confirmation').style.display = 'none';
+    
+    });
+    document.getElementById('yes').addEventListener('click', function() {
+        const token = localStorage.getItem('token');
+        try {
+          fetch('https://my-brand-ken-ganza-1.onrender.com/v1/user/delete', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+      })
+      .then(response => {
+        if (!response.ok) {
+            throw new Error('User delete failed');
+        } else {
+            return response.json();
+        }
+          })
+        }
+        catch(error) {
+          console.log(error);
+        }
+    });
+
+});
+
+document.querySelector('.reportUser').addEventListener('click', function() {
+    document.querySelector('.report-user-confirmation').style.display = 'block';
+    document.getElementById('nope').addEventListener('click', function() {
+      document.querySelector('.report-user-confirmation').style.display = 'none';
+    });
+    document.getElementById('reportUserForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const reason = document.getElementById('report-reason').value;
+        const token = localStorage.getItem('token');
+        try {
+          fetch('https://my-brand-ken-ganza-1.onrender.com/v1/user/report', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({reason})
+      })
+      .then(response => {
+        if (!response.ok) {
+            throw new Error('User report failed');
+        } else {
+            return response.json();
+        }
+          })
+        }
+        catch(error) {
+          console.log(error);
+        }
+    });
+});
+
+document.querySelector('.messageUser').addEventListener('click', function() {
+    document.querySelector('.message-user-confirmation').style.display = 'block';
+    document.getElementById('messageUser').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const message = document.getElementById('message-user').value;
+        const token = localStorage.getItem('token');
+        try {
+          fetch('https://my-brand-ken-ganza-1.onrender.com/v1/user/message', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({message})
+      })
+      .then(response => {
+        if (!response.ok) {
+            throw new Error('User message failed');
+        } else {
+            return response.json();
+        }
+          })
+        }
+        catch(error) {
+          console.log(error);
+        }
+    });
+});
+

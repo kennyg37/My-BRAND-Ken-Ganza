@@ -81,8 +81,8 @@
                                         <p>2 hours ago</p>
                                     </div>
                                     <div class="manipulate">
-                                        <button id="home-edit-button">Edit</button>
-                                        <i class="fa-solid fa-trash"></i>
+                                        <button id="home-edit-button" onclick="editBlogHome()">Edit</button>
+                                        <i class="fa-solid fa-trash" onclick="deleteBlogHome()"></i>
                                     </div>
                                 </div>
                                 <div class="activity-card">
@@ -498,7 +498,75 @@
                 </div>
             </div>
             <div class="admin-main" id="users">
-                
+                <div class="users-container">
+                    <button id="show-users">Show Users</button>
+                    <div class="users">
+                        <div class="user-card">
+                            <i class="fa-solid fa-user"></i>
+                            <div class="user-details">
+                                <p>Ken</p>
+                                <p>Admin</p>
+                                <p>Id: 2403001</p>
+                            </div>
+                            <i class="fa-solid fa-ellipsis-vertical" onclick="openoverlay()"></i>
+                        </div>
+                        <div class="user-card">
+                            <i class="fa-solid fa-user"></i>
+                            <div class="user-details">
+                                <p>Ken</p>
+                                <p>Admin</p>
+                                <p>Id: 2403001</p>
+                            </div>
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                        <div class="user-card">
+                            <i class="fa-solid fa-user"></i>
+                            <div class="user-details">
+                                <p>Ken</p>
+                                <p>Admin</p>
+                                <p>Id: 2403001</p>
+                            </div>
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                        <div class="user-card">
+                            <i class="fa-solid fa-user"></i>
+                            <div class="user-details">
+                                <p>Ken</p>
+                                <p>Admin</p>
+                                <p>Id: 2403001</p>
+                            </div>
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="overlay">
+                    <div class="overlay-container">
+                        <i class="fa-solid fa-x" onclick="closeoverlay()"></i>
+                        <button class="userdelete overlayButton">Delete User</button>
+                        <div class="delete-user-confirmation confirmationUser">
+                            <p>Are you sure you want to delete this user?</p>
+                            <button id="deleteUser">Yes</button>
+                            <button id="no">No</button>
+                        </div>
+                        <button id="disable" class="overlayButton">Disable User</button>
+                        <button class="reportUser overlayButton">Report User</button>
+                        <div class="report-user-confirmation confirmationUser">
+                            <form action="" id="reportUserForm">
+                                <input type="text" placeholder="Reason for reporting">
+                                <div>
+                                    <button type="submit"id="reportUser">Submit</button>
+                                    <button id="nope">No</button>
+                                </div>
+                            </form>
+                        </div>
+                        <button class="messageUser overlayButton">Message User</button>
+                        <div class="message-user confirmationUser">
+                            <form action="" id="messageUser">
+                                <textarea name="message" id="usermessage" cols="30" rows="10" placeholder="Type your message here"></textarea>
+                                <input type="submit" value="Send" id="sendMessage">
+                            </form>
+                    </div>
+                </div>
             </div>
         </div>
 
