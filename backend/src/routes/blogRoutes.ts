@@ -42,6 +42,54 @@ const upload = multer({
     })
   });
 
+/**
+ * @swagger
+ * https://my-brand-ken-ganza-1.onrender.com/v1/blog/create:
+ *   post:
+ *     summary: Create a new blog post
+ *     description: Creates a new blog post with an optional image upload.
+ *     tags:
+ *       - Blog
+ *     security:
+ *       - BearerAuth: []
+ *     consumes:
+ *       - multipart/form-data
+ *     parameters:
+ *       - name: title
+ *         in: formData
+ *         description: The title of the blog post
+ *         required: true
+ *         type: string
+ *       - name: subtitle
+ *         in: formData
+ *         description: The subtitle of the blog post
+ *         required: true
+ *         type: string
+ *       - name: content
+ *         in: formData
+ *         description: The content of the blog post
+ *         required: true
+ *         type: string
+ *       - name: image
+ *         in: formData
+ *         description: The image to upload for the blog post (optional)
+ *         required: false
+ *         type: file
+ *     responses:
+ *       200:
+ *         description: Blog created successfully
+ *         schema:
+ *           type: object
+ *           properties:
+ *             message:
+ *               type: string
+ *               description: A success message
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ */
+
 router.post('/create', verifyToken, upload.single('image'), async (req: Request, res: Response) => {
     const {title, subtitle, content} = req.body;
     const image = req.file;

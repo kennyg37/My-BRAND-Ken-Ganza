@@ -15,11 +15,11 @@ const PORT = 4000;
 
 mongoose.connect('mongodb+srv://kennyg37:ganzaken8@cluster0.67bal4c.mongodb.net/Mybrand',);
 
-const authSwagger = {
-  swaggerDefinition: {
+const options = {
+  openapi: "3.0.0",
+  definition: {
     info: {
-      title: "Authebtication API",
-      subtitle: "Custom Subtitle",
+      title: "My Brand websitse APIs",
       version: "1.0.0",
       description: "Mybrand API Information",
       contact: {
@@ -33,12 +33,15 @@ const authSwagger = {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 app.use(cors({
   origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
+const specs = swaggerJSDoc(options)
+
+app.use('/', swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use('/v1/auth', authRoutes);
 app.use('/v1/blog', blogRoutes);
@@ -46,9 +49,6 @@ app.use('/v1/feedback', contactRoutes);
 app.use('/v1/profile', detailsRoutes);
 app.use('/v1/subscribe', subRoutes);
 
-const swaggerDocs = swaggerJSDoc(authSwagger);
-
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 let server: any;
 
