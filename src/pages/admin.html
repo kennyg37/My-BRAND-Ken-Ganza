@@ -28,6 +28,7 @@
                     <li class="tab-menu" onclick="openMenu('insights')">Insights</li>
                     <li class="tab-menu" onclick="openMenu('settings')">Settings</li>
                     <li class="tab-menu" onclick="openMenu('users')">Users</li>
+                    <li class="tab-menu" onclick="openMenu('contacts')">Contacts</li>
                 </ul>
             </nav>
             <button id="publish">Publish</button>
@@ -565,6 +566,62 @@
                                 <textarea name="message" id="usermessage" cols="30" rows="10" placeholder="Type your message here"></textarea>
                                 <input type="submit" value="Send" id="sendMessage">
                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="admin-main" id="contacts">
+                <div class="contacts-container">
+                    <button id="show-contacts">Show Contacts</button>
+                    <div class="contacts">
+                        <h1>Messages</h1>
+                        <div class="contact-card">
+                            <i class="fa-solid fa-message"></i>
+                            <div class="contact-details">
+                                <p>Ken</p>
+                                <p>kalisaken8@gmail.com</p>
+                                <p>Message: This is a great blog</p>
+                            </div>
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                        <div class="contact-card">
+                            <i class="fa-solid fa-message"></i>
+                            <div class="contact-details">
+                                <p>Ken</p>
+                                <p>kalisaken@gmail.com</p>
+                                <p>Id: 2403001</p>
+                            </div>
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                        <div class="contact-card">
+                            <i class="fa-solid fa-message"></i>
+                            <div class="contact-details">
+                                <p>Ken</p>
+                                <p>Admin</p>
+                                <p>Id: 2403001</p>
+                            </div>
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                        <div class="contact-card">
+                            <i class="fa-solid fa-message"></i>
+                            <div class="contact-details">
+                                <p>Ken</p>
+                                <p>Admin</p>
+                                <p>Id: 2403001</p>
+                            </div>
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </div>
+                    </div>
+                    <div class="subscribers">
+                        <h1>Subscribers</h1>
+                        <div class="sub-list">
+                            <table>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Subscription date</th>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
