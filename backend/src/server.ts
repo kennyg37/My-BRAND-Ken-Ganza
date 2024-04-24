@@ -41,7 +41,7 @@ app.use(cors({
 
 const specs = swaggerJSDoc(options)
 
-app.use('/', swaggerUi.serve, swaggerUi.setup(specs));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use('/v1/auth', authRoutes);
 app.use('/v1/blog', blogRoutes);

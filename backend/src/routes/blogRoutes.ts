@@ -162,6 +162,8 @@ router.delete('/delete/like/:id', verifyGuestToken, async (req: Request, res: Re
         res.json({message: 'Blog unliked successfully'})
     }
 });
+
+// swagger for the main post method
 /**
  * @swagger
  * /v1/blog/create:
@@ -210,6 +212,7 @@ router.delete('/delete/like/:id', verifyGuestToken, async (req: Request, res: Re
  *         description: Unauthorized
  */
 
+// swagger for the get blogs method
 /**
  * @swagger
  * /v1/blog/data:
@@ -218,6 +221,9 @@ router.delete('/delete/like/:id', verifyGuestToken, async (req: Request, res: Re
  *     description: Retrieves all blog posts.
  *     tags:
  *       - Blog
+ *     parameters:
+ *      - name: title
+ *     
  *     responses:
  *       200:
  *         description: A list of blog posts
@@ -250,6 +256,233 @@ router.delete('/delete/like/:id', verifyGuestToken, async (req: Request, res: Re
  *       commentsCount:
  *         type: number
  *         description: The number of comments the blog post has received
+ */
+
+// swagger for the like method
+/**
+ * @swagger
+ * /v1/blog/like/{id}:
+ *   put:
+ *     summary: Like a blog post
+ *     description: Increases the like count of a blog post by 1.
+ *     tags:
+ *       - Blog
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: The ID of the blog post to like
+ *         required: true
+ *         schema:
+ *           type: string
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Blog liked successfully
+ *         schema:
+ *           type: object
+ *           properties:
+ *             message:
+ *               type: string
+ *               description: A success message
+ *       404:
+ *         description: Blog not found
+ */
+
+// swagger for the comment put method
+/**
+ * @swagger
+ * /v1/blog/comment/{id}:
+ *   put:
+ *     summary: Add a comment to a blog post
+ *     description: Adds a comment to a blog post and increments the comments count by 1.
+ *     tags:
+ *       - Blog
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: The ID of the blog post to add a comment to
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: comment
+ *         in: body
+ *         description: The comment to add to the blog post
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             comment:
+ *               type: string
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Comment added successfully
+ *         schema:
+ *           type: object
+ *           properties:
+ *             message:
+ *               type: string
+ *               description: A success message
+ *             comments:
+ *               type: array
+ *               items:
+ *                 type: string
+ *               description: An array of comments for the blog post
+ *       404:
+ *         description: Blog not found
+ */
+
+// swagger for the update method
+/**
+ * @swagger
+ * /v1/blog/update/{id}:
+ *   put:
+ *     summary: Update a blog post
+ *     description: Updates the title, subtitle, and content of a blog post.
+ *     tags:
+ *       - Blog
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: The ID of the blog post to update
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: title
+ *         in: body
+ *         description: The new title for the blog post
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: subtitle
+ *         in: body
+ *         description: The new subtitle for the blog post
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: content
+ *         in: body
+ *         description: The new content for the blog post
+ *         required: true
+ *         schema:
+ *           type: string
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Blog updated successfully
+ *         schema:
+ *           type: object
+ *           properties:
+ *             message:
+ *               type: string
+ *               description: A success message
+ *       404:
+ *         description: Blog not found
+ */
+
+// swagger for the delete method
+/**
+ * @swagger
+ * /v1/blog/delete/{id}:
+ *   delete:
+ *     summary: Delete a blog post
+ *     description: Deletes a blog post.
+ *     tags:
+ *       - Blog
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: The ID of the blog post to delete
+ *         required: true
+ *         schema:
+ *           type: string
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Blog deleted successfully
+ *         schema:
+ *           type: object
+ *           properties:
+ *             message:
+ *               type: string
+ *               description: A success message
+ *       404:
+ *         description: Blog not found
+ */
+
+// swagger for the delete comment method
+/**
+ * @swagger
+ * /v1/blog/delete/comment/{id}:
+ *   delete:
+ *     summary: Delete a comment from a blog post
+ *     description: Deletes a comment from a blog post and decrements the comments count by 1.
+ *     tags:
+ *       - Blog
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: The ID of the blog post from which to delete the comment
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: comment
+ *         in: body
+ *         description: The comment to delete from the blog post
+ *         required: true
+ *         schema:
+ *           type: object
+ *           properties:
+ *             comment:
+ *               type: string
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Comment deleted successfully
+ *         schema:
+ *           type: object
+ *           properties:
+ *             message:
+ *               type: string
+ *               description: A success message
+ *       404:
+ *         description: Blog not found
+ */
+
+// swagger for the delete like method
+/**
+ * @swagger
+ * /v1/blog/delete/like/{id}:
+ *   delete:
+ *     summary: Unlike a blog post
+ *     description: Decreases the like count of a blog post by 1.
+ *     tags:
+ *       - Blog
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         description: The ID of the blog post to unlike
+ *         required: true
+ *         schema:
+ *           type: string
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Blog unliked successfully
+ *         schema:
+ *           type: object
+ *           properties:
+ *             message:
+ *               type: string
+ *               description: A success message
+ *       404:
+ *         description: Blog not found
  */
 
 
