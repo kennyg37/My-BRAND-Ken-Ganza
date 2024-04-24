@@ -4,7 +4,7 @@ import Sub from "../models/subscribe";
 
 const router = express.Router();
 
-router.get('/subscribers', async (req: Request, res: Response) => {
+router.get('data', async (req: Request, res: Response) => {
     const info = await Sub.find()
     res.send(info)
 });
@@ -34,11 +34,31 @@ router.put('/leave', async (req: Request, res: Response) => {
     }
 });
 
+// swagger to get all subscribers
+/**
+ * @swagger
+ * /v1/subscribe/data:
+ *   get:
+ *     summary: Get all subscribers
+ *     description: Retrieves all subscribers.
+ *     tags:
+ *       - Subscribe
+ *     responses:
+ *       200:
+ *         description: Subscribers retrieved successfully
+ *         schema:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Sub'
+ *       500:
+ *         description: Internal Server Error
+ */
+
 
 // swagger to subscribe to newsletter
 /**
  * @swagger
- * /v1/subscribe:
+ * /v1/subscribe/add:
  *   post:
  *     summary: Subscribe to newsletter
  *     description: Subscribes an email to the newsletter.
