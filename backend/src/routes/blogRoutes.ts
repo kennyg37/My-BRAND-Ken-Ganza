@@ -117,7 +117,7 @@ router.get('/data', async (req: Request, res: Response) => {
  *         description: Blog liked successfully.
  */
 
-router.put('/like/:id', async (req: Request, res: Response) => {
+router.put('/like/:id', verifyGuestToken, async (req: Request, res: Response) => {
     const {id} = req.params;
     const info = await Blog.findByIdAndUpdate({_id: id}, {$inc: {likes: 1}}, {new: true});
     if (!info) {
