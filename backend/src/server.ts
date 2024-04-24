@@ -45,7 +45,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 app.use('/v1/auth', authRoutes);
 app.use('/v1/blog', blogRoutes);
-app.use('/v1/feedback', contactRoutes);
+app.use('/v1/contact', contactRoutes);
 app.use('/v1/profile', detailsRoutes);
 app.use('/v1/subscribe', subRoutes);
 

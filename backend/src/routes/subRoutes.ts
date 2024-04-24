@@ -9,7 +9,7 @@ router.get('/subscribers', async (req: Request, res: Response) => {
     res.send(info)
 });
 
-router.post('/subscribe', async (req: Request, res: Response) => {
+router.post('/add', async (req: Request, res: Response) => {
     const {email} = req.params;
     const info = new Sub ({
         email,
@@ -20,14 +20,85 @@ router.post('/subscribe', async (req: Request, res: Response) => {
     res.json('Subscribed successfully')
 })
 
-router.post('/unsubscribe', async (req: Request, res: Response) => {
-    const {email} = req.params;
-    const info = new Sub ({
-        email,
-        subscribed: false
-    })
-    res.json('Unsubscribed successfully')
+router.put('/leave', async (req: Request, res: Response) => {
+    const { email } = req.body;
+    try {
+        const info = await Sub.findOneAndUpdate({ email }, { subscribed: false });
+        if (!info) {
+            return res.status(404).json({ message: 'Email not found' });
+        }
+        res.json({ message: 'Unsubscribed successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
 });
+
+
+// swagger to subscribe to newsletter
+/**
+ * @swagger
+ * /v1/subscribe:
+ *   post:
+ *     summary: Subscribe to newsletter
+ *     description: Subscribes an email to the newsletter.
+ *     tags:
+ *       - Subscribe
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Subscribed successfully
+ *         schema:
+ *           type: object
+ *           properties:
+ *             message:
+ *               type: string
+ *               description: A success message
+ *       500:
+ *         description: Internal Server Error
+ */
+
+// swagger to unsubscribe from newsletter
+/**
+ * @swagger
+ * /v1/subscribe/leave:
+ *   put:
+ *     summary: Unsubscribe from newsletter
+ *     description: Unsubscribes an email from the newsletter.
+ *     tags:
+ *       - Subscribe
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Unsubscribed successfully
+ *         schema:
+ *           type: object
+ *           properties:
+ *             message:
+ *               type: string
+ *               description: A success message
+ *       404:
+ *         description: Email not found
+ *       500:
+ *         description: Internal Server Error
+ */
+
 
 export default router;
 
