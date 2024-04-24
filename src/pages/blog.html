@@ -33,6 +33,10 @@
             </ul>
         </div>
     </div>
+    <div class="alertBox">
+        <i class="fa-solid fa-x" onclick="closealert()"></i>
+        <p>Thank you for your comment</p>        
+    </div>
     <div class="sec-1">
         <div class="heading-blog">
             <h1>Blog</h1>
@@ -49,15 +53,15 @@
                         <a href="">Read More</a>
                     </div>
                     <div class="icons">
-                        <div id="likes">
+                        <div id="likes" class="likeIcon icon" onclick="toggleLike(this)">
                             <i class="fa-solid fa-thumbs-up"></i>
                             <p></p>
                         </div>
-                        <div id="comments">
-                            <i class="fa-solid fa-comment"></i>
+                        <div id="comments" class="icon">
+                            <i class="fa-solid fa-comment" onclick="openoverlay()"></i>
                             <p></p>
                         </div>
-                        <div id="share">
+                        <div id="share" class="icon">
                             <i class="fa-solid fa-share"></i>
                             <p></p>
                         </div>
@@ -67,6 +71,28 @@
         </div>
     </div>
     <div class="other-news">
+    <div class="overlay">
+        <div class="overlay-container">
+            <i class="fa-solid fa-x" onclick="closeoverlay()"></i>
+            <button type="button" id="add-blog" class="btn">Add Comment</button>
+            <button type="button" id="switch" class="btn">Check comments</button>
+            <div class="comments">
+                <h1>Comments</h1>
+                <div class="comment">
+                    <h2 class="cname">kenny_g37</h2>
+                    <p class="comment">I like this blog, it reminds me of the early days when life was good and fun</p>
+                </div>
+            </div>
+            <div id="comment-form">
+                <h1>Leave a Comment</h1>
+                <form action="" id="commentForm">
+                    <label for="Message">Message</label>
+                    <textarea name="" rows="4" placeholder="Message" id="message"></textarea>
+                    <button type="submit">Send</button>
+                </form>
+            </div>                    
+        </div>
+    </div>
         
         <div class="other-news-container">
             <div class="other-news-1 other-news-outside">
