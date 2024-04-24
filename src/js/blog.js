@@ -94,6 +94,8 @@ function openalert(message) {
             const blogImage = document.getElementById('blog-image');
             const likes = document.querySelector('.lcount');
             const comments = document.querySelector('.ccount');
+            const commentsContainer = document.querySelector('.comments');
+            
 
             blogTitle.textContent = latestBlog.title;
             blogSubtitle.textContent = latestBlog.subtitle;
@@ -114,6 +116,24 @@ function openalert(message) {
             blogImage.src = imagedata;
 
             localStorage.setItem('blogId', blogID);
+
+            latestBlog.comments.forEach(comment => {
+                const commentDiv = document.createElement('div');
+                commentDiv.classList.add('comment');
+
+                const commenterName = document.createElement('h2');
+                commenterName.classList.add('cname');
+                const username = localStorage.getItem('username')
+                commenterName.textContent = username;
+
+                const commentText = document.createElement('p');
+                commentText.classList.add('comment');
+                commentText.textContent = comment; 
+
+                commentDiv.appendChild(commenterName);
+                commentDiv.appendChild(commentText);
+                commentsContainer.appendChild(commentDiv);
+            })
         })   
       } catch (error) {
           console.error('An error occurred while fetching blog data:', error);
@@ -184,13 +204,21 @@ function toggleLike(element) {
     }
   }
 
-function addComment() {
-    const comment = document.getElementById('comment').value;
-    fetch('https://my-brand-ken-ganza-1.onrender.com/v1/blog/comment/:${id}', {
+    
+    const addCommentForm = document.getElementById('commentForm');
+    const message = document.getElementById('message');
+    const comment = message.value;
+    
+    addCommentForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const id = localStorage.getItem('blogId');
+        const usertoken = localStorage.getItem('guest_token');
+        fetch(`https://my-brand-ken-ganza-1.onrender.com/v1/blog/comment/${id}`  , {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${usertoken}`
         },
         body: JSON.stringify({
             comment: comment
@@ -208,4 +236,4 @@ function addComment() {
         console.log(error);
         openalert('An error occured while adding comment');
     })
-}
+    })

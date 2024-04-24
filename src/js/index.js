@@ -248,6 +248,7 @@ function sendLogin(){
         console.error('error:', error);
     })
 } else if (vaccount === 'guest'){
+    localStorage.setItem('username', vusername);
     requestBody = {
         account: 'guest',
         username: vusername,
