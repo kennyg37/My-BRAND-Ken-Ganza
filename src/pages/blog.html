@@ -53,13 +53,13 @@
                         <a href="">Read More</a>
                     </div>
                     <div class="icons">
-                        <div id="likes" class="likeIcon icon" onclick="toggleLike(this)">
+                        <div id="likes" class="likeIcon icon" onclick="toggleLike(this, '${latestBlog._id}')">
                             <i class="fa-solid fa-thumbs-up"></i>
-                            <p></p>
+                            <p class="lcount"></p>
                         </div>
                         <div id="comments" class="icon">
                             <i class="fa-solid fa-comment" onclick="openoverlay()"></i>
-                            <p></p>
+                            <p class="ccount"></p>
                         </div>
                         <div id="share" class="icon">
                             <i class="fa-solid fa-share"></i>

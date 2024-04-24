@@ -270,7 +270,8 @@ function sendLogin(){
     .then(json => {
         if (json.token){
             console.log('success')
-            localStorage.setItem('token', json.token);
+            localStorage.setItem('guest_token', json.token);
+            window.location.href ='./src/pages/blog.html';
         } else {
             console.log('unsuccessful')
         }

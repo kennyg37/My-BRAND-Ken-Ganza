@@ -66,6 +66,7 @@ body {
     position: relative;
     
 }
+
 .nav-1 ul li a::after {
     content: '';
     width: 0;
@@ -616,6 +617,7 @@ footer {
     z-index: 1000;
     transition: opacity 0.5s ease;
     opacity: 0;
+    pointer-events: none;
 }
 .alertBox p {
     font-weight: 500;
@@ -626,6 +628,7 @@ footer {
     font-size: 20px;
     margin-left: 90%;
     margin-top: 10px;
+    pointer-events: all;
 }
 
 .likeIcon {
