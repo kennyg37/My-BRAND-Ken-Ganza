@@ -117,23 +117,39 @@ function openalert(message) {
 
             localStorage.setItem('blogId', blogID);
 
-            latestBlog.comments.forEach(comment => {
+            commentsContainer.innerHTML = '';
+
+            if (latestBlog.comments.length === 0) {
                 const commentDiv = document.createElement('div');
                 commentDiv.classList.add('comment');
 
-                const commenterName = document.createElement('h2');
-                commenterName.classList.add('cname');
-                const username = localStorage.getItem('username')
-                commenterName.textContent = username;
-
                 const commentText = document.createElement('p');
-                commentText.classList.add('comment');
-                commentText.textContent = comment; 
+                commentText.classList.add('commentparagraph');
+                commentText.textContent = 'No comments yet';
 
-                commentDiv.appendChild(commenterName);
                 commentDiv.appendChild(commentText);
                 commentsContainer.appendChild(commentDiv);
-            })
+
+            } else {
+                latestBlog.comments.forEach(comment => {
+                    const commentDiv = document.createElement('div');
+                    commentDiv.classList.add('comment');
+    
+                    const commenterName = document.createElement('h2');
+                    commenterName.classList.add('cname');
+                    const username = localStorage.getItem('username')
+                    commenterName.textContent = username;
+    
+                    const commentText = document.createElement('p');
+                    commentText.classList.add('commentparagraph');
+                    commentText.textContent = comment; 
+    
+                    commentDiv.appendChild(commenterName);
+                    commentDiv.appendChild(commentText);
+                    commentsContainer.appendChild(commentDiv);
+                    console.log(comment);
+                });
+            }            
         })   
       } catch (error) {
           console.error('An error occurred while fetching blog data:', error);
@@ -207,15 +223,16 @@ function toggleLike(element) {
     
     const addCommentForm = document.getElementById('commentForm');
     const message = document.getElementById('message');
-    const comment = message.value;
     
     addCommentForm.addEventListener('submit', function(event) {
         event.preventDefault();
 
+        const comment = message.value;
+
         const id = localStorage.getItem('blogId');
         const usertoken = localStorage.getItem('guest_token');
         fetch(`https://my-brand-ken-ganza-1.onrender.com/v1/blog/comment/${id}`  , {
-        method: 'POST',
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${usertoken}`
@@ -230,6 +247,7 @@ function toggleLike(element) {
         openalert('Comment added successfully');
         setTimeout(() => {
             closealert();
+            addCommentForm.reset();
         }, 3000);
     })
     .catch(error => {

@@ -263,7 +263,8 @@ function sendLogin(){
     })
     .then(response =>{
         if (!response.ok) {
-            throw new Error('login failed');
+            console.log('login failed')
+            throw new Error('login failed');            
         } else {
             return response.json();
         }
