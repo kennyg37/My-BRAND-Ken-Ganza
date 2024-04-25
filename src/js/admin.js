@@ -290,6 +290,72 @@ document.addEventListener('click', function(event) {
   }
 });
 
+document.getElementById('show-users').addEventListener('click', function() {
+  document.querySelector('.users').style.display = 'flex';
+  setTimeout(() => {
+    document.querySelector('.users').style.opacity = '1';   
+  }, 300);
+
+  try {
+    const token = localStorage.getItem('token');
+    fetch('https://my-brand-ken-ganza-1.onrender.com/v1/auth/data', {
+      method: 'GET',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+          throw new Error('User fetch failed');
+      } else {
+          return response.json();
+      }
+    })
+    .then(data => {
+      console.log(data);
+      const users = data;
+      const usersList = document.querySelector('.user-card');
+      usersList.innerHTML = '';
+      users.forEach(user => {
+        const userCard = document.createElement('div');
+        userCard.classList.add('user-card');
+        
+        const userDetails = document.createElement('div');
+        userDetails.classList.add('user-details');
+
+        const userName = document.createElement('p');
+        userName.textContent = user.username;
+
+        const userEmail = document.createElement('p');
+        userEmail.textContent = user.email;
+
+        const accountType = document.createElement('p');
+        accountType.textContent = user.account;
+
+        const profileIcon = document.createElement('i');
+        profileIcon.classList.add('fa-solid', 'fa-user');
+
+        const threeDots = document.createElement('i');
+        threeDots.classList.add('fa-solid', 'fa-ellipsis-vertical');
+        threeDots.setAttribute('onclick', 'openoverlay()');
+
+        userDetails.appendChild(userName);
+        userDetails.appendChild(userEmail);
+        userDetails.appendChild(accountType);
+
+        usersList.appendChild(profileIcon);
+        usersList.appendChild(userDetails);
+        usersList.appendChild(threeDots);
+      });
+    })
+  
+  }
+  catch(error) {
+    console.log(error);
+  }
+})
+
 document.querySelector('.userdelete').addEventListener('click', function() {
     document.querySelector('.delete-user-confirmation').style.display = 'block';
     document.getElementById('no').addEventListener('click', function() {
@@ -387,11 +453,9 @@ document.querySelector('.messageUser').addEventListener('click', function() {
 
 document.getElementById('show-messages').addEventListener('click', function() {
     document.querySelector('.contacts').style.display = 'flex';
-
     setTimeout(() => {
       document.querySelector('.contacts').style.opacity = '1';   
-    }, 300);
-    
+    }, 300);   
 });
 
 document.getElementById('show-subs').addEventListener('click', function() {

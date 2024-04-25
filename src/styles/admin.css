@@ -904,6 +904,11 @@ nav ul li::after {
     gap: 50px;
     padding: 20px;
 }
+.users {
+    display: none;
+    transition: opacity 0.5s;
+    opacity: 0;
+}
 .user-card, .contact-card {
     display: flex;
     flex-direction: column;

@@ -2,12 +2,13 @@ import express, { Request, Response } from 'express';
 import bcrypt, { hash } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/auth';
+import { verifyToken } from '../middleware/authBlog';
 
 
 const router = express.Router();
 
 
-router.get('/data', async (req: Request, res: Response) => {
+router.get('/data', verifyToken, async (req: Request, res: Response) => {
     const info = await User.find();
     res.send(info);
 });
