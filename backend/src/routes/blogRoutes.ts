@@ -173,6 +173,17 @@ router.delete('/delete/data/:title', verifyToken, async (req: Request, res: Resp
     }
 });
 
+router.put('/update/data/:title', verifyToken, async (req: Request, res: Response) => {
+    const title = req.params.title;
+    const {subtitle, content} = req.body;
+    const info = await Blog.findOneAndUpdate({title}, {subtitle, content}, {new: true});
+    if (!info) {
+        return res.status(404).json({message: 'Blog not found'})
+    } else {
+        res.json({message: 'Blog updated successfully'})
+    }
+})
+
 // swagger for the main post method
 /**
  * @swagger
@@ -485,6 +496,80 @@ router.delete('/delete/data/:title', verifyToken, async (req: Request, res: Resp
  *     responses:
  *       200:
  *         description: Blog unliked successfully
+ *         schema:
+ *           type: object
+ *           properties:
+ *             message:
+ *               type: string
+ *               description: A success message
+ *       404:
+ *         description: Blog not found
+ */
+
+// swagger for the delete data method
+/**
+ * @swagger
+ * /v1/blog/delete/data/{title}:
+ *   delete:
+ *     summary: Delete a blog post by title
+ *     description: Deletes a blog post by title.
+ *     tags:
+ *       - Blog
+ *     parameters:
+ *       - name: title
+ *         in: path
+ *         description: The title of the blog post to delete
+ *         required: true
+ *         schema:
+ *           type: string
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Blog deleted successfully
+ *         schema:
+ *           type: object
+ *           properties:
+ *             message:
+ *               type: string
+ *               description: A success message
+ *       404:
+ *         description: Blog not found
+ */
+
+// swagger for the update data method
+/**
+ * @swagger
+ * /v1/blog/update/data/{title}:
+ *   put:
+ *     summary: Update a blog post by title
+ *     description: Updates the subtitle and content of a blog post by title.
+ *     tags:
+ *       - Blog
+ *     parameters:
+ *       - name: title
+ *         in: path
+ *         description: The title of the blog post to update
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: subtitle
+ *         in: body
+ *         description: The new subtitle for the blog post
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - name: content
+ *         in: body
+ *         description: The new content for the blog post
+ *         required: true
+ *         schema:
+ *           type: string
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Blog updated successfully
  *         schema:
  *           type: object
  *           properties:
