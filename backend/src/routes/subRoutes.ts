@@ -10,7 +10,7 @@ router.get('/data', async (req: Request, res: Response) => {
 });
 
 router.post('/add', async (req: Request, res: Response) => {
-    const {email} = req.params;
+    const {email} = req.body;
     const info = new Sub ({
         email,
         subscribedAt: Date.now(),
