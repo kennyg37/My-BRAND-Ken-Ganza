@@ -2,13 +2,19 @@
 function checkToken() {
   const token = localStorage.getItem('jwtToken');
   if (!token) {
-      window.location.href = '/login'; 
+      window.location.href = 'index.html'; 
   }
 }
 
 window.onload = function() {
   checkToken();
 };
+
+    
+function logout() {
+  localStorage.removeItem('jwtToken');
+  window.location.href = 'index.html';
+}
 
 
 // alertbox

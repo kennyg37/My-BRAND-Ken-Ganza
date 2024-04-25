@@ -166,7 +166,15 @@ function addLike(){
                 'Authorization': `Bearer ${usertoken}`
             }
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            openalert('log in to like this blog');
+            setTimeout(() => {
+                closealert();
+            }, 3000);
+        }
+        return response.json();
+    })
     .then(data => {
         openalert('Blog liked successfully');
         setTimeout(() => {
@@ -255,3 +263,5 @@ function toggleLike(element) {
         openalert('An error occured while adding comment');
     })
     })
+
+
