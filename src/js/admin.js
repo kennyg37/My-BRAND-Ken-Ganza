@@ -2,7 +2,7 @@
 function checkToken() {
   const token = localStorage.getItem('jwtToken');
   if (!token) {
-      window.location.href = './index.html'; 
+      window.location.href = '/404.html'; 
   }
 }
 
@@ -13,7 +13,7 @@ window.onload = function() {
     
 function logout() {
   localStorage.removeItem('jwtToken');
-  window.location.href = './index.html';
+  window.location.href = '../index.html';
 }
 
 
