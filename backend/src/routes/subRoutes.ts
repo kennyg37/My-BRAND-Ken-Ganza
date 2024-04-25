@@ -1,10 +1,11 @@
 import express, { Request, Response } from "express";
 import Sub from "../models/subscribe";
+import { verifyToken } from "../middleware/authBlog";
 
 
 const router = express.Router();
 
-router.get('/data', async (req: Request, res: Response) => {
+router.get('/data', verifyToken, async (req: Request, res: Response) => {
     const info = await Sub.find()
     res.send(info)
 });
