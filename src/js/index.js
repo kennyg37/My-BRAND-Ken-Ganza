@@ -300,7 +300,10 @@ function sendLogin(){
     .then(response =>{
         if (!response.ok) {
             console.log('login failed')
-            throw new Error('login failed');            
+            openalert('Login failed, check your credentials');
+            setTimeout(() => {
+                closealert();
+            }, 3000);  
         } else {
             return response.json();
         }

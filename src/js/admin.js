@@ -1,3 +1,16 @@
+// Function to check if JWT token exists in local storage
+function checkToken() {
+  const token = localStorage.getItem('jwtToken');
+  if (!token) {
+      window.location.href = '/login'; 
+  }
+}
+
+window.onload = function() {
+  checkToken();
+};
+
+
 // alertbox
 const alertBox = document.querySelector('.alertBox');
 const paragraph = document.querySelector('.alertBox p');

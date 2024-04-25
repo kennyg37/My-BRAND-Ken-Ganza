@@ -42,3 +42,35 @@ form.addEventListener('submit', (e) => {
     })
 })
 
+const subscribeForm = document.getElementById('subscribeForm');
+
+subscribeForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('email').value;
+  try {
+    fetch('https://my-brand-ken-ganza-1.onrender.com/v1/subscribe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            openalert('An error occured while subscribing');
+            setTimeout(() => {
+                closealert();
+            }, 3000);
+        } else {
+            openalert('Subscribed successfully');
+            setTimeout(() => {
+                closealert();
+                subscribeForm.reset();
+            }, 3000);
+    }
+})
+    } catch (error) {
+        console.error(error);
+    }
+})
+
