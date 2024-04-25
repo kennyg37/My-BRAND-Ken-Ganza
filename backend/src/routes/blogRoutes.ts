@@ -162,6 +162,16 @@ router.delete('/delete/like/:id', verifyGuestToken, async (req: Request, res: Re
         res.json({message: 'Blog unliked successfully'})
     }
 });
+router.delete('/delete/data/:title', verifyToken, async (req: Request, res: Response) => {
+    const title = req.params.title;
+    const info = await Blog.findOne({title});
+    if (!info) {
+        return res.status(404).json({message: 'Blog not found'})
+    } else {
+        await Blog.findByIdAndDelete(info._id);
+        res.json({message: 'Blog deleted successfully'})
+    }
+});
 
 // swagger for the main post method
 /**
