@@ -16,7 +16,7 @@ router.post('/add', async (req: Request, res: Response) => {
         subscribedAt: Date.now(),
         subscribed: true
     })
-
+    await info.save();
     res.json('Subscribed successfully')
 })
 
