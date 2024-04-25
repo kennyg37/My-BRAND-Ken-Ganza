@@ -572,9 +572,11 @@
             </div>
             <div class="admin-main" id="contacts">
                 <div class="contacts-container">
-                    <button id="show-contacts">Show Contacts</button>
+                    <div class="buttons-contacts">
+                        <button id="show-messages">Retrieve messages</button>
+                        <button id="show-subs">Retrieve Subscribers</button>
+                    </div>
                     <div class="contacts">
-                        <h1>Messages</h1>
                         <div class="contact-card">
                             <i class="fa-solid fa-message"></i>
                             <div class="contact-details">
@@ -582,7 +584,7 @@
                                 <p>kalisaken8@gmail.com</p>
                                 <p>Message: This is a great blog</p>
                             </div>
-                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                            <i class="fa-solid fa-ellipsis-vertical" onclick="openSecOverlay()"></i>
                         </div>
                         <div class="contact-card">
                             <i class="fa-solid fa-message"></i>
@@ -624,10 +626,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="ooverlay">
+                    <div class="ooverlay-container">
+                        <i class="fa-solid fa-x" onclick="closeSecOverlay()"></i>
+                        <button class="userReply overlayButton">Reply</button>
+                        <div class="replyUser confirmationUser">
+                            <form action="" id="replyUser">
+                                <textarea name="message" id="userReply" cols="30" rows="10" placeholder="Type your message here"></textarea>
+                                <input type="submit" value="Send" id="sendReply">
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-
-            
+        </div>      
     </div>
     <script src="/src/js/admin.js"></script>
 </body>

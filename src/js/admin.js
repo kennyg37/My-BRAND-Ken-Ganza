@@ -258,6 +258,7 @@ const overlay = document.querySelector('.overlay');
 
 function openoverlay() {
   overlay.style.display = 'block';
+  console.log('overlay opened')
   setTimeout(() => {
     overlay.style.opacity = '1';
   }, 50); 
@@ -269,6 +270,20 @@ function closeoverlay() {
     overlay.style.display = 'none';
   }, 300); 
 }
+
+function openSecOverlay() {
+  document.querySelector('.ooverlay').style.display = 'block';
+  document.querySelector('.ooverlay').style.opacity = '1';
+}
+
+function closeSecOverlay() {
+  document.querySelector('.ooverlay').style.opacity = '0';
+  setTimeout(() => {
+    document.querySelector('.ooverlay').style.display = 'none';
+  }, 300); 
+}
+
+
 document.addEventListener('click', function(event) {
   if (event.target === overlay) {
     closeoverlay();
@@ -367,3 +382,22 @@ document.querySelector('.messageUser').addEventListener('click', function() {
     });
 });
 
+
+// retrive subscribed users and messages section
+
+document.getElementById('show-messages').addEventListener('click', function() {
+    document.querySelector('.contacts').style.display = 'flex';
+
+    setTimeout(() => {
+      document.querySelector('.contacts').style.opacity = '1';   
+    }, 300);
+    
+});
+
+document.getElementById('show-subs').addEventListener('click', function() {
+    document.querySelector('.subscribers').style.display = 'block';
+
+    setTimeout(() => {
+      document.querySelector('.subscribers').style.opacity = '1';   
+    }, 300);
+});
