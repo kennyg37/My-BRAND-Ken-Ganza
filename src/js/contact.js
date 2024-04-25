@@ -1,3 +1,21 @@
+const alertBox = document.querySelector('.alertBox');
+const paragraph = document.querySelector('.alertBox p');
+
+
+function closealert() {
+    alertBox.style.opacity = '0';
+    setTimeout(() => {
+        alertBox.style.display = 'none';
+    }, 300);
+}
+function openalert(message) {
+    paragraph.textContent =  message;
+    alertBox.style.display = 'block';
+    setTimeout(() => {
+        alertBox.style.opacity = '1';
+    }, 50);
+}
+
 var sidemenu = document.getElementById("mobile-menu");
 function openmenu(){
     sidemenu.style.right = "0"
@@ -31,14 +49,30 @@ form.addEventListener('submit', (e) => {
         },
         body: JSON.stringify(formData)
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            openalert('An error occured while sending your message');
+            setTimeout(() => {
+                closealert();
+            }, 3000);
+        } else {
+            openalert('Message sent successfully');
+            setTimeout(() => {
+                closealert();
+                form.reset();
+            }, 3000);
+        }
+    })
     .then(data => {
         console.log(data);
-        alert('Message sent successfully');
+        
     })
     .catch(error => {
         console.log(error);
-        alert('An error occured while sending your message');
+        openalert('An error occured while sending your message');
+        setTimeout(() => {
+            closealert();
+        }, 3000);
     })
 })
 
