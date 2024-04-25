@@ -2,7 +2,7 @@
 function checkToken() {
   const token = localStorage.getItem('jwtToken');
   if (!token) {
-      window.location.href = '/404.html'; 
+      window.location.href = '/src/pages/404.html'; 
   }
 }
 
