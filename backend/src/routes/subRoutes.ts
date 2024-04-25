@@ -4,7 +4,7 @@ import Sub from "../models/subscribe";
 
 const router = express.Router();
 
-router.get('data', async (req: Request, res: Response) => {
+router.get('/data', async (req: Request, res: Response) => {
     const info = await Sub.find()
     res.send(info)
 });
