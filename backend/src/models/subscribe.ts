@@ -7,7 +7,7 @@ export interface ISubscribe extends mongoose.Document {
 }
 
 const SubscribeSchema = new mongoose.Schema({
-    email: { type: String, required: true },
+    email: { type: String, required: true, unique: true},
     subscribedAt: { type: Date, default: Date.now },
     subscribed: { type: Boolean, default: false },
 },
@@ -18,6 +18,7 @@ const SubscribeSchema = new mongoose.Schema({
                 email: ret.email,
                 subscribedAt: ret.subscribedAt,
                 subscribed: ret.subscribed,
+                id: ret._id,
             }
         }
    }

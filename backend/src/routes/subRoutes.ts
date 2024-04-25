@@ -10,15 +10,31 @@ router.get('/data', async (req: Request, res: Response) => {
 });
 
 router.post('/add', async (req: Request, res: Response) => {
-    const {email} = req.body;
-    const info = new Sub ({
-        email,
-        subscribedAt: Date.now(),
-        subscribed: true
-    })
-    await info.save();
-    res.json('Subscribed successfully')
-})
+    const { email } = req.body;
+
+    if (!email) {
+        return res.status(400).json({ message: 'Email is required' });
+    }
+
+    try {
+        const existingSubscription = await Sub.findOne({ email });
+
+        if (existingSubscription) {
+            return res.status(409).json({ message: 'Email is already subscribed' });
+        }
+        const info = new Sub({
+            email,
+            subscribedAt: Date.now(),
+            subscribed: true
+        });
+        await info.save();
+        res.json('Subscribed successfully');
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
 
 router.put('/leave', async (req: Request, res: Response) => {
     const { email } = req.body;
@@ -33,6 +49,23 @@ router.put('/leave', async (req: Request, res: Response) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+router.delete('/delete/:email', async (req: Request, res: Response) => {
+    const email = req.params.email;
+    try {
+        const foundObject = await Sub.findOne({ email });
+
+        if (!foundObject) {
+            return res.status(404).json({ message: 'Object not found' });
+        }
+
+        await Sub.findByIdAndDelete(foundObject._id);
+        res.json('Deleted successfully');
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
 
 // swagger to get all subscribers
 /**
