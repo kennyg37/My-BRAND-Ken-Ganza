@@ -221,6 +221,8 @@ const verifyBlog = () => {
 
 };
 
+const storedBlogInfo = [];
+
 const sendBlog = () => {
 
     const title = blogTitle.value;
@@ -250,7 +252,46 @@ const sendBlog = () => {
           return response.json();
       }
   })
-    .then(data => console.log(data))
+    .then(data => {
+      let blogPosts = JSON.parse(localStorage.getItem('blogPosts')) || [];
+      blogPosts.push({
+        title: title,
+        timestamp: new Date().toLocaleString(),
+    });
+    localStorage.setItem('blogPosts', JSON.stringify(blogPosts));
+    
+    const notificationContainer = document.querySelector('.activity');
+    notificationContainer.innerHTML = '';
+    if (blogPosts.length === 0) {
+      notificationContainer.innerHTML = '<p>No recent activity </p>';
+    } else {
+      blogPosts.forEach(blog => {
+        const notification = document.createElement('div');
+        notification.classList.add('activity-card');
+
+        const activityDetails = document.createElement('div');
+        activityDetails.classList.add('activity-details');
+
+        const activityTitle = document.createElement('p');
+        activityTitle.textContent = blog.title;
+
+        const activityTimestamp = document.createElement('p');
+        activityTimestamp.textContent = blog.timestamp;
+
+        const manipulate = document.createElement('div');
+        manipulate.classList.add('manipulate');
+        manipulate.innerHTML = `<button id="home-edit-button" onclick="editBlogHome()">Edit</button>
+        <i class="fa-solid fa-trash" onclick="deleteBlogHome()"></i>`
+
+        activityDetails.appendChild(activityTitle);
+        activityDetails.appendChild(activityTimestamp);
+        notification.appendChild(activityDetails);
+        notification.appendChild(manipulate);
+        notificationContainer.appendChild(notification);
+        
+      });
+    }
+  })
     .catch(error => console.log(error));
 };
 
@@ -317,37 +358,42 @@ document.getElementById('show-users').addEventListener('click', function() {
       const users = data;
       const usersList = document.querySelector('.user-card');
       usersList.innerHTML = '';
-      users.forEach(user => {
-        const userCard = document.createElement('div');
-        userCard.classList.add('user-card');
-        
-        const userDetails = document.createElement('div');
-        userDetails.classList.add('user-details');
-
-        const userName = document.createElement('p');
-        userName.textContent = user.username;
-
-        const userEmail = document.createElement('p');
-        userEmail.textContent = user.email;
-
-        const accountType = document.createElement('p');
-        accountType.textContent = user.account;
-
-        const profileIcon = document.createElement('i');
-        profileIcon.classList.add('fa-solid', 'fa-user');
-
-        const threeDots = document.createElement('i');
-        threeDots.classList.add('fa-solid', 'fa-ellipsis-vertical');
-        threeDots.setAttribute('onclick', 'openoverlay()');
-
-        userDetails.appendChild(userName);
-        userDetails.appendChild(userEmail);
-        userDetails.appendChild(accountType);
-
-        usersList.appendChild(profileIcon);
-        usersList.appendChild(userDetails);
-        usersList.appendChild(threeDots);
-      });
+      if (users.length === 0) {
+        usersList.innerHTML = '<p>No users found</p>';
+      } else {
+        users.forEach(user => {
+          const userCard = document.createElement('div');
+          userCard.classList.add('user-card');
+          
+          const userDetails = document.createElement('div');
+          userDetails.classList.add('user-details');
+  
+          const userName = document.createElement('p');
+          userName.textContent = user.username;
+  
+          const userEmail = document.createElement('p');
+          userEmail.textContent = user.email;
+  
+          const accountType = document.createElement('p');
+          accountType.textContent = user.account;
+  
+          const profileIcon = document.createElement('i');
+          profileIcon.classList.add('fa-solid', 'fa-user');
+  
+          const threeDots = document.createElement('i');
+          threeDots.classList.add('fa-solid', 'fa-ellipsis-vertical');
+          threeDots.setAttribute('onclick', 'openoverlay()');
+  
+          userDetails.appendChild(userName);
+          userDetails.appendChild(userEmail);
+          userDetails.appendChild(accountType);
+  
+          usersList.appendChild(profileIcon);
+          usersList.appendChild(userDetails);
+          usersList.appendChild(threeDots);
+        });
+      }
+      
     })
   
   }
@@ -455,7 +501,69 @@ document.getElementById('show-messages').addEventListener('click', function() {
     document.querySelector('.contacts').style.display = 'flex';
     setTimeout(() => {
       document.querySelector('.contacts').style.opacity = '1';   
-    }, 300);   
+    }, 300);
+    
+    try {
+      fetch('https://my-brand-ken-ganza-1.onrender.com/v1/contact/data', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+      } 
+    })
+    .then(response => {
+      if (!response.ok) {
+          throw new Error('Messages fetch failed');
+      } else {
+          return response.json();
+      }
+    })
+    .then(data => {
+      console.log(data);
+      const messages = data;
+      const messagesContainer = document.querySelector('.contacts')
+      messagesContainer.innerHTML = '';
+      if (messages.length === 0){
+        messagesContainer.innerHTML = '<p>No messages yet</p>';
+      } else {
+        messages.forEach(message => {
+          const messageCard = document.createElement('div')
+          messageCard.classList.add('contact-card')
+
+          const messageDetails = document.createElement('div')
+          messageDetails.classList.add('contact-details')
+
+          const messageSender = document.createElement('p')
+          messageSender.textContent = message.name
+
+          const messageEmail = document.createElement('p')
+          messageEmail.textContent = message.email
+
+          const messageContent = document.createElement('p')
+          messageContent.textContent = message.message
+
+          const messageIcon = document.createElement('i')
+          messageIcon.classList.add('fa-solid', 'fa-message')
+
+          const threeDotsIcon = document.createElement('i')
+          threeDotsIcon.classList.add('fa-solid', 'fa-ellipsis-vertical')
+          threeDotsIcon.setAttribute('onclick', 'openSecOverlay()')
+
+
+          messagesContainer.appendChild(messageCard)
+          messageCard.appendChild(messageIcon)
+          messageDetails.appendChild(messageSender)
+          messageDetails.appendChild(messageEmail)
+          messageDetails.appendChild(messageContent)
+          messageCard.appendChild(messageDetails)
+          messageCard.appendChild(threeDotsIcon)
+        })
+      }
+    })
+  }
+    catch(error) {
+      console.log(error);
+    }
 });
 
 document.getElementById('show-subs').addEventListener('click', function() {
@@ -464,4 +572,57 @@ document.getElementById('show-subs').addEventListener('click', function() {
     setTimeout(() => {
       document.querySelector('.subscribers').style.opacity = '1';   
     }, 300);
+    try {
+      const tableBody = document.getElementById('table-body');
+      const token = localStorage.getItem('token');
+      fetch('https://my-brand-ken-ganza-1.onrender.com/v1/subscribe/data', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+        throw new Error('Subscribers fetch failed');
+    } else {
+        return response.json();
+    }
+  })
+  .then(data => {
+    data.forEach(item => {
+      const subscribedAt = new Date(item.subscribedAt);
+      const now = new Date();
+
+      let timeAgo;
+      const diffMs = now - subscribedAt;
+
+      if (diffMs < 60000) {
+        timeAgo = 'just now';
+      } else if (diffMs < 3600000) { 
+        const minutes = Math.floor(diffMs / 60000);
+        timeAgo = `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+      } else if (diffMs < 86400000) { 
+        const hours = Math.floor(diffMs / 3600000);
+        timeAgo = `${hours} hour${hours > 1 ? 's' : ''} ago`;
+      } else { // More than a day
+        const days = Math.floor(diffMs / 86400000);
+        timeAgo = `${days} day${days > 1 ? 's' : ''} ago`;
+      }
+
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${item.email}</td>
+        <td>Subscribed ${timeAgo}</td>
+        <td>${item.subscribed ? 'Yes' : 'No'}</td>
+      `;
+      tableBody.appendChild(row);
+    });
+  })
+
+  }
+  catch(error) {
+    console.log(error);
+  }
 });
+

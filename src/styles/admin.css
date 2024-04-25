@@ -261,6 +261,13 @@ nav ul li::after {
     gap: 20px;
     transition: transform 0.3s;
 }
+.activity-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-basis: 50%;
+
+}
 .activity-card:hover{
     transform: scale(1.05);
 }
@@ -1122,4 +1129,12 @@ nav ul li::after {
 
 .sub-list tr:nth-child(even) {
     background-color: #f2f2f2;
+}
+
+.fa-trash {
+    color: red;
+    cursor: pointer;
+}
+.fa-trash:hover {
+    color: darkred;
 }

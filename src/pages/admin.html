@@ -72,46 +72,7 @@
                     <div class="home-content">
                         <div class="recent">
                             <h2>Recent Activities</h2>
-                            <div class="activity">
-                                <div class="activity-card">
-                                    <div class="activity-details">
-                                        <p>Blog 1</p>
-                                        <p>Status: Published</p>
-                                    </div>
-                                    <div class="activity-time">
-                                        <p>2 hours ago</p>
-                                    </div>
-                                    <div class="manipulate">
-                                        <button id="home-edit-button" onclick="editBlogHome()">Edit</button>
-                                        <i class="fa-solid fa-trash" onclick="deleteBlogHome()"></i>
-                                    </div>
-                                </div>
-                                <div class="activity-card">
-                                    <div class="activity-details">
-                                        <p>Blog 2</p>
-                                        <p>Published</p>
-                                    </div>
-                                    <div class="activity-time">
-                                        <p>2 hours ago</p>
-                                    </div>
-                                    <div class="manipulate">
-                                        <button id="home-edit-button">Edit</button>
-                                        <i class="fa-solid fa-trash"></i>
-                                    </div>
-                                </div>
-                                <div class="activity-card">
-                                    <div class="activity-details">
-                                        <p>Blog 3</p>
-                                        <p>Published</p>
-                                    </div>
-                                    <div class="activity-time">
-                                        <p>2 hours ago</p>
-                                    </div>
-                                    <div class="manipulate">
-                                        <button id="home-edit-button">Edit</button>
-                                        <i class="fa-solid fa-trash"></i>
-                                    </div>
-                                </div>
+                            <div class="activity">                                
                             </div>
                         </div>
                         <div class="summary">
@@ -617,11 +578,14 @@
                     <div class="subscribers">
                         <h1>Subscribers</h1>
                         <div class="sub-list">
-                            <table>
-                                <tr>
-                                    <th>Email</th>
-                                    <th>Subscription date</th>
-                                </tr>
+                            <table id="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Subscription date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body"></tbody>
                             </table>
                         </div>
                     </div>
