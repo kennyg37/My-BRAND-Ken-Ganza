@@ -1,3 +1,30 @@
+// alertbox
+const alertBox = document.querySelector('.alertBox');
+const paragraph = document.querySelector('.alertBox p');
+
+function closealert() {
+  alertBox.style.opacity = '0';
+  setTimeout(() => {
+      alertBox.style.display = 'none';
+  }, 300);
+}
+function openalert(message) {
+  paragraph.textContent =  message;
+  alertBox.style.display = 'block';
+  setTimeout(() => {
+      alertBox.style.opacity = '1';
+  }, 50);
+}
+
+// preloader 
+function showPreloader() {
+  document.getElementById('preloader').style.display = 'flex';
+}
+function hidePreloader() {
+  document.getElementById('preloader').style.display = 'none';
+}
+
+
 var tabmenu = document.getElementsByClassName('tab-menu');
 var tabcontent = document.getElementsByClassName('admin-main');
 
@@ -203,7 +230,6 @@ const verifyBlog = () => {
     const title = blogTitle.value;
     const subtitle = blogSubtitle.value;
     const content = blogContent.value;
-    const image = blogImage.files[0];
       if (title === '') {
         blogError.textContent = '*Title is required';
         return;
@@ -238,6 +264,7 @@ const sendBlog = () => {
     formData.append('content', content);
     formData.append('image', image);
 
+    
     fetch('https://my-brand-ken-ganza-1.onrender.com/v1/blog/create', {
         method: 'POST',
         headers: {
@@ -288,12 +315,14 @@ const sendBlog = () => {
         notification.appendChild(activityDetails);
         notification.appendChild(manipulate);
         notificationContainer.appendChild(notification);
-        
+
       });
     }
   })
     .catch(error => console.log(error));
 };
+
+//  users overlay
 
 const overlay = document.querySelector('.overlay');
 
@@ -312,6 +341,7 @@ function closeoverlay() {
   }, 300); 
 }
 
+//  messages overlay
 function openSecOverlay() {
   document.querySelector('.ooverlay').style.display = 'block';
   document.querySelector('.ooverlay').style.opacity = '1';
@@ -330,6 +360,9 @@ document.addEventListener('click', function(event) {
     closeoverlay();
   }
 });
+
+
+//  Retreive users
 
 document.getElementById('show-users').addEventListener('click', function() {
   document.querySelector('.users').style.display = 'flex';
@@ -356,7 +389,7 @@ document.getElementById('show-users').addEventListener('click', function() {
     .then(data => {
       console.log(data);
       const users = data;
-      const usersList = document.querySelector('.user-card');
+      const usersList = document.querySelector('.users');
       usersList.innerHTML = '';
       if (users.length === 0) {
         usersList.innerHTML = '<p>No users found</p>';
@@ -387,10 +420,10 @@ document.getElementById('show-users').addEventListener('click', function() {
           userDetails.appendChild(userName);
           userDetails.appendChild(userEmail);
           userDetails.appendChild(accountType);
-  
-          usersList.appendChild(profileIcon);
-          usersList.appendChild(userDetails);
-          usersList.appendChild(threeDots);
+          userCard.appendChild(profileIcon);
+          userCard.appendChild(userDetails);
+          userCard.appendChild(threeDots);
+          usersList.appendChild(userCard);
         });
       }
       
@@ -402,6 +435,7 @@ document.getElementById('show-users').addEventListener('click', function() {
   }
 })
 
+//  Delete user
 document.querySelector('.userdelete').addEventListener('click', function() {
     document.querySelector('.delete-user-confirmation').style.display = 'block';
     document.getElementById('no').addEventListener('click', function() {
@@ -432,6 +466,8 @@ document.querySelector('.userdelete').addEventListener('click', function() {
     });
 
 });
+
+//  Report user
 
 document.querySelector('.reportUser').addEventListener('click', function() {
     document.querySelector('.report-user-confirmation').style.display = 'block';
@@ -464,6 +500,8 @@ document.querySelector('.reportUser').addEventListener('click', function() {
         }
     });
 });
+
+//  Message user
 
 document.querySelector('.messageUser').addEventListener('click', function() {
     document.querySelector('.message-user-confirmation').style.display = 'block';
@@ -499,11 +537,13 @@ document.querySelector('.messageUser').addEventListener('click', function() {
 
 document.getElementById('show-messages').addEventListener('click', function() {
     document.querySelector('.contacts').style.display = 'flex';
+    document.querySelector('.subscribers').style.display = 'none';
     setTimeout(() => {
       document.querySelector('.contacts').style.opacity = '1';   
     }, 300);
     
     try {
+      const token = localStorage.getItem('token');
       fetch('https://my-brand-ken-ganza-1.onrender.com/v1/contact/data', {
         method: 'GET',
         headers: {
@@ -566,9 +606,11 @@ document.getElementById('show-messages').addEventListener('click', function() {
     }
 });
 
+// Retreive subscribers
+
 document.getElementById('show-subs').addEventListener('click', function() {
     document.querySelector('.subscribers').style.display = 'block';
-
+    document.querySelector('.contacts').style.display = 'none';
     setTimeout(() => {
       document.querySelector('.subscribers').style.opacity = '1';   
     }, 300);
@@ -625,4 +667,57 @@ document.getElementById('show-subs').addEventListener('click', function() {
     console.log(error);
   }
 });
+
+// alertbox
+
+function closealert() {
+  alertBox.style.opacity = '0';
+  setTimeout(() => {
+      alertBox.style.display = 'none';
+  }, 300);
+}
+function openalert(message) {
+  paragraph.textContent =  message;
+  alertBox.style.display = 'block';
+  setTimeout(() => {
+      alertBox.style.opacity = '1';
+  }, 50);
+}
+
+// latest blog show
+try {
+  const token = localStorage.getItem('token');
+  fetch('https://my-brand-ken-ganza-1.onrender.com/v1/blog/data', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+  .then(response => response.json())
+  .then(data => {
+
+      const latestBlog = data[data.length - 1];
+      const blogTitle = document.getElementById('blog-title');
+      const blogSubtitle = document.getElementById('blog-subheader');
+      const blogContent = document.getElementById('blog-content');
+      const blogImage = document.getElementById('blog-image');
+      
+      if (data.length === 0) {
+        blogTitle.textContent = 'No blog posted yet';
+      } else {
+        blogTitle.textContent = latestBlog.title;
+      blogSubtitle.textContent = latestBlog.subtitle;
+      blogContent.textContent = latestBlog.content;
+
+      const imagedata = latestBlog.image;
+      blogImage.src = imagedata;
+
+      }
+
+  })
+} catch (error) {
+    console.error('An error occurred while fetching blog data:', error);
+    throw error;
+}
 

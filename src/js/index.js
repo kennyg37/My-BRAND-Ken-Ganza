@@ -24,6 +24,32 @@ function closemenu() {
     sidemenu.style.right = "-190px"
 }
 
+// alertBox
+const alertBox = document.querySelector('.alertBox');
+const paragraph = document.querySelector('.alertBox p');
+
+function closealert() {
+    alertBox.style.opacity = '0';
+    setTimeout(() => {
+        alertBox.style.display = 'none';
+    }, 300);
+}
+function openalert(message) {
+    paragraph.textContent =  message;
+    alertBox.style.display = 'block';
+    setTimeout(() => {
+        alertBox.style.opacity = '1';
+    }, 50);
+}
+
+// preloader 
+function showPreloader() {
+    document.getElementById('preloader').style.display = 'flex';
+}
+function hidePreloader() {
+    document.getElementById('preloader').style.display = 'none';
+}
+
 
 
 const openOverlayBtn = document.getElementById('openOverlay');
@@ -65,9 +91,8 @@ const submitButton = document.getElementById('submit-btn');
 
 signupForm.addEventListener('submit', e => {
     e.preventDefault();
-    submitButton.classList.add('loading');
     validateInputs();
-    
+
 });
 
 function sendForm(){
@@ -99,7 +124,7 @@ function sendForm(){
     } else {
         console.log('No account type specified')
     }
-
+    showPreloader();
     fetch('https://my-brand-ken-ganza-1.onrender.com/v1/auth/signup', {
         method: 'POST',
         headers: {
@@ -107,14 +132,21 @@ function sendForm(){
         },
         body: JSON.stringify(requestBody)
     })
-    .then(response => response.json())
-    .then(json => {
-        if (json['message'] === 'User created successfully'){
-            console.log('success')
+    .then(response => {
+        if (!response.ok){
+            openalert('Account creation failed');
+            setTimeout(() => {
+                closealert();
+            }, 3000);
         } else {
-            console.log('unsuccessful')
+            console.log('success')
+            hidePreloader();
+            openalert('Account created successfully');
+            setTimeout(() => {
+                closealert();
+                signupForm .reset();
+            }, 3000);
         }
-
     })
     .catch(error => {
         console.error('error:', error);
@@ -220,6 +252,7 @@ function sendLogin(){
             username: vusername,
             password: vpassowrd
         }
+        showPreloader();
         fetch('https://my-brand-ken-ganza-1.onrender.com/v1/auth/admin/login', {
         method: 'POST',
         headers: {
@@ -238,7 +271,10 @@ function sendLogin(){
         if (json.token){
             console.log('admin login success')
             localStorage.setItem('token', json.token);
-            window.location.href ='./src/pages/admin.html';
+            setTimeout(() => {
+                hidePreloader();
+                window.location.href = './src/pages/admin.html';
+            }, 5000);
         } else {
             console.log('unsuccessful')
         }
@@ -273,7 +309,12 @@ function sendLogin(){
         if (json.token){
             console.log('success')
             localStorage.setItem('guest_token', json.token);
-            window.location.href ='./src/pages/blog.html';
+            
+            showPreloader();
+            setTimeout(() => {
+                hidePreloader();
+                window.location.href = './src/pages/blog.html';
+            }, 5000);
         } else {
             console.log('unsuccessful')
         }
@@ -310,8 +351,10 @@ const validateLoginInputs = () => {
     }
 
     if (isValid) {
+        showPreloader();
         sendLogin();
     }
 
     return isValid;
 };
+

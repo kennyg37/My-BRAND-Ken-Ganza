@@ -24,11 +24,10 @@ form.addEventListener('submit', (e) => {
         email: email,
         message: message
     }
-    fetch('https://my-brand-ken-ganza-1.onrender.com/v1/contact', {
+    fetch('https://my-brand-ken-ganza-1.onrender.com/v1/contact/create', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(formData)
     })
