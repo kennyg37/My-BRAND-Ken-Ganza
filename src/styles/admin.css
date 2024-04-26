@@ -212,6 +212,16 @@ nav ul li::after {
 .profile i{
     padding-top: 5px;
 }
+.AdminUserProfile h2{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0;
+    margin: 0;
+    margin-left: -50px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+
+}
 .notification {
     padding: 5px;
     background: rgba(249, 250, 251,0.4);
@@ -1193,3 +1203,130 @@ nav ul li::after {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+.expand {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .admin-sidebar {
+        z-index: 99999;
+        left: -100%;
+        transition: 0.5s ease;
+        height: 100%;
+        position: fixed;
+    }
+    .admin-content {
+        padding-left: 20px;
+    }
+    .home-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .search-bar {
+        margin-left: 0;
+    }
+    .nav-icons {
+        display: none;
+    }
+    .home-content {
+        padding: 20px;
+    }
+    .summary-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .summary-data {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .summary-card {
+        padding: 20px;
+    }
+    .new-blog {
+        padding: 20px;
+    }
+    .profile-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .blog-buttons {
+        display: flex;
+        gap: 20px;
+        padding-left: 0;
+    }
+    .old{
+        display: none;
+    }
+    .new {
+        display: none;
+    }
+    .blog-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .blog-buttons button{
+        padding: 10px;
+        border: none;
+        border-radius: 20px;
+        background: #0B132B;
+        color: white;
+        cursor: pointer;
+        width: 150px;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+    .expand {
+        padding-top: 20px;
+        display: block;
+    }
+   
+}
+
+.admin-blog-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.admin-no-blog {
+    font-style: italic;
+    color: #777;
+}
+
+.admin-blog-post {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.admin-blog-image {
+    width: 25%;
+    height: 25%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.admin-blog-title {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.admin-blog-subtitle {
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.admin-blog-content {
+    margin-bottom: 10px;
+}
+
+

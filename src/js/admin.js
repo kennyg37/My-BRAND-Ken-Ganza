@@ -1,6 +1,6 @@
 // Function to check if JWT token exists in local storage
 function checkToken() {
-  const token = localStorage.getItem('jwtToken');
+  const token = localStorage.getItem('token');
   if (!token) {
       window.location.href = '/src/pages/404.html'; 
   }
@@ -12,8 +12,23 @@ window.onload = function() {
 
     
 function logout() {
-  localStorage.removeItem('jwtToken');
-  window.location.href = '../index.html';
+  localStorage.removeItem('token');
+  showPreloader();
+  setTimeout(() => {
+    hidePreloader();
+    window.location.href = '/index.html';
+  }, 3000);
+}
+
+// responsive navbar
+function mobileMenu() {
+  console.log('mobile menu clicked');
+  document.querySelector('.admin-sidebar').style.left = '0';
+  window.addEventListener('click', function(event) {
+      if (event.target !== document.querySelector('.expand')) {
+          document.querySelector('.admin-sidebar').style.left = '-100%';
+      }
+  });
 }
 
 
@@ -162,15 +177,22 @@ changeProfile.addEventListener('click', function() {
 
 const addBlog = document.getElementById('add-blog');
 const newBlog = document.querySelector('.new');
-const oldBlog = document.querySelector('.old');
-const oldButton = document.getElementById('old-blogs'); 
+const allButton = document.getElementById('all-blogs');
+const allBlogs = document.querySelector('.all'); 
 
 addBlog.addEventListener('click', function() {
     newBlog.style.display = 'block';
-    oldBlog.style.display = 'none';
+    allBlogs.style.display = 'none';
     addBlog.style.display = 'none';
-    oldButton.style.display = 'none';
 });
+allButton.addEventListener('click', function() {
+    newBlog.style.display = 'none';
+    allBlogs.style.display = 'block';
+    addBlog.style.display = 'block';
+    retrieveAllBlogs();
+})
+
+
 
 document.getElementById('change-password-form').addEventListener('submit', function(event) {
     const newPasswordSettings = document.getElementById('new-password').value;
@@ -231,12 +253,12 @@ publishButton.addEventListener('click', function() {
 
 // Blog upload
 
-var blogForm = document.getElementById('blog-form');
-var blogTitle = document.getElementById('blog-title');
-var blogSubtitle = document.getElementById('blog-subtitle');
-var blogContent = document.getElementById('blog-content');
-var blogImage = document.getElementById('blog-image');
-var blogError = document.querySelector('.blog-error');
+const blogForm = document.getElementById('blog-form');
+const blogTitle = document.getElementById('blogTitle');
+const blogSubtitle = document.getElementById('blogSubtitle');
+const blogContent = document.getElementById('blogContent');
+const uploadedImage = document.getElementById('uploadedImage');
+const blogError = document.querySelector('.blog-error');
 
 
 blogForm.addEventListener('submit', function(event) {
@@ -249,6 +271,7 @@ const verifyBlog = () => {
     const title = blogTitle.value;
     const subtitle = blogSubtitle.value;
     const content = blogContent.value;
+    const image = uploadedImage.files[0];
       if (title === '') {
         blogError.textContent = '*Title is required';
         return;
@@ -258,8 +281,10 @@ const verifyBlog = () => {
       } else if (content === '') {
           blogError.textContent = '*Content is required';
           return;
-      } else {
-          alert('Blog uploaded successfully');
+      }else if (image === undefined) {
+          blogError.textContent = '*Image is required';
+          return;
+      } else {         
           sendBlog();
           blogForm.reset();
     }
@@ -273,7 +298,7 @@ const sendBlog = () => {
     const title = blogTitle.value;
     const subtitle = blogSubtitle.value;
     const content = blogContent.value;
-    const image = blogImage.files[0];
+    const image = uploadedImage.files[0];
 
     const token = localStorage.getItem('token');
     const formData = new FormData();
@@ -283,7 +308,7 @@ const sendBlog = () => {
     formData.append('content', content);
     formData.append('image', image);
 
-    
+    showPreloader();
     fetch('https://my-brand-ken-ganza-1.onrender.com/v1/blog/create', {
         method: 'POST',
         headers: {
@@ -293,9 +318,25 @@ const sendBlog = () => {
     })
     .then(response =>{
       if (!response.ok) {
-          throw new Error('Blog upload failed');
-      } else {
-          return response.json();
+          hidePreloader();
+          openalert('An error occured while uploading blog');
+          setTimeout(() => {
+              closealert();
+          }, 3000);
+      } else if (response.status === 401) {
+          hidePreloader();
+          openalert('session timeout redirecting to login page');
+          setTimeout(() => {
+              closealert();
+              window.location.href = '/index.html';
+          }, 3000);
+        
+    } else {
+          hidePreloader();
+          openalert('Blog uploaded successfully');
+          setTimeout(() => {
+              closealert();
+          }, 3000);
       }
   })
     .then(data => {
@@ -338,7 +379,9 @@ const sendBlog = () => {
       });
     }
   })
-    .catch(error => console.log(error));
+    .catch(error => {
+      openalert('An error occured while uploading blog');
+    });
 };
 
 //  users overlay
@@ -704,39 +747,123 @@ function openalert(message) {
 }
 
 // latest blog show
-try {
-  const token = localStorage.getItem('token');
-  fetch('https://my-brand-ken-ganza-1.onrender.com/v1/blog/data', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
-    })
-  .then(response => response.json())
-  .then(data => {
+// try {
+//   const token = localStorage.getItem('token');
+//   fetch('https://my-brand-ken-ganza-1.onrender.com/v1/blog/data', {
+//         method: 'GET',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${token}`
+//         }
+//     })
+//   .then(response => response.json())
+//   .then(data => {
 
-      const latestBlog = data[data.length - 1];
-      const blogTitle = document.getElementById('blog-title');
-      const blogSubtitle = document.getElementById('blog-subheader');
-      const blogContent = document.getElementById('blog-content');
-      const blogImage = document.getElementById('blog-image');
+//       const latestBlog = data[data.length - 1];
+//       const blogTitle = document.getElementById('blog-title');
+//       const blogSubtitle = document.getElementById('blog-subheader');
+//       const blogContent = document.getElementById('blog-content');
+//       const blogImage = document.getElementById('blog-image');
       
-      if (data.length === 0) {
-        blogTitle.textContent = 'No blog posted yet';
-      } else {
-        blogTitle.textContent = latestBlog.title;
-      blogSubtitle.textContent = latestBlog.subtitle;
-      blogContent.textContent = latestBlog.content;
+//       if (data.length === 0) {
+//         blogTitle.textContent = 'No blog posted yet';
+//       } else {
+//         blogTitle.textContent = latestBlog.title;
+//       blogSubtitle.textContent = latestBlog.subtitle;
+//       blogContent.textContent = latestBlog.content;
 
-      const imagedata = latestBlog.image;
-      blogImage.src = imagedata;
+//       const imagedata = latestBlog.image;
+//       blogImage.src = imagedata;
 
-      }
+//       }
 
-  })
-} catch (error) {
-    console.error('An error occurred while fetching blog data:', error);
-    throw error;
+//   })
+// } catch (error) {
+//     console.error('An error occurred while fetching blog data:', error);
+//     throw error;
+// }
+
+
+// Assuming 'data' is the array of blogs received from the server
+
+
+function retrieveAllBlogs(){
+  
+  try {
+    const token = localStorage.getItem('token');
+    fetch('https://my-brand-ken-ganza-1.onrender.com/v1/blog/data', {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+        }
+      })
+      .then(response => response.json())
+      .then(posts => {
+        const blogs = posts;
+        console.log(blogs);
+        const blogContainer = document.querySelector('.all-blogs-container');
+        blogContainer.innerHTML = '';
+        if (blogs.length === 0) {
+          const noBlog = document.createElement('p');
+          noBlog.textContent = 'No blogs available';
+          noBlog.classList.add('admin-no-blog');
+          blogContainer.appendChild(noBlog);
+        } else {
+          blogs.reverse().forEach(blog => {
+              const blogDiv = document.createElement('div');
+              blogDiv.classList.add('admin-blog-post');
+              blogContainer.appendChild(blogDiv);
+
+              const blogImage = document.createElement('img');
+              blogImage.src = blog.image;
+              blogImage.alt = blog.title;
+              blogImage.classList.add('admin-blog-image');
+              blogDiv.appendChild(blogImage);
+
+              const blogTitle = document.createElement('h2');
+              blogTitle.textContent = blog.title;
+              blogTitle.classList.add('admin-blog-title');
+              blogDiv.appendChild(blogTitle);
+
+              const blogSubtitle = document.createElement('p');
+              blogSubtitle.textContent = blog.subtitle;
+              blogSubtitle.classList.add('admin-blog-subtitle');
+              blogDiv.appendChild(blogSubtitle);
+
+              const blogContent = document.createElement('p');
+              blogContent.textContent = blog.content;
+              blogContent.classList.add('admin-blog-content');
+              blogDiv.appendChild(blogContent);
+
+          });
+  }
+
+      })
+  }
+  catch(error) {
+    openalert('An error occured while fetching blog data');
+    setTimeout(() => {
+        closealert();
+    }, 3000);
+  }
 }
 
+{
+  const profile = document.querySelector('.AdminUserProfile');
+  const adminUserName = localStorage.getItem('username');
+  const adminAccount = localStorage.getItem('account');
+  
+  profile.innerHTML = `
+  <h2>${adminUserName}</h2>
+  <p>${adminAccount}</p>
+  `;
+  
+     
+  const userSection = document.querySelector('.user-id');
+      userSection.innerHTML = `
+          <h2>${adminUserName}</h2>
+          <p>${adminAccount}</p>
+      `;
+  }
+  

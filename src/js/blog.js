@@ -1,21 +1,4 @@
-document.getElementById('scroll-left').addEventListener('click', function() {
-    document.querySelector('.other-news-container').scroll({
-        left: document.querySelector('.other-news-container').scrollLeft - 100,
-        behavior: 'smooth'
-      });
-  });
-
-  function showev(){
-    console.log('showing event')
-  }
-  
-  document.getElementById('scroll-right').addEventListener('click', function() {
-    document.querySelector('.other-news-container').scroll({
-        left: document.querySelector('.other-news-container').scrollLeft + 100,
-        behavior: 'smooth'
-      });
-  });
-  var sidemenu = document.getElementById("mobile-menu");
+ var sidemenu = document.getElementById("mobile-menu");
 function openmenu(){
     sidemenu.style.right = "0"
 }
@@ -87,78 +70,88 @@ function openalert(message) {
           })
         .then(response => response.json())
         .then(data => {
-            const latestBlog = data[data.length - 1];
-            const blogTitle = document.getElementById('blog-title');
-            const blogSubtitle = document.getElementById('blog-subheader');
-            const blogContent = document.getElementById('blog-content');
-            const blogImage = document.getElementById('blog-image');
-            const likes = document.querySelector('.lcount');
-            const comments = document.querySelector('.ccount');
-            const commentsContainer = document.querySelector('.comments');
-            
+        const blogContainer = document.getElementById('blog-receiver');
+        blogContainer.innerHTML = ''; 
 
-            blogTitle.textContent = latestBlog.title;
-            blogSubtitle.textContent = latestBlog.subtitle;
-            blogContent.textContent = latestBlog.content;
-            localStorage.setItem('likes', latestBlog.likes)
-            const likeCount = localStorage.getItem('likes');
-            likes.textContent = likeCount;
-            
+        if (data.length === 0) {
+            blogContainer.innerHTML = `<div class="noblog">
+            <h1>No blogs available yet<br></h1>
+            <p><a href="">Login or signup</a> to gain access</p>
+        </div>`
+        } else {
+            data.reverse().forEach(blog => { 
+                const blogDiv = document.createElement('div');
+                blogDiv.classList.add('news');
+                blogContainer.appendChild(blogDiv);
 
-            localStorage.setItem('comments', latestBlog.commentsCount);
-            console.log(localStorage.getItem('comments'));
-            const commentCount = localStorage.getItem('comments');
-            comments.textContent = commentCount;
+                const blogImage = document.createElement('img');
+                blogImage.src = blog.image;
+                blogImage.alt = blog.title;
+                blogImage.classList.add('blog-image');
+                blogDiv.appendChild(blogImage);
 
-            const blogID = latestBlog.id;
+                const newsContainer = document.createElement('div');
+                newsContainer.classList.add('main-news');
+                blogDiv.appendChild(newsContainer);
 
-            const imagedata = latestBlog.image;
-            blogImage.src = imagedata;
 
-            localStorage.setItem('blogId', blogID);
-
-            commentsContainer.innerHTML = '';
-
-            if (latestBlog.comments.length === 0) {
-                const commentDiv = document.createElement('div');
-                commentDiv.classList.add('comment');
-
-                const commentText = document.createElement('p');
-                commentText.classList.add('commentparagraph');
-                commentText.textContent = 'No comments yet';
-
-                commentDiv.appendChild(commentText);
-                commentsContainer.appendChild(commentDiv);
-
-            } else {
-                latestBlog.comments.forEach(comment => {
-                    const commentDiv = document.createElement('div');
-                    commentDiv.classList.add('comment');
+                const newsDetails = document.createElement('div');
+                newsDetails.classList.add('headline');
+                newsContainer.appendChild(newsDetails);
     
-                    const commenterName = document.createElement('h2');
-                    commenterName.classList.add('cname');
-                    const username = localStorage.getItem('username')
-                    commenterName.textContent = username;
+                const blogTitle = document.createElement('h1');
+                blogTitle.textContent = blog.title;
+                newsDetails.appendChild(blogTitle);
     
-                    const commentText = document.createElement('p');
-                    commentText.classList.add('commentparagraph');
-                    commentText.textContent = comment; 
+                const blogSubtitle = document.createElement('span');
+                blogSubtitle.textContent = blog.subtitle;
+                newsDetails.appendChild(blogSubtitle);
     
-                    commentDiv.appendChild(commenterName);
-                    commentDiv.appendChild(commentText);
-                    commentsContainer.appendChild(commentDiv);
-                    console.log(comment);
-                });
-            }            
-        })   
-      } catch (error) {
-          console.error('An error occurred while fetching blog data:', error);
-          throw error;
-      }
+                const blogContent = document.createElement('p');
+                blogContent.textContent = blog.content;
+                newsDetails.appendChild(blogContent);
+    
+
+                const blogIcons = document.createElement('div');
+                blogIcons.classList.add('icons');
+                newsContainer.appendChild(blogIcons);
+
+                const likeIconContainer = document.createElement('div');
+                likeIconContainer.classList.add('likeIcon', 'icon');
+                blogIcons.appendChild(likeIconContainer);
+                
+                const likeIcon = document.createElement('i');
+                likeIcon.classList.add('fa-solid', 'fa-heart');
+                likeIcon.setAttribute('onclick',  `toggleLike('${blog.id}')`);
+                likeIconContainer.appendChild(likeIcon);
+    
+                const commentIconContainer = document.createElement('div');
+                commentIconContainer.classList.add('commentIcon', 'icon');
+                blogIcons.appendChild(commentIconContainer);
+
+                const commentIcon = document.createElement('i');
+                commentIcon.classList.add('fa-solid', 'fa-comment');
+                commentIcon.setAttribute('onclick', `openoverlay('${blog.id}')`);
+                commentIconContainer.appendChild(commentIcon);
+
+                const shareIconContainer = document.createElement('div');
+                shareIconContainer.classList.add('shareIcon', 'icon');
+                blogIcons.appendChild(shareIconContainer);
+
+                const shareIcon = document.createElement('i');
+                shareIcon.classList.add('fas', 'fa-share');
+                shareIconContainer.appendChild(shareIcon);
+            });
+        }
+        
+    })
+} catch (error) {
+
+}
+
 
 function addLike(){
     const usertoken = localStorage.getItem('guest_token');
-    const id = localStorage.getItem('blogId');
     fetch(`https://my-brand-ken-ganza-1.onrender.com/v1/blog/like/${id}`, {
             method: 'PUT',
             headers: {

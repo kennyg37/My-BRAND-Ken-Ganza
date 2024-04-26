@@ -15,9 +15,6 @@
             <div class="user">
                 <img src="/src/assets/images/user.png" alt="">
                 <div class="user-id">
-                    <p id="username">Ken</p>
-                    <p>Admin</p>
-                    <div id="id">Id: 2403001</div>
                 </div>
             </div>
             <nav>
@@ -32,7 +29,7 @@
                 </ul>
             </nav>
             <button id="publish">Publish</button>
-            <p id="logout">Logout <i class="fa-solid fa-right-from-bracket"></i></p>
+            <p id="logout" onclick="logout()">Logout <i class="fa-solid fa-right-from-bracket"></i></p>
         </div>
         <div class="admin-content">
             <div class="alertBox">
@@ -48,6 +45,7 @@
             <div class="admin-main default-content" id="home">
                 <div class="home-container">
                     <div class="home-nav">
+                        <i class="fa-solid fa-up-right-and-down-left-from-center expand" onclick="mobileMenu()"></i>
                         <h2>Dashboard</h2>
                         <div class="search-bar">
                             <form action="">
@@ -67,9 +65,7 @@
                             </div>
                             <div class="profile">
                                 <img src="/src/assets/images/user.png" alt="">
-                                <div>
-                                    <p style="font-size: 20px;">Ken</p>
-                                    <p style="font-size: 15px;">admin</p>
+                                <div class="AdminUserProfile">
                                 </div>
                                 <i class="fa-solid fa-caret-down"></i>
                             </div>
@@ -99,42 +95,6 @@
                                         </div>
                                         <div class="notification-time">
                                             <p>30 minutes ago</p>
-                                        </div>
-                                    </div>
-                                    <div class="notification-card" id="commented">
-                                        <div class="notification-details">
-                                            <p>Alex commented</p>
-                                            <p>comment</p>
-                                        </div>
-                                        <div class="notification-time">
-                                            <p>2 hours ago</p>
-                                        </div>
-                                    </div>
-                                    <div class="notification-card" id="published">
-                                        <div class="notification-details">
-                                            <p>Blog 3</p>
-                                            <p>Published</p>
-                                        </div>
-                                        <div class="notification-time">
-                                            <p>2.5 hours ago</p>
-                                        </div>
-                                    </div>
-                                    <div class="notification-card" id="liked">
-                                        <div class="notification-details">
-                                            <p>Eric liked your post</p>
-                                            <p>Like</p>
-                                        </div>
-                                        <div class="notification-time">
-                                            <p>3 hours ago</p>
-                                        </div>
-                                    </div>
-                                    <div class="notification-card" id="published">
-                                        <div class="notification-details">
-                                            <p>Blog 3</p>
-                                            <p>Published</p>
-                                        </div>
-                                        <div class="notification-time">
-                                            <p>4 hours ago</p>
                                         </div>
                                     </div>
                                 </div>
@@ -180,6 +140,7 @@
 
             <div class="admin-main" id="profile">
                 <div class="profile-container">
+                    <i class="fa-solid fa-up-right-and-down-left-from-center expand" onclick="mobileMenu()"></i>
                     <div class="profile-details">
                         <div class="profile-pic">
                             <img src="/src/assets/images/ken .png" alt="">
@@ -257,6 +218,7 @@
             <div  class="admin-main" id="blog">
                 <div class="blog-container">
                     <div class="blog-nav home-nav">
+                        <i class="fa-solid fa-up-right-and-down-left-from-center expand" onclick="mobileMenu()"></i>
                         <h2>Blog</h2>
                         <div class="search-bar">
                             <form action="" id="blog-search">
@@ -265,23 +227,8 @@
                             </form>
                         </div>
                     </div>
-                    <div class="old">
-                        <h2>Recent blog</h2>
-                        <div class="news">
-                            <div class="news">
-                                <img id="blog-image">
-                                <div class="main-news">
-                                    <div class="headline">
-                                        <h1 id="blog-title"><br></h1>
-                                        <span id="blog-subheader"></span>
-                                        <p id="blog-content"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="blog-buttons">
-                        <button id="old-blogs">Old blogs</button>
+                        <button id="all-blogs">All blogs</button>
                         <button id="add-blog">Create a new blog</button>
                     </div>
                     <div class="new">
@@ -290,28 +237,33 @@
                           <form action="" id="blog-form">
                             <div class="input-group">
                               <label for="blog-image">Image:</label>
-                              <input type="file" id="blog-image" name="blog-image">
+                              <input type="file" id="uploadedImage" name="blog-image" accept="image/*">
                               <div class="blog-error"></div>
                             </div>
                             <div class="input-group">
-                              <label for="blog-title">Heading:</label>
-                              <input type="text" id="blog-title" name="blog-title">
+                              <label for="blogTitle">Heading:</label>
+                              <input type="text" id="blogTitle" name="blog-title">
                               <div class="blog-error"></div>
                             </div>
                             <div class="input-group">
                               <label for="blog-subtitle">Subheading:</label>
-                              <input type="text" id="blog-subtitle" name="blog-subtitle">
+                              <input type="text" id="blogSubtitle" name="blog-subtitle">
                               <div class="blog-error"></div>
                             </div>
                             <div class="input-group">
                               <label for="blog-content">Content:</label>
-                              <textarea id="blog-content" name="blog-content" rows="5"></textarea>
+                              <textarea id="blogContent" name="blog-content" rows="5"></textarea>
                               <div class="blog-error"></div>
                             </div>
                             <button type="submit" id="submit-blog">Create Blog</button>
                           </form>
                         </div>
-                      </div>                      
+                      </div>  
+                    </div>
+                    <div class="all">
+                        <div class="all-blogs-container">
+                        </div>
+                    </div>                    
                 </div>
             </div>
 
@@ -320,6 +272,7 @@
             <div class="admin-main" id="insights">
                 <div class="insights-container">
                     <div class="stat">
+                        <i class="fa-solid fa-up-right-and-down-left-from-center expand" onclick="mobileMenu()"></i>
                         <h2>Past Month statistics</h2>
                         <div class="graph">
                             <canvas id="myChart" width="400" height="200"></canvas>
@@ -336,6 +289,7 @@
 
             <!-- Settings section  -->
             <div class="admin-main" id="settings">
+                <i class="fa-solid fa-up-right-and-down-left-from-center expand" onclick="mobileMenu()"></i>
                 <div class="options">
                     <div class="setting">
                         <div class="setting-title">
@@ -455,7 +409,11 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Users section  -->
+
             <div class="admin-main" id="users">
+                <i class="fa-solid fa-up-right-and-down-left-from-center expand" onclick="mobileMenu()"></i>
                 <div class="users-container">
                     <button id="show-users">Retrieve Users</button>
                     <div class="users">                    

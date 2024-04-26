@@ -18,10 +18,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 var sidemenu = document.getElementById("mobile-menu");
 function openmenu(){
-    sidemenu.style.right = "90px"
+    console.log('sidemenu open')
+    sidemenu.style.right = "0%"
 }
 function closemenu() {
-    sidemenu.style.right = "-190px"
+    sidemenu.style.right = "-50%"
 }
 
 // alertBox
@@ -262,12 +263,18 @@ function sendLogin(){
     })
     .then(response =>{
         if (!response.ok) {
-            throw new Error('login failed');
+            openalert('Login failed, check your credentials');
+            setTimeout(() => {
+                hidePreloader();
+                closealert();
+            }, 3000);
         } else {
             return response.json();
         }
     })
     .then(json => {
+        localStorage.setItem('username', json.username);
+        localStorage.setItem('account', json.account);
         if (json.token){
             console.log('admin login success')
             localStorage.setItem('token', json.token);
@@ -290,6 +297,7 @@ function sendLogin(){
         username: vusername,
         password: vpassowrd
     }
+    showPreloader();
     fetch('https://my-brand-ken-ganza-1.onrender.com/v1/auth/guest/login', {
         method: 'POST',
         headers: {
@@ -302,6 +310,7 @@ function sendLogin(){
             console.log('login failed')
             openalert('Login failed, check your credentials');
             setTimeout(() => {
+                hidePreloader();
                 closealert();
             }, 3000);  
         } else {
@@ -360,4 +369,6 @@ const validateLoginInputs = () => {
 
     return isValid;
 };
+
+
 

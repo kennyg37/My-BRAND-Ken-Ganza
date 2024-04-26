@@ -35,7 +35,7 @@
     </div>
     <div class="alertBox">
         <i class="fa-solid fa-x" onclick="closealert()"></i>
-        <p>Thank you for your comment</p>        
+        <p></p>        
     </div>
     <div class="sec-1">
         <div class="heading-blog">
@@ -43,183 +43,28 @@
             <p>Home / Blog</p>
         </div>
         <div id="blog-receiver">
-            <div class="news">
-                <img id="blog-image">
-                <div class="main-news">
-                    <div class="headline">
-                        <h1 id="blog-title"><br></h1>
-                        <span id="blog-subheader"></span>
-                        <p id="blog-content"></p>
-                        <a href="">Read More</a>
-                    </div>
-                    <div class="icons">
-                        <div id="likes" class="likeIcon icon" onclick="toggleLike(this, '${latestBlog._id}')">
-                            <i class="fa-solid fa-thumbs-up"></i>
-                            <p class="lcount"></p>
-                        </div>
-                        <div id="comments" class="icon">
-                            <i class="fa-solid fa-comment" onclick="openoverlay()"></i>
-                            <p class="ccount"></p>
-                        </div>
-                        <div id="share" class="icon">
-                            <i class="fa-solid fa-share"></i>
-                            <p></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
-    <div class="other-news">
-    <div class="overlay">
-        <div class="overlay-container">
-            <i class="fa-solid fa-x" onclick="closeoverlay()"></i>
-            <button type="button" id="add-blog" class="btn">Add Comment</button>
-            <button type="button" id="switch" class="btn">Check comments</button>
-            <h2 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-style: italic;">Comments</h2>
-            <div class="comments">
-                <div class="comment">
-                    <h2 class="cname">kenny_g37</h2>
-                    <p class="commentparagraph">I like this blog, it reminds me of the early days when life was good and fun</p>
-                </div>
-            </div>
-            <div id="comment-form">
-                <h1>Leave a Comment</h1>
-                <form action="" id="commentForm">
-                    <label for="Message">Message</label>
-                    <textarea name="" rows="4" placeholder="Message" id="message"></textarea>
-                    <button type="submit">Send</button>
-                </form>
-            </div>                    
-        </div>
-    </div>
-        
-        <div class="other-news-container">
-            <div class="other-news-1 other-news-outside">
-                <div class="other-news-inside">
-                    <h2>EXPANSION PLANS PROGRESS</h2>
-                    <p>I've recently secured six server instances to expand our data storage capabilities significantly. This strategic acquisition ensures improved data management and scalability, empowering our organization to meet growing demands effectively.</p>
-                    <div class="icons1">
-                        <div id="likes">
-                            <i class="fa-solid fa-thumbs-up"></i>
-                            <p>12</p>
-                        </div>
-                        <div id="comments">
-                            <i class="fa-solid fa-comment"></i>
-                            <p>6</p>
-                        </div>
-                        <div id="share">
-                            <i class="fa-solid fa-share"></i>
-                            <p>45</p>
-                        </div>
+        <div class="overlay">
+            <div class="overlay-container">
+                <i class="fa-solid fa-x" onclick="closeoverlay()"></i>
+                <button type="button" id="add-blog" class="btn">Add Comment</button>
+                <button type="button" id="switch" class="btn">Check comments</button>
+                <h2 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-style: italic;">Comments</h2>
+                <div class="comments">
+                    <div class="comment">
+                        <h2 class="cname">kenny_g37</h2>
+                        <p class="commentparagraph">I like this blog, it reminds me of the early days when life was good and fun</p>
                     </div>
                 </div>
+                <div id="comment-form">
+                    <h1>Leave a Comment</h1>
+                    <form action="" id="commentForm">
+                        <label for="Message">Message</label>
+                        <textarea name="" rows="4" placeholder="Message" id="message"></textarea>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>                    
             </div>
-            <div class="other-news-2 other-news-outside">
-                <div class="other-news-inside">
-                    <h2>Galaxy Awards 2023</h2>
-                    <p>I've recently secured six server instances to expand our data storage capabilities significantly. This strategic acquisition ensures improved data management and scalability, empowering our organization to meet growing demands effectively.</p>
-                    <div class="icons1">
-                        <div id="views">
-                            <i class="fa-regular fa-eye"></i>
-                            <p>21</p>
-                        </div>
-                        <div id="likes">
-                            <i class="fa-solid fa-thumbs-up"></i>
-                            <p>12</p>
-                        </div>
-                        <div id="comments">
-                            <i class="fa-solid fa-comment"></i>
-                            <p>6</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="other-news-3 other-news-outside">
-                <div class="other-news-inside">
-                    <h2>Galaxy Awards 2023</h2>
-                    <p>I've recently secured six server instances to expand our data storage capabilities significantly. This strategic acquisition ensures improved data management and scalability, empowering our organization to meet growing demands effectively.</p>
-                    <div class="icons1">
-                        <div id="views">
-                            <i class="fa-regular fa-eye"></i>
-                            <p>21</p>
-                        </div>
-                        <div id="likes">
-                            <i class="fa-solid fa-thumbs-up"></i>
-                            <p>12</p>
-                        </div>
-                        <div id="comments">
-                            <i class="fa-solid fa-comment"></i>
-                            <p>6</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="other-news-4 other-news-outside">
-                <div class="other-news-inside">
-                    <h2>Galaxy Awards 2023</h2>
-                    <p>I've recently secured six server instances to expand our data storage capabilities significantly. This strategic acquisition ensures improved data management and scalability, empowering our organization to meet growing demands effectively.</p>
-                    <div class="icons1">
-                        <div id="views">
-                            <i class="fa-regular fa-eye"></i>
-                            <p>21</p>
-                        </div>
-                        <div id="likes">
-                            <i class="fa-solid fa-thumbs-up"></i>
-                            <p>12</p>
-                        </div>
-                        <div id="comments">
-                            <i class="fa-solid fa-comment"></i>
-                            <p>6</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="other-news-5 other-news-outside">
-                <div class="other-news-inside">
-                    <h2>Galaxy Awards 2023</h2>
-                    <p>I've recently secured six server instances to expand our data storage capabilities significantly. This strategic acquisition ensures improved data management and scalability, empowering our organization to meet growing demands effectively.</p>
-                    <div class="icons1">
-                        <div id="views">
-                            <i class="fa-regular fa-eye"></i>
-                            <p>21</p>
-                        </div>
-                        <div id="likes">
-                            <i class="fa-solid fa-thumbs-up"></i>
-                            <p>12</p>
-                        </div>
-                        <div id="comments">
-                            <i class="fa-solid fa-comment"></i>
-                            <p>6</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="other-news-6 other-news-outside">
-                <div class="other-news-inside">
-                    <h2>Galaxy Awards 2023</h2>
-                    <p>I've recently secured six server instances to expand our data storage capabilities significantly. This strategic acquisition ensures improved data management and scalability, empowering our organization to meet growing demands effectively.</p>
-                    <div class="icons1">
-                        <div id="views">
-                            <i class="fa-regular fa-eye"></i>
-                            <p>21</p>
-                        </div>
-                        <div id="likes">
-                            <i class="fa-solid fa-thumbs-up"></i>
-                            <p>12</p>
-                        </div>
-                        <div id="comments">
-                            <i class="fa-solid fa-comment"></i>
-                            <p>6</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div> 
-        <div class="scroll-btn">
-            <button id="scroll-left"><i class="fa-solid fa-arrow-left"></i></button>
-            <button id="scroll-right"><i class="fa-solid fa-arrow-right"></i></button>
         </div>
     </div>
     <footer>
@@ -255,5 +100,6 @@
         </div>
     </footer>
 <script src="/src/js/blog.js"></script>
+
 </body>
 </html>
