@@ -912,42 +912,45 @@ function retrieveAllBlogs(){
     });
 
     const adminEditForm = document.getElementById('admin-edit-blog-form');
-    const title = document.getElementById('edit-blog-title').value;
-    const subtitle = document.getElementById('admin-edit-subtitle').value;
-    const content = document.getElementById('admin-edit-content').value;
 
     adminEditForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      const token = localStorage.getItem('token');
-      const formData = new FormData();
-      formData.append('title', title);
-      formData.append('subtitle', subtitle);
-      formData.append('content', content);
-
-      showPreloader();
-      fetch(`https://my-brand-ken-ganza-1.onrender.com/v1/blog/edit/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        },
-        body: formData
-      })
-      .then(response => {
-        if (!response.ok) {
-          openalert('An error occured while editing blog');
-          setTimeout(() => {
+        event.preventDefault();
+    
+        const title = document.getElementById('edit-blog-title').value;
+        const subtitle = document.getElementById('edit-blog-subtitle').value;
+        const content = document.getElementById('edit-blog-content').value;
+        const id = id;
+    
+        const token = localStorage.getItem('token');
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('subtitle', subtitle);
+        formData.append('content', content);
+    
+        showPreloader();
+        fetch(`https://my-brand-ken-ganza-1.onrender.com/v1/blog/edit/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                openalert('An error occurred while editing blog');
+            } else {
+                openalert('Blog edited successfully');
+                // If the edit is successful, you may want to reload the page or retrieve the updated data
+                retrieveAllBlogs(); // Assuming this function retrieves all blogs again
+            }
+        })
+        .catch(error => {
+            console.error('Error editing blog:', error);
+            openalert('An error occurred while editing blog');
+        })
+        .finally(() => {
             hidePreloader();
             closealert();
-          }, 3000);
-        } else {
-          hidePreloader();
-          openalert('Blog edited successfully');
-          setTimeout(() => {
-            closealert();
-            retrieveAllBlogs();
-          }, 3000);
-        }
-      })
+        });
     });
-  }
+  }    
