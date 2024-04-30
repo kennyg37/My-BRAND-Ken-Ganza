@@ -184,6 +184,17 @@ router.put('/update/data/:title', verifyToken, async (req: Request, res: Respons
     }
 })
 
+// get comments by id
+router.get('/data/comments/:id', async (req: Request, res: Response) => {
+    const {id} = req.params;
+    const info = await Blog.findById(id);
+    if (!info) {
+        return res.status(404).json({message: 'Blog not found'})
+    } else {
+        res.json(info['comments'])
+    }
+})
+
 // swagger for the main post method
 /**
  * @swagger
