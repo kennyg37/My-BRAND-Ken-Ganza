@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/src/styles/styles.css">
     <link rel="stylesheet" href="/src/styles/contact.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/3c840652bc.js" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 <body>
@@ -33,6 +34,7 @@
             </ul>
         </div>
     </div>
+    <i class="fa-solid fa-bars" onclick="openmenu()"></i>
     <div class="alertBox">
         <i class="fa-solid fa-x" onclick="closealert()"></i>
         <p>Thank you for your comment</p>        
@@ -40,13 +42,12 @@
     <div class="preloader" id="preloader">
         <div class="loader"></div>
     </div>
-    <i class="fa-solid fa-bars" onclick="openmenu()"></i>
     <div class="contact-main">
         <img src="/src/assets/svg/rectangle.svg" alt="">
         <div class="contact-container">
             <div class="contact-form">
                 <h2>Reach Out</h2>
-                <form action="" id="contactForm">
+                <form id="contactForm">
                     <label for="name">Name</label>
                     <input type="text" placeholder="Name" id="name">
                     <label for="email">Email</label>
@@ -61,22 +62,22 @@
                 <a href="/src/assets/Ken Ganza_cResume.pdf" download=""><button id="cv">Download CV</button></a>
                 <button id="references">References</button>
                 <button id="hire">Hire Me Through LinkedIn</button>
-                <button id="subscribe">Subscribe To newsletter</button>
             </div>
+        </div>
+    </div>
+    <div class="subscribe-section">
+        <div class="subscribe-container">
+            <h1>Subscribe to my newsletter</h1>
+            <form action="" id="subscribeForm">
+                <input type="email" placeholder="Email" id="subscribe-email">
+                <input type="submit" value="Subscribe" id="subscribe-submit">
+            </form>
         </div>
     </div>
     <footer>
         <div class="footer-container">
             <div class="footer-logo">
                 <img src="/src/assets/svg/logo.svg" alt="">
-            </div>
-            <div class="subscribe-newsletter">
-                <h4>Subscribe to our newsletter</h4>
-                <form id="subscribeForm">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
-                    <button type="submit">Subscribe</button>
-                </form>
             </div>
             <div class="footer-content">
                 <div class="location"><img src="/src/assets/svg/location.svg" alt=""><p>kk321 Rd 8 Sonatube,  Kicukiro, Kigali City</p></div>

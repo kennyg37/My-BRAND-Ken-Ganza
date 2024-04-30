@@ -291,7 +291,6 @@ function sendLogin(){
         console.error('error:', error);
     })
 } else if (vaccount === 'guest'){
-    localStorage.setItem('username', vusername);
     requestBody = {
         account: 'guest',
         username: vusername,
@@ -318,6 +317,7 @@ function sendLogin(){
         }
     })
     .then(json => {
+        localStorage.setItem('gusername', json.username);
         if (json.token){
             console.log('success')
             localStorage.setItem('guest_token', json.token);

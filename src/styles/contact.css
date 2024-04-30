@@ -102,117 +102,7 @@ body {
     padding-bottom: 10px;
     padding-left: 50px;
 }
-@media screen and (max-width: 768px) {
-    /* *{
-        overflow-x: hidden;
-    } */
-    .logo {
-        flex-basis: 50%;
-        text-align: center;
-        padding: 0px;
-        margin: 0px;
-    }
-    .header i{
-        display: block;
-        font-size: 30px;
-        padding-top: 30px;
-        margin-left: 180px;
-    }
 
-    .nav-1 {
-        flex-basis: 50%;
-        text-align: center;
-        margin-bottom: 20px;
-        margin-left: 0px;
-        z-index: 1;
-    }
-    .nav-1 ul {
-        flex-direction: column;
-        justify-content: start;
-        background: #262626;
-        position:fixed;
-        top:0;
-        padding-top: 50px;
-        transition: right 0.5s;
-        height: 100vh;
-    }
-    .nav-1 ul li {
-        margin-left: 10px;
-        margin-right: 10px;
-        margin: 10px;
-    }
-    .nav-1 ul i{
-        display: block;
-        padding-right: 170px;
-      }
-    .nav-2 ul li{
-        display: none;
-    }
-    .nav-2 i{
-        display: inline-block;
-    }
-    footer {
-        padding: 0px;
-        margin: 0px;
-        padding-bottom: 0px;
-        height: 30vh;
-    }
-    .footer-container {
-        padding: 20px;
-        margin: 0px;
-        padding-bottom: 0px;
-    }
-    .footer-logo img{
-        width: 175px;
-        height: 175px;
-        padding-bottom: 10px;
-    }
-    .footer-logo img{
-        width: 100px;
-        height: 100px;
-        
-    }
-    .footer-nav ul{
-        font-size: 10px;
-        gap: 5px;
-    }
-    .footer-nav {
-        font-size: 10px;
-    }
-    .footer-content {
-        flex-basis: 75%;
-        padding: 0px 10px;
-        font-size: 12px;
-        gap: 20px;
-    }
-}
-
-.alertBox {
-    position: fixed;
-    top: 0;
-    width: 210vh;
-    padding: 10px;
-    margin: 10px;
-    /* transform: translate(-50%, -50%); */
-    background: #1F3146;
-    color: white;
-    border-radius: 10px;
-    z-index: 1000;
-    transition: opacity 0.5s ease;
-    opacity: 0;
-    pointer-events: none;
-}
-.alertBox p {
-    font-weight: 500;
-    padding: 10px;
-    margin-top: -25px;
-}
-.alertBox i {
-    font-size: 20px;
-    margin-left: 90%;
-    margin-top: 10px;
-    pointer-events: all;
-}
 
 .preloader {
     display: none;
@@ -270,31 +160,185 @@ body {
     pointer-events: all;
 }
 
+.subscribe-section {
+    margin-top: 9%;
+    margin-bottom: -12%;
+    background-color: #1F3146;
+    padding: 50px;
+    text-align: center;
+}
+
+.subscribe-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.subscribe-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
 #subscribeForm {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 20px;
-    margin-top: 10px;
 }
-#subscribeFrom input{
+
+#subscribe-email {
     padding: 10px;
     border: 2px solid #979797;
     border-radius: 5px;
     background: none;
-    width: 30px;
-    color: #f4f4f4;
+    width: 300px;
+    margin-right: 10px;
 }
-#subscribeForm button{
-    width: 150px;
-    height: 30px;
-    border-radius: 20px;
-    background-color: #979797;
-    color: #f4f4f4;
+
+#subscribe-submit {
+    padding: 10px 20px;
     border: none;
+    border-radius: 5px;
+    background-color: #0B132B;
+    color: #f4f4f4;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
-#subscribeForm button:hover{
-    background:none;
-    border: 1px solid #1F3146;
-    color: white;
+
+#subscribe-submit:hover {
+    background-color: #1E2747;
+}
+.fa-bars {
+    opacity: 0;
+}
+
+/* For screens smaller than 768px */
+@media (max-width: 767px) {
+
+    .fa-bars {
+        opacity: 1;
+        font-size: 30px;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+    .contact-main img {
+        width: 100%;
+        height: auto;
+        padding-left: 0;
+        margin-top: 0;
+        margin-bottom: 30px;
+    }
+
+    .contact-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        margin-top: -320px;
+        margin-bottom: 30px;
+    }
+
+    .contact-form {
+        width: 100%;
+        padding-left: 10%;
+        margin-top: 0px;
+        margin-bottom: 30px;
+    }
+
+    .additional-info {
+        padding-right: 0;
+        margin-top: 0;
+    }
+
+    .additional-info h1 {
+        padding-left: 0;
+    }
+    .additional-info button{
+        width: 200px;
+        height: 45px;
+        border-radius: 20px;
+        background-color: #979797;
+        color: #f4f4f4;
+        border: none;
+        transition: transform 0.5s;
+    }
+    .additional-info button:hover{
+        background:none;
+        border: 1px solid #979797;
+        color: white;
+        transform: scale(1.1);
+    }
+    #subscribe {
+        margin: 0;
+        margin-top: 20px;
+        width: 200px;
+        background:none;
+        border: 1px solid #979797;
+        color: white;
+    }
+}
+
+/* For screens between 768px and 1023px */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .contact-main img {
+        width: 100%;
+        height: auto;
+        padding-left: 0;
+        margin-top: 0;
+        margin-bottom: 50px;
+    }
+
+    .contact-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        margin-top: -500px; /* Adjust as needed */
+        margin-bottom: 50px;
+    }
+
+    .contact-form {
+        width: 80%;
+        padding-left: 0;
+        margin-top: -50px; /* Adjust as needed */
+    }
+
+    .additional-info {
+        padding-right: 0;
+        margin-top: 0;
+    }
+
+    .additional-info h1 {
+        padding-left: 0;
+    }
+}
+
+/* For screens 1024px and larger */
+@media (min-width: 1024px) {
+    .contact-main img {
+        width: 1000px;
+        height: 600px;
+        padding-left: 125px;
+        margin-top: -20px;
+        margin-bottom: 100px;
+    }
+
+    .contact-container {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 20px;
+        margin-top: -650px; /* Adjust as needed */
+        margin-bottom: 50px;
+    }
+
+    .contact-form {
+        width: 50%;
+        padding-left: 150px;
+        margin-top: -50px; /* Adjust as needed */
+    }
+
+    .additional-info {
+        padding-right: 250px;
+        margin-top: -50px; /* Adjust as needed */
+    }
+
+    .additional-info h1 {
+        padding-left: 50px;
+    }
 }

@@ -1,3 +1,4 @@
+// alert box
 const alertBox = document.querySelector('.alertBox');
 const paragraph = document.querySelector('.alertBox p');
 
@@ -16,6 +17,15 @@ function openalert(message) {
     }, 50);
 }
 
+// preloader 
+function showPreloader() {
+  document.getElementById('preloader').style.display = 'flex';
+}
+function hidePreloader() {
+  document.getElementById('preloader').style.display = 'none';
+}
+
+// mobile menu
 var sidemenu = document.getElementById("mobile-menu");
 function openmenu(){
     sidemenu.style.right = "0"
@@ -32,8 +42,6 @@ const fmessage = document.getElementById('message');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const token = localStorage.getItem('token');
-
     const name = fname.value;
     const email = femail.value;
     const message = fmessage.value;
@@ -42,6 +50,7 @@ form.addEventListener('submit', (e) => {
         email: email,
         message: message
     }
+    showPreloader();
     fetch('https://my-brand-ken-ganza-1.onrender.com/v1/contact/create', {
         method: 'POST',
         headers: {
@@ -53,24 +62,23 @@ form.addEventListener('submit', (e) => {
         if (!response.ok) {
             openalert('An error occured while sending your message');
             setTimeout(() => {
+                hidePreloader();
                 closealert();
             }, 3000);
         } else {
             openalert('Message sent successfully');
             setTimeout(() => {
+                hidePreloader();
                 closealert();
                 form.reset();
             }, 3000);
         }
     })
-    .then(data => {
-        console.log(data);
-        
-    })
     .catch(error => {
         console.log(error);
         openalert('An error occured while sending your message');
         setTimeout(() => {
+            hidePreloader();
             closealert();
         }, 3000);
     })
@@ -80,24 +88,27 @@ const subscribeForm = document.getElementById('subscribeForm');
 
 subscribeForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const email = document.getElementById('email').value;
+  const email = document.getElementById('subscribe-email').value;
   try {
-    fetch('https://my-brand-ken-ganza-1.onrender.com/v1/subscribe', {
+    showPreloader();
+    fetch('https://my-brand-ken-ganza-1.onrender.com/v1/subscribe/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({email}),
     })
     .then(response => {
         if (!response.ok) {
             openalert('An error occured while subscribing');
             setTimeout(() => {
+                hidePreloader();
                 closealert();
             }, 3000);
         } else {
             openalert('Subscribed successfully');
             setTimeout(() => {
+                hidePreloader();
                 closealert();
                 subscribeForm.reset();
             }, 3000);
