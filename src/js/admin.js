@@ -23,7 +23,7 @@ function logout() {
 // responsive navbar
 function mobileMenu() {
   console.log('mobile menu clicked');
-  document.querySelector('.admin-sidebar').style.left = '0';
+  document.querySelector('.admin-sidebar').style.left = '0%';
   window.addEventListener('click', function(event) {
       if (event.target !== document.querySelector('.expand')) {
           document.querySelector('.admin-sidebar').style.left = '-100%';
@@ -746,51 +746,11 @@ function openalert(message) {
   }, 50);
 }
 
-// latest blog show
-// try {
-//   const token = localStorage.getItem('token');
-//   fetch('https://my-brand-ken-ganza-1.onrender.com/v1/blog/data', {
-//         method: 'GET',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': `Bearer ${token}`
-//         }
-//     })
-//   .then(response => response.json())
-//   .then(data => {
-
-//       const latestBlog = data[data.length - 1];
-//       const blogTitle = document.getElementById('blog-title');
-//       const blogSubtitle = document.getElementById('blog-subheader');
-//       const blogContent = document.getElementById('blog-content');
-//       const blogImage = document.getElementById('blog-image');
-      
-//       if (data.length === 0) {
-//         blogTitle.textContent = 'No blog posted yet';
-//       } else {
-//         blogTitle.textContent = latestBlog.title;
-//       blogSubtitle.textContent = latestBlog.subtitle;
-//       blogContent.textContent = latestBlog.content;
-
-//       const imagedata = latestBlog.image;
-//       blogImage.src = imagedata;
-
-//       }
-
-//   })
-// } catch (error) {
-//     console.error('An error occurred while fetching blog data:', error);
-//     throw error;
-// }
-
-
-// Assuming 'data' is the array of blogs received from the server
-
-
 function retrieveAllBlogs(){
   
   try {
     const token = localStorage.getItem('token');
+    showPreloader();
     fetch('https://my-brand-ken-ganza-1.onrender.com/v1/blog/data', {
           method: 'GET',
           headers: {
@@ -798,7 +758,19 @@ function retrieveAllBlogs(){
               'Authorization': `Bearer ${token}`
         }
       })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+            openalert('An error occured while fetching blog data');
+            setTimeout(() => {
+              hidePreloader();
+              closealert();
+            }, 3000);
+        } else {
+          hidePreloader();
+        }
+        return response.json();
+      
+      })
       .then(posts => {
         const blogs = posts;
         console.log(blogs);
@@ -836,6 +808,22 @@ function retrieveAllBlogs(){
               blogContent.classList.add('admin-blog-content');
               blogDiv.appendChild(blogContent);
 
+              const adminBlogId = blog.id;
+
+              const iconDiv = document.createElement('div');
+              iconDiv.classList.add('admin-blog-icons');
+              blogDiv.appendChild(iconDiv);
+
+              const editIcon = document.createElement('i');
+              editIcon.classList.add('fa-solid', 'fa-pen');
+              editIcon.setAttribute('onclick', `adminEditBlog('${adminBlogId}')`);
+              iconDiv.appendChild(editIcon);
+
+              const deleteIcon = document.createElement('i');
+              deleteIcon.classList.add('fa-solid', 'fa-trash');
+              deleteIcon.setAttribute('onclick', `adminDeleteBlog('${adminBlogId}')`);
+              iconDiv.appendChild(deleteIcon);
+
           });
   }
 
@@ -867,3 +855,99 @@ function retrieveAllBlogs(){
       `;
   }
   
+
+  // delete blog
+
+  function adminDeleteBlog(blogId) {
+    const id = blogId;
+    const confirmation = confirm('Are you sure you want to delete this blog?');
+    if (confirmation) {
+      try {
+        const token = localStorage.getItem('token');
+        showPreloader();
+        fetch(`https://my-brand-ken-ganza-1.onrender.com/v1/blog/delete/${id}`, {
+          method: 'DELETE',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          if (!response.ok) {
+              openalert('An error occured while deleting blog');
+              setTimeout(() => {
+                  hidePreloader();
+                  closealert();
+              }, 3000);
+          } else {
+              hidePreloader();
+              openalert('Blog deleted successfully');
+              setTimeout(() => {
+                  closealert();
+                  retrieveAllBlogs();
+              }, 3000);
+          }
+        })
+      }
+      catch(error) {
+        openalert('An error occured while deleting blog');
+        setTimeout(() => {
+            hidePreloader();
+            closealert();
+        }, 3000);
+      }
+    }
+  }
+
+  // edit blog
+
+  function adminEditBlog(id) {
+    document.querySelector('.admin-edit-blog-overlay').style.display = 'flex';
+    document.querySelector('.admin-edit-blog-overlay').style.opacity = '1';
+    document.querySelector('.editx').addEventListener('click', function() {
+      document.querySelector('.admin-edit-blog-overlay').style.opacity = '0';
+      setTimeout(() => {
+        document.querySelector('.admin-edit-blog-overlay').style.display = 'none';
+      }, 300);
+    });
+
+    const adminEditForm = document.getElementById('admin-edit-blog-form');
+    const title = document.getElementById('edit-blog-title').value;
+    const subtitle = document.getElementById('admin-edit-subtitle').value;
+    const content = document.getElementById('admin-edit-content').value;
+
+    adminEditForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const token = localStorage.getItem('token');
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('subtitle', subtitle);
+      formData.append('content', content);
+
+      showPreloader();
+      fetch(`https://my-brand-ken-ganza-1.onrender.com/v1/blog/edit/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+        body: formData
+      })
+      .then(response => {
+        if (!response.ok) {
+          openalert('An error occured while editing blog');
+          setTimeout(() => {
+            hidePreloader();
+            closealert();
+          }, 3000);
+        } else {
+          hidePreloader();
+          openalert('Blog edited successfully');
+          setTimeout(() => {
+            closealert();
+            retrieveAllBlogs();
+          }, 3000);
+        }
+      })
+    });
+  }
